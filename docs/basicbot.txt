@@ -1,0 +1,15 @@
+DIALOG mainDialog
+  TEMPLATE
+    "Hi there!"
+  /TEMPLATE
+  TEMPLATE
+    "Whats your name?"
+    >>name
+  /TEMPLATE
+  TEMPLATE
+    "Nice to meet you ${name}"
+  /TEMPLATE
+/DIALOG
+RUN main
+  mainDialog
+/RUN
