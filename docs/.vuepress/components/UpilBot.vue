@@ -9,7 +9,11 @@
     >
       <template v-slot:external="{allNodes, currentNode, scenarioEnded}">
         <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
-          <component v-bind:is="currentNode.componentType" v-bind="currentNode.node" />
+          <component
+            v-bind:is="currentNode.componentType"
+            v-bind="currentNode.node"
+            placeholderOverride="Please enter a response..."
+          />
         </div>
       </template>
     </ChatThemePlugin>
