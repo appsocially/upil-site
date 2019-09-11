@@ -10,7 +10,7 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "@appsocially/vue-upil-plugin": "^0.1.20",
+    "@appsocially/vue-upil-plugin": "^0.1.22",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "vuetify": "^2.0.15"

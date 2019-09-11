@@ -3,7 +3,7 @@ DIALOG mainDialog
     "Hi there!"
   /TEMPLATE
   TEMPLATE
-    "Whats your name?"
+    "What's your name?"
     >>name
   /TEMPLATE
   TEMPLATE

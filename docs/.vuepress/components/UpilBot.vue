@@ -7,8 +7,8 @@
       :avatar="Logo"
       :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
     >
-      <template v-slot:external="{allNodes, currentNode}">
-        <div id="bottom-bar" v-if="currentNode">
+      <template v-slot:external="{allNodes, currentNode, scenarioEnded}">
+        <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
           <component v-bind:is="currentNode.componentType" v-bind="currentNode.node" />
         </div>
       </template>

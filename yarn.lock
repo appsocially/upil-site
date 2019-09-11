@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@appsocially/vue-upil-plugin@^0.1.20":
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil-plugin/-/vue-upil-plugin-0.1.20.tgz#27f70ace053de495dcc3b523e5d940cfc07f3bd4"
-  integrity sha512-IkNpRV8YW+YTizYE8Q2e8eOZMDhocO+zs2ZLZYopcZj/3YRD+vCsJirxNzTNS3VCyCa3kWwTdDWoFIKLIGaIKA==
+"@appsocially/vue-upil-plugin@^0.1.22":
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil-plugin/-/vue-upil-plugin-0.1.22.tgz#352daac69f301824e32162df9fe42b2876cdc392"
+  integrity sha512-pTMbOGUneEL3lwHlvUKj6FhkM96Rm+lR5vIhJ5jKLlZd24sRSUOF8HlJX90vYv+plbWKm3bZSVmwHXbv+mW/wg==
   dependencies:
     core-js "^2.6.5"
     linkifyjs "^2.1.8"
