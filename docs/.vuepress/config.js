@@ -12,5 +12,8 @@ module.exports = {
       '/language/'
     ]
   },
+  markdown: {
+    lineNumbers: true
+  },
   dest: 'dist'
 }
