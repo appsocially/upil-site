@@ -12,5 +12,5 @@ module.exports = {
       '/language/'
     ]
   },
-  dest: 'public'
+  dest: 'dist'
 }
