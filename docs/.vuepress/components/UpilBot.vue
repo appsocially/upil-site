@@ -1,8 +1,19 @@
 
 <template>
-  <div class="upil-example-container">
-    <ChatThemePlugin :upil="upil" :avatar="Logo" :wrapperStyleOverride="{}"></ChatThemePlugin>
-  </div>
+  <v-sheet color="light-grey" class="upil-example-container">
+    <ChatThemePlugin
+      removeBottomBar
+      :upil="upil"
+      :avatar="Logo"
+      :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
+    >
+      <template v-slot:external="{allNodes, currentNode}">
+        <div id="bottom-bar" v-if="currentNode">
+          <component v-bind:is="currentNode.componentType" v-bind="currentNode.node" />
+        </div>
+      </template>
+    </ChatThemePlugin>
+  </v-sheet>
 </template>
 
 <script>
@@ -40,7 +51,6 @@ export default {
     }
   },
   created () {
-    console.log('slot', this.$slots)
     this.start()
   }
 }
@@ -49,14 +59,14 @@ export default {
 <style scoped>
 .upil-example-container {
   position: relative;
+  height: 300px;
 }
 
-.upil-example-container >>> #bottom-bar {
-  position: relative;
+.upil-example-container #bottom-bar {
+  position: absolute;
   bottom: 0px;
   width: 100%;
   padding-left: 0px;
   padding-right: 0px;
-  padding-top: 10px;
 }
 </style>
