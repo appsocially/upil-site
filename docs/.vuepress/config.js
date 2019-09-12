@@ -15,5 +15,11 @@ module.exports = {
   markdown: {
     lineNumbers: true
   },
-  dest: 'dist'
+  dest: 'dist',
+  extendMarkdown: md => {
+    // use more markdown-it plugins!
+    md.core.ruler.push('upil', state => {
+      state.tokens.filter(t => t.type === 'fence' && t.info === 'upil').forEach(t => console.log(t))
+    })
+  }
 }

@@ -9,22 +9,26 @@ User interaction is performed using three main entities: `TEMPLATE`, `SELECT`, a
 ### Template
 A `TEMPLATE` entity is for displaying text to a user. `TEMPLATE`s can also request a user's input.
 
-Example `TEMPLATE` for greeting the user with the text "Hi there!":
+`TEMPLATE` for greeting the user with the text "Hi there!":
 
+<UpilBot>
 ```
 TEMPLATE
   "Hi there!"
 /TEMPLATE
 ```
+</UpilBot>
 
 Example `TEMPLATE` with user input request saved to the variable `name`:
+
+<UpilBot>
 ```{3}
 TEMPLATE
   "What is your name?"
   >>name
 /TEMPLATE
 ```
-
+</UpilBot>
 
 ### SELECT
 A `SELECT` is used to request the user to select a single choice from a list of choices. It requires the user input to be saved to a variable.
