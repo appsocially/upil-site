@@ -41,16 +41,16 @@ export default {
     }
   },
   props: {
-    autowrap: {
+    simple: {
       type: Boolean,
-      default: true,
+      default: false,
     }
   },
   methods: {
     getScenario(){
       const preTag = this.$slots.default[0].children.find(c=>c.tag === 'pre')
       const text = preTag.children[0].children[0].text
-      if(this.autowrap){
+      if(this.simple){
         return `DIALOG mainDialog ${text} /DIALOG RUN a mainDialog /RUN`
       }else{
         return text
