@@ -35,7 +35,6 @@
 import { UPILCore, ChatTheme } from '@appsocially/vue-upil-plugin'
 import '@appsocially/vue-upil-plugin/dist/vue-userpil-plugin.css'
 import Logo from '../public/logo.png'
-import once from 'lodash.once'
 
 const { ChatThemePlugin } = ChatTheme
 
