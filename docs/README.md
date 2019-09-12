@@ -14,9 +14,24 @@ A UPIL scenario describes a set of steps that an application will move through. 
 
 Below is an example UPIL scenario. It will greet a user, ask for their name, and then greet them using that name:
 
-<<< @/docs/basicbot.txt
-<UpilBot>
-<<< @/docs/basicbot.txt
+<UpilBot :autowrap="false">
+```
+DIALOG mainDialog
+  TEMPLATE
+    "Hi there!"
+  /TEMPLATE
+  TEMPLATE
+    "What's your name?"
+    >>name
+  /TEMPLATE
+  TEMPLATE
+    "Nice to meet you ${name}"
+  /TEMPLATE
+/DIALOG
+RUN main
+  mainDialog
+/RUN
+```
 </UpilBot>
 
 ## Usage
