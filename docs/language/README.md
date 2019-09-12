@@ -2,6 +2,30 @@
 
 UPIL has several high-level entities to allow you to interact with a user. UPIL also includes other concepts for describing high-level business-logic including conditional logic, loading data from external sources, and external actions.
 
+## Entity Structure
+
+Most entities have the following structure:
+
+```
+<Entity Name> <Optional Label>
+  <Entity Contents>
+/<Entity Name>
+```
+For example:
+```
+TEMPLATE myLabel
+  "Message to user"
+/TEMPLATE
+```
+
+`EXTERNAL` and `ACTION` entities have a simpler structure:
+```
+EXTERNAL currentTemp
+```
+```
+ACTION sendEmail
+```
+
 ## User-Interaction
 
 User interaction is performed using three main entities: `TEMPLATE`, `SELECT`, and `MULTI_SELECT`. All three entities can save user input to a variable with the `<<myVariable` syntax. This allows the user input to be referenced and used later on in the scenario.
@@ -60,7 +84,7 @@ MULTI_SELECT
 ```
 </UpilBot>
 
-## Logic control
+## Business Logic 
 The entities that interact with the user are wrapped and controlled by logic-control entites. This allows you to have a scenario that dynamically adjusts to user-input and/or external data. It also allows you to reuse the same user-interaction from several different places in a scenario.
 
 ### DIALOG
@@ -86,8 +110,82 @@ RUN a
 ```
 </UpilBot>
 
-### IF/ELIF/ELSE
-UPIL has `IF`, `ELIF`, and `ELSE` entities 
+A `DIALOG` can hold `TEMPLATE`, `SELECT`, `MULTI_SELECT`, `IF/ELIF/ELSE`, `ACTION`, and even other `DIALOG` entities. 
+
+#### DIALOG Embedding
+Using the `...<dialogLabel>` sytax, a `DIALOG` can embed another `DIALOG` inside of itself:
+
+<UpilBot>
+```{12}
+DIALOG getUserName
+  TEMPLATE
+    "What is your name?"
+    >>name
+  /TEMPLATE
+/DIALOG
+
+DIALOG main
+  TEMPLATE
+    "OK lets start!"
+  /TEMPLATE
+  ...getUserName
+  TEMPLATE
+    "Nice to meet you ${name}"
+  /TEMPLATE
+/DIALOG
+
+RUN a
+  main
+/RUN
+```
+</UpilBot>
+
+A `DIALOG` can be embedded in as many other `DIALOG`s as you want. To embed `DIALOG`-`A` into `DIALOG`-`B`, `A` must be placed higher in the scenario file than `B`. 
+
+### Conditional logic
+UPIL has `IF`, `ELIF`, and `ELSE` entities. You can use conditional logic to make scenarios that respond dynamically to user-input and external data:
+
+<UpilBot>
+```
+DIALOG main
+  SELECT
+    "Please choose your favorite color"
+    -("Red", red)
+    -("Blue", blue)
+    -("Green", green)
+    -("Other", other)
+    >>color
+  /SELECT
+  IF color=="red"
+    TEMPLATE
+      "You must like roses!"
+    /TEMPLATE
+  ELIF color=="blue"
+    TEMPLATE
+      "You must like the ocean!"
+    /TEMPLATE
+  ELIF color=="green"
+    TEMPLATE
+      "You must like nature!"
+    /TEMPLATE
+  ELSE
+    DIALOG
+      TEMPLATE
+        "Okay, what other color do you like?"
+        >>otherColor
+      /TEMPLATE
+      TEMPLATE
+        "I see. We'll have to think a new witty response for when someone chooses '${otherColor}'!"
+      /TEMPLATE
+    /DIALOG
+  /IF
+/DIALOG
+
+RUN a
+  main
+/RUN
+```
+</UpilBot>
 
 ### RUN
 
