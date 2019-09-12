@@ -59,9 +59,7 @@ export default {
       }
     },
     start: function () {
-      // const text = this.$slots.default[0].children[0].children[0].children[0].text
       const scenario = this.getScenario()
-      console.log({scenario})
       this.upil.startRaw(scenario)
     },
     getLabelOverride(type){
