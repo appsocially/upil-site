@@ -14,7 +14,8 @@
             <component
               v-bind:is="currentNode.componentType"
               v-bind="currentNode.node"
-              placeholderOverride="Please enter a response..."
+              placeholderOverride="Type your answer here"
+              :labelOverride="getLabelOverride(currentNode.node.type)"
             />
           </div>
         </template>
@@ -61,6 +62,16 @@ export default {
       const scenario = this.getScenario()
       console.log({scenario})
       this.upil.startRaw(scenario)
+    },
+    getLabelOverride(type){
+      switch(type){
+        case 'select':
+          return "Choose one"
+        case 'multi-select':
+          return "Please choose"
+        default:
+          return null
+      }
     }
   },
   created () {
