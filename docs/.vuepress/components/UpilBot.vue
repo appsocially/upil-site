@@ -32,6 +32,7 @@ import Logo from '../public/logo.png'
 const { ChatThemePlugin } = ChatTheme
 
 export default {
+  name: 'UpilBot',
   components: {
     ChatThemePlugin
   },
