@@ -175,7 +175,7 @@ DIALOG main
         >>otherColor
       /TEMPLATE
       TEMPLATE
-        "I see. We'll have to think a new witty response for when someone chooses '${otherColor}'!"
+        "I see. We'll have to think of a new witty response for when someone chooses '${otherColor}'!"
       /TEMPLATE
     /DIALOG
   /IF
