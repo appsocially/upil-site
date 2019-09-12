@@ -2,25 +2,32 @@
 <template>
   <div class="scenario-demonstration">
     <slot />
-    <v-sheet color="light-grey" class="upil-example-container">
-      <ChatThemePlugin
-        removeBottomBar
-        :upil="upil"
-        :avatar="Logo"
-        :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
-      >
-        <template v-slot:external="{allNodes, currentNode, scenarioEnded}">
-          <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
-            <component
-              v-bind:is="currentNode.componentType"
-              v-bind="currentNode.node"
-              placeholderOverride="Type your answer here"
-              :labelOverride="getLabelOverride(currentNode.node.type)"
-            />
-          </div>
-        </template>
-      </ChatThemePlugin>
-    </v-sheet>
+    <v-expansion-panels v-model="panel">
+      <v-expansion-panel>
+        <v-expansion-panel-header>{{isOpen ? '' : 'Show example'}}</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-sheet color="light-grey" class="upil-example-container">
+            <ChatThemePlugin
+              removeBottomBar
+              :upil="upil"
+              :avatar="Logo"
+              :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
+            >
+              <template v-slot:external="{allNodes, currentNode, scenarioEnded}">
+                <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
+                  <component
+                    v-bind:is="currentNode.componentType"
+                    v-bind="currentNode.node"
+                    placeholderOverride="Type your answer here"
+                    :labelOverride="getLabelOverride(currentNode.node.type)"
+                  />
+                </div>
+              </template>
+            </ChatThemePlugin>
+          </v-sheet>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
@@ -28,6 +35,7 @@
 import { UPILCore, ChatTheme } from '@appsocially/vue-upil-plugin'
 import '@appsocially/vue-upil-plugin/dist/vue-userpil-plugin.css'
 import Logo from '../public/logo.png'
+import once from 'lodash.once'
 
 const { ChatThemePlugin } = ChatTheme
 
@@ -38,8 +46,22 @@ export default {
   },
   data () {
     return {
-      upil: new UPILCore(),
-      Logo
+      upil:  new UPILCore(),
+      Logo,
+      panel: null,
+      hasRun: false,
+    }
+  },
+  computed: {
+    isOpen(){
+      return this.panel === 0
+    }
+  },
+  watch: {
+    isOpen(isOpen){
+      if(isOpen){
+        this.start()
+      }
     }
   },
   props: {
@@ -58,9 +80,12 @@ export default {
         return text
       }
     },
-    start: function () {
-      const scenario = this.getScenario()
-      this.upil.startRaw(scenario)
+    start() {
+      if(!this.hasRun){
+        this.hasRun = true
+        const scenario = this.getScenario()
+        this.upil.startRaw(scenario)
+      }
     },
     getLabelOverride(type){
       switch(type){
@@ -73,9 +98,6 @@ export default {
       }
     }
   },
-  created () {
-    this.start()
-  }
 }
 </script>
 
