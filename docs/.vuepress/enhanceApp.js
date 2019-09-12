@@ -1,5 +1,6 @@
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import pageComponents from '@internal/page-components'
 
 export default ({
   Vue, // the version of Vue being used in the VuePress app
@@ -9,4 +10,8 @@ export default ({
 }) => {
   Vue.use(Vuetify)
   options.vuetify = new Vuetify()
+
+  for (const [name, component] of Object.entries(pageComponents)) {
+    Vue.component(name, component)
+  }
 }
