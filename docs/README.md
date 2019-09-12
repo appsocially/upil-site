@@ -34,7 +34,15 @@ RUN main
 ```
 </UpilBot>
 
+## Why use UPIL?
+
+By using UPIL, application development gains two large benefits:
+
+* Extracting high-level user interaction logic into an easy to read scripting language makes the application easier to understand and maintain.
+* Non-developers can directly contribute to the development of an application by updating text and the simplified logic directly, rather than wait for a developer to have to perform the task on their behalf. This allows more work to be done in parallel, and requires less maintenance overhead by developers after an application is launched. 
+
 ## Usage
+
  UPIL is composed of three main components:
 
  ![UPIL Overview](./upil-overview.png)
