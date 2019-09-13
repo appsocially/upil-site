@@ -189,11 +189,103 @@ RUN a
 
 ### RUN
 
+The `RUN` command specifies the `DIALOG` to start the scenario at.
+
+The below two examples demonstrate how changing the `RUN` command changes which `DIALOG` is processed by the Engine:
+
+Start at dialog `A`:
+
+<UpilBot>
+```
+DIALOG B
+  TEMPLATE
+    "Hi from B"
+  /TEMPLATE
+/DIALOG
+
+DIALOG A
+  TEMPLATE
+    "Hi from A"
+  /TEMPLATE
+/DIALOG
+
+RUN label
+  A
+/RUN
+```
+</UpilBot>
+
+Start at dialog `B`:
+
+<UpilBot>
+```
+DIALOG B
+  TEMPLATE
+    "Hi from B"
+  /TEMPLATE
+/DIALOG
+
+DIALOG A
+  TEMPLATE
+    "Hi from A"
+  /TEMPLATE
+/DIALOG
+
+RUN label
+  B
+/RUN
+```
+</UpilBot>
+
 ## Application communication
+
+UPIL includes three features to make it easy to communicate between a scenario and an application which utilizes UPIL: `EXTERNAL` and `ACTION` entities, and entity labels. These features allow a scenario writer to use high-level concepts, which a developer can then hook up to arbitrarily complex implementations. Ideally even after the implementation has been created, the scenario writer can freely update their scenario without having to rely on a developer to update the implementation. 
 
 ### EXTERNAL
 
+The `EXTERNAL` entity allows the scenario to request that the application save data to a specific variable. The application can retreive the data from anywhere it wants. `EXTERNAL` entities must be declared at the beginning of a scenario, outside of `DIALOG` entities.
+
+<UpilBot>
+```
+EXTERNAL currentTime
+
+DIALOG A
+  TEMPLATE
+    "The current time is ${currentTime}"
+  /TEMPLATE
+/DIALOG
+
+RUN label
+  A
+/RUN
+```
+</UpilBot>
+
 ### ACTION
 
+An `ACTION` allows scenario writers to request that a side-effect happens in the implementation. This can include saving data, sending messages such as emails or push notifications, or making calls to external services. Unlike `EXTERNAL`, an `ACTION` cannot save its result in a variable. An `ACTION` must be placed inside of a `DIALOG`.
+
+<UpilBot>
+```
+DIALOG A
+  TEMPLATE
+    "What is your email address?"
+    >>email
+  /TEMPLATE
+  ACTION sendEmail
+  TEMPLATE
+    "Please check ${email} for your verification code!
+    (just kidding, we didn't send one since this is an example)"
+  /TEMPLATE
+/DIALOG
+
+RUN label
+  A
+/RUN
+```
+</UpilBot>
+
 ### Labels
+
+
 

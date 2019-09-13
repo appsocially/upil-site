@@ -10,6 +10,7 @@
             <ChatThemePlugin
               removeBottomBar
               :upil="upil"
+              :listeners="listeners"
               :avatar="Logo"
               :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
             >
@@ -35,6 +36,7 @@
 import { UPILCore, ChatTheme } from '@appsocially/vue-upil-plugin'
 import '@appsocially/vue-upil-plugin/dist/vue-userpil-plugin.css'
 import Logo from '../public/logo.png'
+import listeners from './listeners'
 
 const { ChatThemePlugin } = ChatTheme
 
@@ -49,6 +51,7 @@ export default {
       Logo,
       panel: null,
       hasRun: false,
+      listeners
     }
   },
   computed: {
