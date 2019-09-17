@@ -201,7 +201,46 @@ RUN a
 
 ## Application communication
 
+UPIL is designed to allow the scenario to communicate with the underlying implementation seamlessly. UPIL has three main features that allow for explicit communication to an underlying implementation so that custom behavior can be triggered by the scenario:
+
 ### EXTERNAL
+
+The `EXTERNAL` entity allows a scenario writer to request that the implementation prepare a variable with some data so that the scenario may make use of it.
+
+This example registers a hook in the Engine that a developer must use to prepare data that a scenario requires. This example's implementation saves either 'cloudy', 'sunny', or 'rainy' to the `weather` variable before the scenario begins. 
+
+<UpilBot>
+```
+EXTERNAL weather
+
+DIALOG weatherExplanation
+  TEMPLATE
+    "The weather is currently ${weather}"
+  /TEMPLATE
+  IF weather=="cloudy"
+    TEMPLATE
+      "It's going to be cool all day"
+    /TEMPLATE
+  ELIF weather=="sunny"
+    TEMPLATE
+      "Pack your sunscreen it's going to be hot!"
+    /TEMPLATE
+  ELIF weather=="rainy"
+    TEMPLATE
+      "Looks like you're going to need an umbrella today!"
+    /TEMPLATE
+  ELSE
+    TEMPLATE
+      "I can't even explain this weather..."
+    /TEMPLATE
+  /IF
+/DIALOG
+
+RUN a
+  weatherExplanation
+/RUN
+```
+</UpilBot>
 
 ### ACTION
 
