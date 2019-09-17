@@ -189,6 +189,16 @@ RUN a
 
 ### RUN
 
+The `RUN` entity tells the Engine where to begin a scenario from. It expects to be passed a `DIALOG`'s label.
+
+
+The following command tells the Engine to start a scenario at the `DIALOG` with the label '`main`':
+```
+RUN a
+  main
+/RUN
+```
+
 ## Application communication
 
 ### EXTERNAL
