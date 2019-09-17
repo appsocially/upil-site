@@ -266,3 +266,41 @@ DIALOG welcome
 RUN welcome
 ```
 </UpilBot>
+
+### Variables
+
+Variables are where user input and input from `EXTERNAL` entities are stored. 
+
+Example variable called `name`:
+```{3}
+TEMPLATE
+  "What is your name?"
+  >>name
+/TEMPLATE
+```
+
+All variables are stored in a global namespace. This means if a single variable name is used multiple times, it will be overwritten each time. This also means that if a `DIALOG` is called multiple times from different parts of a scenario, variables created inside of it will be overwritten each time they are set. 
+
+Example of variable `someVariable` being overwritten:
+
+<UpilBot>
+```
+DIALOG varTest
+  TEMPLATE 
+    "What is your favorite color?"
+    >>someVariable
+  /TEMPLATE
+  TEMPLATE 
+    "What is your favorite fruit?"
+    >>someVariable
+  /TEMPLATE
+  TEMPLATE 
+    "What is your hobby?"
+    >>someVariable
+  /TEMPLATE
+  TEMPLATE "The value of 'someVariable' is ${someVariable}"
+/DIALOG
+
+RUN varTest
+```
+</UpilBot>

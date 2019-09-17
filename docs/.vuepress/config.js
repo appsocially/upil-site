@@ -13,7 +13,8 @@ module.exports = {
     ],
     sidebar: [
       '/',
-      '/language/'
+      '/language/',
+      '/development/'
     ]
   },
   markdown: {
