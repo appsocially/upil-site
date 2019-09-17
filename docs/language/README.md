@@ -259,16 +259,16 @@ DIALOG rainy
     >>callTaxi
   /SELECT
   IF callTaxi=="yes"
-      DIALOG
-        TEMPLATE
-          "Okay, I'll get right on that!"
-        /TEMPLATE
-        ACTION callTaxi
-      /DIALOG
-    ELSE
+    DIALOG
       TEMPLATE
-        "Drive safe!"
+        "Okay, I'll get right on that!"
       /TEMPLATE
+      ACTION callTaxi
+    /DIALOG
+  ELSE
+    TEMPLATE
+      "Drive safe!"
+    /TEMPLATE
   /IF
 /DIALOG
 
@@ -280,3 +280,25 @@ RUN a
 
 ### Labels
 
+Labels are required in many cases, such as when using an `ACTION` entity or when referring to a `DIALOG` from a `RUN` entity.  There are many cases however where optional labels are useful as well, for communicating with an underlying implementation.
+
+Labels can be applied to a `TEMPLATE`, `SELECT`, or `MULTI_SELECT` entity in order to override the default behavior for a specific entity. For instance, instead of just showing text, an application may want to substitute in a complex widget such as a map, or a data table. By agreeing on a label name and overriding an entity when that name appears, scenario writers and developers can work together to create much more complex interactions than is possible with just exchanging text. 
+
+Here is an example where the implementation is waiting to override an entity with the label `brandImage` with an embedded image of their brand in addition to the text:
+
+<UpilBot>
+```{5}
+DIALOG welcome
+  TEMPLATE
+    "Welcome to our site!"
+  /TEMPLATE
+  TEMPLATE brandImage
+    "I'll be guiding you through our options today"
+  /TEMPLATE
+/DIALOG
+
+RUN a
+  welcome
+/RUN
+```
+</UpilBot>

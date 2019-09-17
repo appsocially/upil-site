@@ -16,6 +16,7 @@
               :avatar="Logo"
               :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
               :listeners="listeners"
+              :override="override"
             >
               <template v-slot:external="{allNodes, currentNode, scenarioEnded}">
                 <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
@@ -40,7 +41,7 @@ import { UPILCore, ChatTheme } from '@appsocially/vue-upil-plugin'
 import '@appsocially/vue-upil-plugin/dist/vue-userpil-plugin.css'
 import Logo from '../public/logo.png'
 import listeners from './listeners'
-import { setTimeout } from 'timers';
+import { override } from './overrides'
 
 const { ChatThemePlugin } = ChatTheme
 
@@ -57,6 +58,7 @@ export default {
       hasRun: false,
       listeners,
       isReady: false,
+      override
     }
   },
   computed: {
