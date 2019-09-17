@@ -16,14 +16,3 @@ export default {
   }
 }
 </script>
-
-<style>
- .v-application code {
-   box-shadow: none;
-   display: inline;
- }
-
- .v-application code:after, .v-application code:before, .v-application kbd:after, .v-application kbd:before {
-   content: none;
- }
-</style>
