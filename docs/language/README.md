@@ -210,7 +210,7 @@ The `EXTERNAL` entity allows a scenario writer to request that the implementatio
 This example registers a hook in the Engine that a developer must use to prepare data that a scenario requires. This example's implementation saves either 'cloudy', 'sunny', or 'rainy' to the `weather` variable before the scenario begins. 
 
 <UpilBot>
-```
+```{1}
 EXTERNAL weather
 
 DIALOG weatherExplanation
@@ -243,6 +243,40 @@ RUN a
 </UpilBot>
 
 ### ACTION
+
+The `ACTION` entity requests that a side effect occur within a specific part of the scenario. An `ACTION` can be placed anywhere in a `DIALOG`. When the Engine reaches an `ACTION` in the scenario, it tells the implementation about it. The implementation can decide whether or not to delay the scenario until the `ACTION` is complete. An example usecase for an `ACTION` is sending an email or a push message at a specific point in the scenario.
+
+<UpilBot>
+```{17}
+DIALOG rainy
+  TEMPLATE
+    "Looks like you're going to need an umbrella today!"
+  /TEMPLATE
+  SELECT
+    "Do you want me to call a taxi for you?"
+    -("Yes", yes)
+    -("No", no)
+    >>callTaxi
+  /SELECT
+  IF callTaxi=="yes"
+      DIALOG
+        TEMPLATE
+          "Okay, I'll get right on that!"
+        /TEMPLATE
+        ACTION callTaxi
+      /DIALOG
+    ELSE
+      TEMPLATE
+        "Drive safe!"
+      /TEMPLATE
+  /IF
+/DIALOG
+
+RUN a
+  rainy
+/RUN
+```
+</UpilBot>
 
 ### Labels
 
