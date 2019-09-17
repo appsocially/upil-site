@@ -18,12 +18,27 @@ TEMPLATE myLabel
 /TEMPLATE
 ```
 
-`EXTERNAL` and `ACTION` entities have a simpler structure:
+`EXTERNAL`, `RUN`, and `ACTION` entities have a simpler structure:
 ```
 EXTERNAL currentTemp
 ```
 ```
 ACTION sendEmail
+```
+```
+RUN main
+```
+
+`TEMPLATE` entites also have a simpler version:
+
+Text only:
+```
+TEMPLATE "Hi there"
+```
+
+Label only:
+```
+TEMPLATE overrideThis
 ```
 
 ## User-Interaction
@@ -37,9 +52,7 @@ A `TEMPLATE` entity is for displaying text to a user. `TEMPLATE`s can also reque
 
 <UpilBot simple>
 ```
-TEMPLATE
-  "Hi there!"
-/TEMPLATE
+TEMPLATE "Hi there!"
 ```
 </UpilBot>
 
@@ -94,19 +107,11 @@ A `DIALOG` is a container that most entities must be wrapped in. The UPIL Engine
 <UpilBot>
 ```
 DIALOG main
-  TEMPLATE
-    "I'm first"
-  /TEMPLATE
-  TEMPLATE
-    "I'm second"
-  /TEMPLATE
-  TEMPLATE
-    "I'm third"
-  /TEMPLATE
+  TEMPLATE "I'm first"
+  TEMPLATE "I'm second"
+  TEMPLATE "I'm third"
 /DIALOG
-RUN a
-  main
-/RUN
+RUN main
 ```
 </UpilBot>
 
@@ -125,18 +130,12 @@ DIALOG getUserName
 /DIALOG
 
 DIALOG main
-  TEMPLATE
-    "OK lets start!"
-  /TEMPLATE
+  TEMPLATE "OK lets start!"
   ...getUserName
-  TEMPLATE
-    "Nice to meet you ${name}"
-  /TEMPLATE
+  TEMPLATE "Nice to meet you ${name}"
 /DIALOG
 
-RUN a
-  main
-/RUN
+RUN main
 ```
 </UpilBot>
 
@@ -157,33 +156,23 @@ DIALOG main
     >>color
   /SELECT
   IF color=="red"
-    TEMPLATE
-      "You must like roses!"
-    /TEMPLATE
+    TEMPLATE "You must like roses!"
   ELIF color=="blue"
-    TEMPLATE
-      "You must like the ocean!"
-    /TEMPLATE
+    TEMPLATE "You must like the ocean!"
   ELIF color=="green"
-    TEMPLATE
-      "You must like nature!"
-    /TEMPLATE
+    TEMPLATE "You must like nature!"
   ELSE
     DIALOG
       TEMPLATE
         "Okay, what other color do you like?"
         >>otherColor
       /TEMPLATE
-      TEMPLATE
-        "I see. We'll have to think of a new witty response for when someone chooses '${otherColor}'!"
-      /TEMPLATE
+      TEMPLATE "I see. We'll have to think of a new witty response for when someone chooses '${otherColor}'!"
     /DIALOG
   /IF
 /DIALOG
 
-RUN a
-  main
-/RUN
+RUN main
 ```
 </UpilBot>
 
@@ -191,12 +180,9 @@ RUN a
 
 The `RUN` entity tells the Engine where to begin a scenario from. It expects to be passed a `DIALOG`'s label.
 
-
 The following command tells the Engine to start a scenario at the `DIALOG` with the label '`main`':
 ```
-RUN a
-  main
-/RUN
+RUN main
 ```
 
 ## Application communication
@@ -214,31 +200,19 @@ This example registers a hook in the Engine that a developer must use to prepare
 EXTERNAL weather
 
 DIALOG weatherExplanation
-  TEMPLATE
-    "The weather is currently ${weather}"
-  /TEMPLATE
+  TEMPLATE "The weather is currently ${weather}"
   IF weather=="cloudy"
-    TEMPLATE
-      "It's going to be cool all day"
-    /TEMPLATE
+    TEMPLATE "It's going to be cool all day"
   ELIF weather=="sunny"
-    TEMPLATE
-      "Pack your sunscreen it's going to be hot!"
-    /TEMPLATE
+    TEMPLATE "Pack your sunscreen it's going to be hot!"
   ELIF weather=="rainy"
-    TEMPLATE
-      "Looks like you're going to need an umbrella today!"
-    /TEMPLATE
+    TEMPLATE "Looks like you're going to need an umbrella today!"
   ELSE
-    TEMPLATE
-      "I can't even explain this weather..."
-    /TEMPLATE
+    TEMPLATE "I can't even explain this weather..."
   /IF
 /DIALOG
 
-RUN a
-  weatherExplanation
-/RUN
+RUN weatherExplanation
 ```
 </UpilBot>
 
@@ -249,9 +223,7 @@ The `ACTION` entity requests that a side effect occur within a specific part of 
 <UpilBot>
 ```{17}
 DIALOG rainy
-  TEMPLATE
-    "Looks like you're going to need an umbrella today!"
-  /TEMPLATE
+  TEMPLATE "Looks like you're going to need an umbrella today!"
   SELECT
     "Do you want me to call a taxi for you?"
     -("Yes", yes)
@@ -260,15 +232,11 @@ DIALOG rainy
   /SELECT
   IF callTaxi=="yes"
     DIALOG
-      TEMPLATE
-        "Okay, I'll get right on that!"
-      /TEMPLATE
+      TEMPLATE "Okay, I'll get right on that!"
       ACTION callTaxi
     /DIALOG
   ELSE
-    TEMPLATE
-      "Drive safe!"
-    /TEMPLATE
+    TEMPLATE "Drive safe!"
   /IF
 /DIALOG
 
@@ -289,16 +257,12 @@ Here is an example where the implementation is waiting to override an entity wit
 <UpilBot>
 ```{5}
 DIALOG welcome
-  TEMPLATE
-    "Welcome to our site!"
-  /TEMPLATE
+  TEMPLATE "Welcome to our site!"
   TEMPLATE brandImage
     "I'll be guiding you through our options today"
   /TEMPLATE
 /DIALOG
 
-RUN a
-  welcome
-/RUN
+RUN welcome
 ```
 </UpilBot>

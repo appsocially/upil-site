@@ -17,20 +17,14 @@ Below is an example UPIL scenario. It will greet a user, ask for their name, and
 <UpilBot>
 ```
 DIALOG mainDialog
-  TEMPLATE
-    "Hi there!"
-  /TEMPLATE
+  TEMPLATE "Hi there!"
   TEMPLATE
     "What's your name?"
     >>name
   /TEMPLATE
-  TEMPLATE
-    "Nice to meet you ${name}"
-  /TEMPLATE
+  TEMPLATE "Nice to meet you ${name}"
 /DIALOG
-RUN main
-  mainDialog
-/RUN
+RUN mainDialog
 ```
 </UpilBot>
 
