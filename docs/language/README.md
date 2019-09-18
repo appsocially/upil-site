@@ -121,7 +121,7 @@ A `DIALOG` can hold `TEMPLATE`, `SELECT`, `MULTI_SELECT`, `IF/ELIF/ELSE`, `ACTIO
 Using the `...<dialogLabel>` sytax, a `DIALOG` can embed another `DIALOG` inside of itself:
 
 <UpilBot>
-```{12}
+```{10}
 DIALOG getUserName
   TEMPLATE
     "What is your name?"
@@ -145,7 +145,7 @@ A `DIALOG` can be embedded in as many other `DIALOG`s as you want. To embed `DIA
 UPIL has `IF`, `ELIF`, and `ELSE` entities. You can use conditional logic to make scenarios that respond dynamically to user-input and external data:
 
 <UpilBot>
-```
+```{10,12,14,16,25}
 DIALOG main
   SELECT
     "Please choose your favorite color"
@@ -221,7 +221,7 @@ RUN weatherExplanation
 The `ACTION` entity requests that a side effect occur within a specific part of the scenario. An `ACTION` can be placed anywhere in a `DIALOG`. When the Engine reaches an `ACTION` in the scenario, it tells the implementation about it. The implementation can decide whether or not to delay the scenario until the `ACTION` is complete. An example usecase for an `ACTION` is sending an email or a push message at a specific point in the scenario.
 
 <UpilBot>
-```{17}
+```{12}
 DIALOG rainy
   TEMPLATE "Looks like you're going to need an umbrella today!"
   SELECT
@@ -255,7 +255,7 @@ Labels can be applied to a `TEMPLATE`, `SELECT`, or `MULTI_SELECT` entity in ord
 Here is an example where the implementation is waiting to override an entity with the label `brandImage` with an embedded image of their brand in addition to the text:
 
 <UpilBot>
-```{5}
+```{3}
 DIALOG welcome
   TEMPLATE "Welcome to our site!"
   TEMPLATE brandImage
@@ -284,7 +284,7 @@ All variables are stored in a global namespace. This means if a single variable 
 Example of variable `someVariable` being overwritten:
 
 <UpilBot>
-```
+```{4,8,12}
 DIALOG varTest
   TEMPLATE 
     "What is your favorite color?"
