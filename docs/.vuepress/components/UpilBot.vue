@@ -2,37 +2,44 @@
 <template>
   <div class="scenario-demonstration">
     <slot />
-    <v-expansion-panels v-model="panel">
-      <v-expansion-panel>
-        <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show example'}}</v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-btn text icon color="primary" class="mb-1" @click="start">
-            <v-icon>mdi-refresh</v-icon>
-          </v-btn>
-          <v-sheet color="light-grey" class="upil-example-container" :elevation="3" v-if="isReady">
-            <ChatThemePlugin
-              removeBottomBar
-              :upil="upil"
-              :avatar="Logo"
-              :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
-              :listeners="listeners"
-              :override="override"
+    <div class="v-application v-application--is-ltr theme--light">
+      <v-expansion-panels v-model="panel">
+        <v-expansion-panel>
+          <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show example'}}</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-btn text icon color="primary" class="mb-1" @click="start">
+              <v-icon>mdi-refresh</v-icon>
+            </v-btn>
+            <v-sheet
+              color="light-grey"
+              class="upil-example-container"
+              :elevation="3"
+              v-if="isReady"
             >
-              <template v-slot:external="{allNodes, currentNode, scenarioEnded}">
-                <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
-                  <component
-                    v-bind:is="currentNode.componentType"
-                    v-bind="currentNode.node"
-                    placeholderOverride="Type your answer here"
-                    :labelOverride="getLabelOverride(currentNode.node.type)"
-                  />
-                </div>
-              </template>
-            </ChatThemePlugin>
-          </v-sheet>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+              <ChatThemePlugin
+                removeBottomBar
+                :upil="upil"
+                :avatar="Logo"
+                :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
+                :listeners="listeners"
+                :override="override"
+              >
+                <template v-slot:external="{allNodes, currentNode, scenarioEnded}">
+                  <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
+                    <component
+                      v-bind:is="currentNode.componentType"
+                      v-bind="currentNode.node"
+                      placeholderOverride="Type your answer here"
+                      :labelOverride="getLabelOverride(currentNode.node.type)"
+                    />
+                  </div>
+                </template>
+              </ChatThemePlugin>
+            </v-sheet>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </div>
   </div>
 </template>
 
