@@ -1,5 +1,4 @@
 module.exports = {
-  theme: './theme',
   title: 'UPIL',
   description: 'User Page Interaction Language',
   head: [

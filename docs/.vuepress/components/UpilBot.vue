@@ -45,7 +45,6 @@
 
 <script>
 import { UPILCore, ChatTheme } from '@appsocially/vue-upil-plugin'
-import '@appsocially/vue-upil-plugin/dist/vue-userpil-plugin.css'
 import Logo from '../public/logo.png'
 import listeners from './listeners'
 import { override } from './overrides'
