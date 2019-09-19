@@ -1,5 +1,4 @@
 import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
 import pageComponents from '@internal/page-components'
 
 export default ({
