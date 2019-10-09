@@ -7,9 +7,10 @@ module.exports = {
   ],
   themeConfig: {
     smoothScroll: true,
+    repo: 'appsocially/upil-site',
+    docsDir: 'docs',
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Github', link: 'https://github.com/appsocially/upil-site' },
     ],
     sidebar: [
       '/',
