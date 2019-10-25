@@ -29,7 +29,7 @@ ACTION sendEmail
 RUN main
 ```
 
-`TEMPLATE` entites also have a simpler version:
+`TEMPLATE` entites also have a simple version:
 
 Text only:
 ```
@@ -67,35 +67,96 @@ TEMPLATE
 ```
 </UpilBot>
 
-### SELECT
+### Selects
+
+#### SELECT
 A `SELECT` is used to request the user to select a single choice from a list of choices. It requires the user input to be saved to a variable.
 
 <UpilBot simple>
 ```
 SELECT
  "Please choose your favorite color"
-  -("Red", red)
-  -("Blue", blue)
-  -("Green", green)
+  -("Red", "red")
+  -("Blue", "blue")
+  -("Green", "green")
   >>color
 /SELECT
 ```
 </UpilBot>
 
-### MULTI_SELECT
+#### MULTI_SELECT
 A `MULTI_SELECT` is similar to a `SELECT`, only it allows users to select more than one choice from a list
 
 <UpilBot simple>
 ```
 MULTI_SELECT
  "Please choose all of your favorite colors"
-  -("Color red", red)
-  -("Color blue", blue)
-  -("Color green", green)
+  -("Color red", "red")
+  -("Color blue", "blue")
+  -("Color green", "green")
   >>colors
 /MULTI_SELECT
 ```
 </UpilBot>
+
+#### Options
+
+There are several ways to write options in a `SELECT` or `MULTI_SELECT`
+
+##### Default case
+```
+-("Color red", "red")
+```
+
+The default case presents the user with an option `Color red`, while saving `red` in the select's variable.
+
+##### Simplified case
+```
+- "Red"
+```
+
+The simplified version would use `Red` both for the option text, and the value saved in the select's variable.
+
+##### Value types
+
+The value of an option can be a `literal` such as a string, number, or boolean:
+
+String:
+```
+-("Color red", "red")
+```
+
+Number:
+```
+-("Five cars", 5)
+```
+
+Boolean:
+```
+-("Call taxi", true)
+```
+
+The value of an option can also come from a variable. This is specified by using a variable name without quotes. If the variable doesn't exist, then the UPIL engine will assume it should use the variable name as a string value.
+
+Variable:
+```
+-("My car", usersCar)
+```
+
+Here is an example of using the above variable case:
+
+```
+EXTERNAL usersCar
+
+SELECT
+ "Which car do you want?"
+  -("My car", usersCar)
+  -("Default", "hondaAccord")
+  >>carSelection
+/SELECT
+```
+
+If the value of the `EXTERNAL` was set to "ferrari", then when a user chooses the `My car` option, the variable `carSelection` will be set with the value of the variable `usersCar` which is "ferrari"
 
 ## Business Logic 
 The entities that interact with the user are wrapped and controlled by logic-control entites. This allows you to have a scenario that dynamically adjusts to user-input and/or external data. It also allows you to reuse the same user-interaction from several different places in a scenario.
@@ -149,10 +210,10 @@ UPIL has `IF`, `ELIF`, and `ELSE` entities. You can use conditional logic to mak
 DIALOG main
   SELECT
     "Please choose your favorite color"
-    -("Red", red)
-    -("Blue", blue)
-    -("Green", green)
-    -("Other", other)
+    -("Red", "red")
+    -("Blue", "blue")
+    -("Green", "green")
+    -("Other", "other")
     >>color
   /SELECT
   IF color=="red"
@@ -283,11 +344,11 @@ DIALOG rainy
   TEMPLATE "Looks like you're going to need an umbrella today!"
   SELECT
     "Do you want me to call a taxi for you?"
-    -("Yes", yes)
-    -("No", no)
+    -("Yes", true)
+    -("No", false)
     >>callTaxi
   /SELECT
-  IF callTaxi=="yes"
+  IF callTaxi==true
     DIALOG
       TEMPLATE "Okay, I'll get right on that!"
       ACTION callTaxi

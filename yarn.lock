@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-"@appsocially/vue-upil-plugin@^0.1.24":
-  version "0.1.24"
-  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil-plugin/-/vue-upil-plugin-0.1.24.tgz#792fd31bfeb9c158d6d2a605f8cc3bd2e57bb1ca"
-  integrity sha512-yhcPb/VuRK+jj3m4qvoaKl4yMQevnom/a48Qyza5rj0N5McX2uN09Xu1SJrm9hCX/Eyw/MrPhWJ5U666jGFFnw==
+"@appsocially/vue-upil-plugin@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil-plugin/-/vue-upil-plugin-1.1.5.tgz#618b65d8c507c86bc463914911c6432ac3d0696b"
+  integrity sha512-46OPMzTvIi91ZEA0Qk/1XkhVuNhm2bm+Rxm43nAvoadC+yFluAq8AX7YAyWIIWA/eRhB2BDZD1A9nc+S/CwMcA==
   dependencies:
     core-js "^2.6.5"
+    dot-object "^1.9.0"
     linkifyjs "^2.1.8"
     lodash.debounce "^4.0.8"
     vue "^2.6.10"
-    vue-cli-plugin-vuetify "^0.6.1"
-    vuetify "^2.0.1"
+    vuetify "^2.1.5"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
   version "7.5.5"
@@ -3167,6 +3167,14 @@ domutils@^1.5.1, domutils@^1.7.0:
   dependencies:
     dom-serializer "0"
     domelementtype "1"
+
+dot-object@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/dot-object/-/dot-object-1.9.0.tgz#6e3d6d8379f794c5174599ddf05528f5990f076e"
+  integrity sha512-7MPN6y7XhAO4vM4eguj5+5HNKLjJYfkVG1ZR1Aput4Q4TR6SYeSjhpVQ77IzJHoSHffKbDxBC+48aCiiRurDPw==
+  dependencies:
+    commander "^2.20.0"
+    glob "^7.1.4"
 
 dot-prop@^4.1.1:
   version "4.2.0"
@@ -8825,11 +8833,6 @@ vm-browserify@^1.0.1:
   resolved "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha1-vXbWojMj4sqP+hICjcBFWcdfkBk=
 
-vue-cli-plugin-vuetify@^0.6.1:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/vue-cli-plugin-vuetify/-/vue-cli-plugin-vuetify-0.6.3.tgz#71d956cdec419f5628d2b44c43bdc1e6ec3356bf"
-  integrity sha512-bdbJcNIc8rrXX1KUiA/7H5mbq6hnjics+k0Q9qdWrX9DjXkGDd+kWhbk9pAIfAZgyHkgGxsgMXF4QhpMMYBiFg==
-
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.npm.taobao.org/vue-eslint-parser/download/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
@@ -8946,10 +8949,15 @@ vuepress@^1.1.0:
     envinfo "^7.2.0"
     opencollective-postinstall "^2.0.2"
 
-vuetify@^2.0.1, vuetify@^2.0.15:
+vuetify@^2.0.15:
   version "2.0.15"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.0.15.tgz#aa04f5e9123a895d6f1f3162d76d8755555bec29"
   integrity sha512-3x/YwEaf7nCHDBfAeB1HZZ9ltgX3Bu9zhfCmq3ZGbuylLrKJMR4bp5xY3chVq1DAalXs0eqV69TbEkkSt1Iwkg==
+
+vuetify@^2.1.5:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.1.6.tgz#f6c02458e2a143fa761f7d4f9831fe04cea26e09"
+  integrity sha512-uK5jNTbRQtnPRMDsBeXOSVgo0nKDNq7XDi987XVhK6Vb5dl6Y5kSFBFDHPpdzSUraeUtyDHrJWxq29NTPIbdFw==
 
 watchpack@^1.6.0:
   version "1.6.0"
