@@ -28,5 +28,11 @@ export default {
       }).format(new Date())
       resolve(date)
     })
+  },
+  'external-usersCar': (payload, preventDefault) => {
+    return new Promise(async (resolve) => {
+      preventDefault()
+      resolve("ferrari")
+    })
   }
 }

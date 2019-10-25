@@ -145,16 +145,26 @@ Variable:
 
 Here is an example of using the above variable case:
 
+<UpilBot>
 ```
+## Resolves to ferrari
 EXTERNAL usersCar
 
-SELECT
- "Which car do you want?"
-  -("My car", usersCar)
-  -("Default", "hondaAccord")
-  >>carSelection
-/SELECT
+DIALOG main
+  SELECT
+  "Which car do you want?"
+    -("My car", usersCar)
+    -("Default", "honda accord")
+    >>carSelection
+  /SELECT
+
+  TEMPLATE "Have fun driving a ${carSelection}"
+/DIALOG
+
+RUN main
+
 ```
+</UpilBot>
 
 If the value of the `EXTERNAL` was set to "ferrari", then when a user chooses the `My car` option, the variable `carSelection` will be set with the value of the variable `usersCar` which is "ferrari"
 
