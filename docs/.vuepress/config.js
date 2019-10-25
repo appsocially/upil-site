@@ -16,7 +16,8 @@ module.exports = {
       '/',
       '/language/',
       '/development/'
-    ]
+    ],
+    sidebarDepth: 2
   },
   markdown: {
     lineNumbers: true

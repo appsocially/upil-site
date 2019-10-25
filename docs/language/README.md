@@ -171,7 +171,7 @@ If the value of the `EXTERNAL` was set to "ferrari", then when a user chooses th
 ## Business Logic 
 The entities that interact with the user are wrapped and controlled by logic-control entites. This allows you to have a scenario that dynamically adjusts to user-input and/or external data. It also allows you to reuse the same user-interaction from several different places in a scenario.
 
-### DIALOG
+### Dialog
 
 A `DIALOG` is a container that most entities must be wrapped in. The UPIL Engine runs the steps of a scenario in the order that they appear in a `DIALOG`:
 
@@ -213,7 +213,7 @@ RUN main
 A `DIALOG` can be embedded in as many other `DIALOG`s as you want. The order of `DIALOG`s don't matter. 
 
 ### Conditional logic
-UPIL has `IF`, `ELIF`, and `ELSE` entities. You can use conditional logic to make scenarios that respond dynamically to user-input and external data:
+UPIL has boolean `IF`, `ELIF`, and `ELSE` entities. You can use conditional logic to make scenarios that respond dynamically to user-input and external data:
 
 <UpilBot>
 ```{10,12,14,16,25}
@@ -247,7 +247,37 @@ RUN main
 ```
 </UpilBot>
 
-### RUN
+### Boolean Operators
+UPIL has several operations that you can use with boolean entities
+
+#### Boolean comparators
+The following comparators can be used with mixes of variables and literals:
+
+`==`, `>`, `<`, `>=`, `<=`
+
+##### Examples
+
+`currentTemp >= 25`<br>
+True if the variable `currentTemp` is greater or equal to the number `25`.
+<br><br>
+`card == "toyota"`<br>
+True if the variable `card` is equal to the string `toyota`
+
+#### Boolean operators
+The following logical operators allow you to combine several boolean statements together:
+
+`AND`, `NOT`, `OR`, `()`
+
+##### Examples
+
+Example using `AND`, `OR`, and `()`:<br>
+`((currentTemp >= 25 AND hour > 100) OR hello == "GREAT") AND hi == "Something"`
+<br><br>
+Using `OR` and `NOT`:<br>
+`hour > 100 OR NOT (currentTemp >= 25)`
+
+
+### Run
 
 The `RUN` command specifies the `DIALOG` to start the scenario at.
 
@@ -301,7 +331,7 @@ RUN label
 
 UPIL includes three features to make it easy to communicate between a scenario and an application which utilizes UPIL: `EXTERNAL` and `ACTION` entities, and entity labels. These features allow a scenario writer to use high-level concepts, which a developer can then hook up to arbitrarily complex implementations. Ideally even after the implementation has been created, the scenario writer can freely update their scenario without having to rely on a developer to update the implementation. 
 
-### EXTERNAL
+### External
 
 The `EXTERNAL` entity allows a scenario writer to request that the implementation prepare a variable with some data so that the scenario may make use of it.
 
@@ -344,7 +374,7 @@ RUN weatherExplanation
 ```
 </UpilBot>
 
-### ACTION
+### Action
 
 An `ACTION` allows scenario writers to request that a side-effect happens in the implementation. This can include saving data, sending messages such as emails or push notifications, or making calls to external services. Unlike `EXTERNAL`, an `ACTION` cannot save its result in a variable. An `ACTION` must be placed inside of a `DIALOG`. When the Engine reaches an `ACTION` in the scenario, it tells the implementation about it. The implementation can decide whether or not to delay the scenario until the `ACTION` is complete. An example usecase for an `ACTION` is sending an email or a push message at a specific point in the scenario.
 
