@@ -43,7 +43,7 @@ TEMPLATE overrideThis
 
 ## User-Interaction
 
-User interaction is performed using three main entities: `TEMPLATE`, `SELECT`, and `MULTI_SELECT`. All three entities can save user input to a variable with the `<<myVariable` syntax. This allows the user input to be referenced and used later on in the scenario.
+User interaction is performed using three main entities: `TEMPLATE`, `SELECT`, and `MULTI_SELECT`. All three entities can save user input to a variable with the `>>myVariable` syntax. This allows the user input to be referenced and used later on in the scenario.
 
 ### Template
 A `TEMPLATE` entity is for displaying text to a user. `TEMPLATE`s can also request a user's input.
@@ -260,8 +260,8 @@ The following comparators can be used with mixes of variables and literals:
 `currentTemp >= 25`<br>
 True if the variable `currentTemp` is greater or equal to the number `25`.
 <br><br>
-`card == "toyota"`<br>
-True if the variable `card` is equal to the string `toyota`
+`car == "toyota"`<br>
+True if the variable `car` is equal to the string `toyota`
 
 #### Boolean operators
 The following logical operators allow you to combine several boolean statements together:
