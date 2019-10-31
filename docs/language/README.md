@@ -168,8 +168,11 @@ RUN main
 
 If the value of the `EXTERNAL` was set to "ferrari", then when a user chooses the `My car` option, the variable `carSelection` will be set with the value of the variable `usersCar` which is "ferrari"
 
-## Business Logic 
-The entities that interact with the user are wrapped and controlled by logic-control entites. This allows you to have a scenario that dynamically adjusts to user-input and/or external data. It also allows you to reuse the same user-interaction from several different places in a scenario.
+## Scenario Flow
+
+UPIL scenarios have a simple structure. `DIALOG`, and `RUN` entities are two of the three entities that can exist at the top level of a document (`EXTERNAL` being the third). 
+<br><br>
+`DIALOG` is a container for other entities. The UPIL engine runs entities from top to bottom inside of a `DIALOG`. However the order of `DIALOG` entities inside of a scenario doesn't matter. Instead, `DIALOG` to start a scenario at is specified by the scenario writer with the `RUN` command. After that, other `DIALOG` entities will only be used if they are referred to by embed `...dialogName` calls.
 
 ### Dialog
 
@@ -188,7 +191,7 @@ RUN main
 
 A `DIALOG` can hold `TEMPLATE`, `SELECT`, `MULTI_SELECT`, `IF/ELIF/ELSE`, `ACTION`, and even other `DIALOG` entities. 
 
-#### DIALOG Embedding
+#### Dialog Embedding
 Using the `...<dialogLabel>` sytax, a `DIALOG` can embed another `DIALOG` inside of itself:
 
 <UpilBot>
@@ -211,6 +214,55 @@ RUN main
 </UpilBot>
 
 A `DIALOG` can be embedded in as many other `DIALOG`s as you want. The order of `DIALOG`s don't matter. 
+
+### Run
+
+The `RUN` command specifies the `DIALOG` to start the scenario at.
+
+The below two examples demonstrate how changing the `RUN` command changes which `DIALOG` is processed by the Engine:
+
+Start at dialog `A`:
+
+<UpilBot>
+```
+DIALOG B
+  TEMPLATE
+    "Hi from B"
+  /TEMPLATE
+/DIALOG
+
+DIALOG A
+  TEMPLATE
+    "Hi from A"
+  /TEMPLATE
+/DIALOG
+
+RUN A
+```
+</UpilBot>
+
+Start at dialog `B`:
+
+<UpilBot>
+```
+DIALOG B
+  TEMPLATE
+    "Hi from B"
+  /TEMPLATE
+/DIALOG
+
+DIALOG A
+  TEMPLATE
+    "Hi from A"
+  /TEMPLATE
+/DIALOG
+
+RUN B
+```
+</UpilBot>
+
+## Scenario Logic 
+UPIL contains several features that can be used to conditionally hide or show parts of a scenario.  This allows you to dynamically adjust a scenario to user-input and/or external data.
 
 ### Conditional logic
 UPIL has boolean `IF`, `ELIF`, and `ELSE` entities. You can use conditional logic to make scenarios that respond dynamically to user-input and external data:
@@ -247,8 +299,8 @@ RUN main
 ```
 </UpilBot>
 
-### Boolean Operators
-UPIL has several operations that you can use with boolean entities
+### Boolean Expressions
+UPIL allows you to use boolean expressions with `IF`/`ELIF`/`ELSE` conditional logic to hide/show parts of a scenario, or to choose which 'branch' to take.
 
 #### Boolean comparators
 The following comparators can be used with mixes of variables and literals:
@@ -275,57 +327,6 @@ Example using `AND`, `OR`, and `()`:<br>
 <br><br>
 Using `OR` and `NOT`:<br>
 `hour > 100 OR NOT (currentTemp >= 25)`
-
-
-### Run
-
-The `RUN` command specifies the `DIALOG` to start the scenario at.
-
-The below two examples demonstrate how changing the `RUN` command changes which `DIALOG` is processed by the Engine:
-
-Start at dialog `A`:
-
-<UpilBot>
-```
-DIALOG B
-  TEMPLATE
-    "Hi from B"
-  /TEMPLATE
-/DIALOG
-
-DIALOG A
-  TEMPLATE
-    "Hi from A"
-  /TEMPLATE
-/DIALOG
-
-RUN label
-  A
-/RUN
-```
-</UpilBot>
-
-Start at dialog `B`:
-
-<UpilBot>
-```
-DIALOG B
-  TEMPLATE
-    "Hi from B"
-  /TEMPLATE
-/DIALOG
-
-DIALOG A
-  TEMPLATE
-    "Hi from A"
-  /TEMPLATE
-/DIALOG
-
-RUN label
-  B
-/RUN
-```
-</UpilBot>
 
 ## Application communication
 
@@ -398,9 +399,7 @@ DIALOG rainy
   /IF
 /DIALOG
 
-RUN a
-  rainy
-/RUN
+RUN rainy
 ```
 </UpilBot>
 
