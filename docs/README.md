@@ -1,5 +1,5 @@
 # Introduction to UPIL
-UPIL (pronounced you-pill「ユープル」) is a language and framework designed to make writing applications with lots of interaction with a user - especially chatbots - as easy as possible. It does this by providing a high-level language that is simple enough for non-developers to use. The UPIL language is used to write interaction-scenarios. These are parsed by the UPIL framework, and in turn become events and state used to help manage an application's interaction with its users.
+UPIL (pronounced you-pill「ユーピル」) is a language and framework designed to make writing applications with lots of interaction with a user - especially chatbots - as easy as possible. It does this by providing a high-level language that is simple enough for non-developers to use. The UPIL language is used to write interaction-scenarios. These are parsed by the UPIL framework, and in turn become events and state used to help manage an application's interaction with its users.
 
 <br><br>
 ![UPIL Usage Overview](./upil-usage-overview.png)
@@ -45,7 +45,7 @@ A UPIL scenario is easy to read and understand. And the simulator tool allows fo
 By using UPIL in a project, we can eliminate code related to tracking user-interaction state. UPIL also improves the seperations of concerns of code, by encouraging more logical grouping of related tasks such as component-selection, interaction-event handling, user-input handling, and input-validation. Together, this means less chance of errors occuring, and a more logical, maintainable code base. 
 
 ### Improved understanding
-Extracting business logic into a single scenario makes the entire interaction easier to read and understand. Without UPIL, these interactions are generally written as business across multiple separate components.
+Extracting business logic into a single scenario makes the entire interaction easier to read and understand. Without UPIL, these interactions are generally written as coded business logic across multiple separate components.
 
 ### Isolated development
 By using the UPIL simulator and diagram-builder, scenarios are developed separately from their applications. This increases the speed of development, and simplifies debugging of issues.
