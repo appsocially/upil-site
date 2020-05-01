@@ -9,10 +9,11 @@
     "build": "vuepress build docs"
   },
   "dependencies": {
-    "@appsocially/vue-upil-plugin": "^1.1.5",
+    "@appsocially/vue-upil-plugin": "^2.6.4",
     "core-js": "^2.6.5",
-    "vue": "^2.6.10",
-    "vuetify": "^2.0.15"
+    "vue": "^2.6.11",
+    "vue-server-renderer": "2.6.11",
+    "vuetify": "^2.2.26"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
@@ -22,7 +23,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10",
-    "vuepress": "^1.2.0"
+    "vue-template-compiler": "^2.6.11",
+    "vuepress": "^1.4.1"
   }
 }
