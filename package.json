@@ -13,6 +13,7 @@
     "core-js": "^2.6.5",
     "vue": "^2.6.11",
     "vue-server-renderer": "2.6.11",
+    "vuepress-plugin-medium-zoom": "^1.1.8",
     "vuetify": "^2.2.26"
   },
   "devDependencies": {

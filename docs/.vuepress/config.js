@@ -22,5 +22,19 @@ module.exports = {
   markdown: {
     lineNumbers: true
   },
+  plugins: [
+    [
+      'vuepress-plugin-medium-zoom',
+      {
+        selector: '.page img',
+        delay: 1000,
+        options: {
+          margin: 24,
+          background: '#FFFFFF',
+          scrollOffset: 0,
+        },
+      },
+    ],
+  ],
   dest: 'dist'
 }

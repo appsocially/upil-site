@@ -1,6 +1,6 @@
 # Vue Application development
 
-Generally, a developer working in an application framework such as Vue or React will setup an instance of `UPILCore`, and then pass that instance to a component which will translate `nodes[]` into visual elements, and handle user input.
+Generally, a developer working in an application framework such as Vue or React will setup an instance of `UPILCore`, and then pass that instance to a component which will translate an array of `VisualNode` `nodes[]` into visual elements, and handle user input.
 <br/><br/>
 
 There are two different modes that a `UPILCore` can use to interpret a UPIL script. A chatbot-mode and a form-mode. 
@@ -78,7 +78,7 @@ const {input, nodes} = upilInstance.UpilStore.getState()
 ```
 
 * `input` - An object containing the state of variables and their values as key-value pairs
-* `nodes` - An array of currently active nodes. These are stored in the array in the order that they have been interpreted in the script. Each node is meant to convey information to a user. 
+* `nodes[]` - An array of `VisualNode`. These are stored in the array in the order that they have been interpreted in the script. Each node is meant to convey information to a user. 
 The Vue.js components use this array to build the UI.
 <br/><br/>
 As a user interacts with UPIL, the interpreter will continue to save state, and update `nodes[]`. In order to be notified of these changes, use the `upilInstance.UpilStore.subscribe` method, and pass in a function that you
@@ -123,9 +123,8 @@ const inputValue = input[name] // In an `input-update` event, get the user-input
 The ChatThemePlugin is a component that maps a scenario to a standard-looking chat application UI, where a user will be chatting with a 'bot' which is being driven by a UPIL scenario. 
 <br/><br/>
 
-<Figure caption="Explanation of how a scenario is mapped to a Chat UI.">
- ![Scenario -> Chat mapping](./scenario-to-chat-mapping.png)
-
+<Figure caption="Visualization of how a scenario is mapped to a Chat UI. In this case, user input triggers the UPIL Core to update its state.">
+ <img src="./visualnode-ui-mapping.png" alt="Scenario to Chat UI Mapping">
 </Figure>
 
 Basic example of `ChatThemePlugin` component usage:
@@ -164,12 +163,11 @@ The listeners prop expects an object whose keys are event names, and values are 
 
 ### Mapping widgets to nodes: `override` and `overrideCurrent`
 
-<Figure caption="The 'current' node should be overridden seperately, to support a different style at the bottom of the chat UI">
- ![Scenario -> Chat mapping](./previous-current-nodes.png)
-
+<Figure caption="The 'current' node is overridden seperately, to support a different style at the bottom of the chat UI">
+ <img src="./node-types.png" alt="Node overrides">
 </Figure>
 
-Each entity in a UPIL scenario is represented by a node in the `node[]` with various properties associated with it. These properties include:
+Each entity in a UPIL scenario is represented by a `VisualNode` with various properties associated with it. These properties include:
 <br/><br/>
 
 * The entity type: `TEMPLATE`, `SELECT`, `MULTI_SELECT`
@@ -179,5 +177,32 @@ Each entity in a UPIL scenario is represented by a node in the `node[]` with var
 * Whether the node is a reply-node or not
 <br/><br/>
 
-By default, all nodes are represented as widgets based on their entity-type. Using the override props, nodes can be freely overridden based on any of the available node-properties.
+By default, all nodes are represented as widgets based on their entity-type. Using the override props, nodes can be freely overridden based on any of the available node-properties. In general, when creating a custom widget for chat-mode, there are three node-types to consider (Standard, Reply, and Current):
+<br/><br/>
 
+### Override function signature
+
+```js
+function (_, node, component) {...}
+```
+
+The `node` argument is the `VisualNode`-representation of the entity that the UPIL engine is asking to map to a widget. The `component` argument is the default component. 
+<br/><br/>
+
+An example override function:
+
+```js
+export function override (_, node, component) {
+  switch (node.label || '') {
+    case 'interviewTime':
+      return () => import('./timeReply')
+    default:
+      return component
+  }
+}
+```
+
+The above override function returns the `timeReply` component to use as the widget for any nodes labeled `interviewTime`, otherwise it returns the default component `component`.
+
+
+### Difference between 
