@@ -162,4 +162,22 @@ export default {
 
 The listeners prop expects an object whose keys are event names, and values are handler functions.
 
-### `override` and `overrideCurrent`
+### Mapping widgets to nodes: `override` and `overrideCurrent`
+
+<Figure caption="The 'current' node should be overridden seperately, to support a different style at the bottom of the chat UI">
+ ![Scenario -> Chat mapping](./previous-current-nodes.png)
+
+</Figure>
+
+Each entity in a UPIL scenario is represented by a node in the `node[]` with various properties associated with it. These properties include:
+<br/><br/>
+
+* The entity type: `TEMPLATE`, `SELECT`, `MULTI_SELECT`
+* The text associated with the entity
+* Entity input metadata if the entity expects user input. This metadata includes the variable name, variable type, and a list of options in the case of a select-based entity.
+* The label assigned to an entity
+* Whether the node is a reply-node or not
+<br/><br/>
+
+By default, all nodes are represented as widgets based on their entity-type. Using the override props, nodes can be freely overridden based on any of the available node-properties.
+
