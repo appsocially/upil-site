@@ -172,9 +172,9 @@ export default {
 
 The listeners prop expects an object whose keys are event names, and values are handler functions.
 
-### Mapping widgets to nodes: `override` and `overrideCurrent`
+### Mapping nodes to widgets with override functions
 
-<Figure caption="The 'current' node is overridden seperately, to support a different style at the bottom of the chat UI">
+<Figure caption="Widgets mapped to standard and reply nodes are visualized in the chat history. The 'current' node is overridden seperately, to support custom user-input at the bottom of the chat UI">
  <img src="./node-types.png" alt="Node overrides">
 </Figure>
 
@@ -188,8 +188,11 @@ Each entity in a UPIL scenario is represented by a `VisualNode` with various pro
 * Whether the node is a reply-node or not
 <br/><br/>
 
-By default, all nodes are represented as widgets based on their entity-type. Using the override props, nodes can be freely overridden based on any of the available node-properties. In general, when creating a custom widget for chat-mode, there are three node-types to consider (Standard, Reply, and Current):
-<br/><br/>
+Vue components that represent a `VisualNode` in the UI are called `widgets`. By default, a `VisualNode` is represented by a widget based on its entity-type. Using the override functions, nodes can be freely mapped to widgets based on any of the available node-properties. In general, when creating a custom widget for chat-mode, there are three node-types to consider (Standard, Reply, and Current):
+
+#### override vs overrideCurrent
+
+The `override` and `overrideCurrent` props that are passed to the `ChatThemePlugin` are funcions with identical signatures that receive a node, and can choose to map a Vue component to that node to be displayed in the chat UI. The `override` function is meant to define `widget` mapping in the chat history. The `overrideCurrent` function is meant to map the current node to a special widget that lives at the bottom of the chat UI and acts as the user-input. In this way, the UI can handle custom input types such as dates, colors, shapes, images, videos, etc. with custom widgets, in addition to standard input such as text and list-selection. 
 
 ### Override function signature
 
@@ -204,16 +207,37 @@ An example override function:
 
 ```js
 export function override (_, node, component) {
-  switch (node.label || '') {
-    case 'interviewTime':
-      return () => import('./timeReply')
-    default:
-      return component
+  if (node.reply === true && node.label) {
+    switch (node.label) {
+      case 'interviewTime':
+        return () => import('./timeReply')
+      case 'qrCode':
+        return () => import('./qrCode')
+      case 'dynamicListBuilder':
+        return () => import('./dynamic-list-builder')
+      default:
+        return component
+    }
+  } else if (node.reply !== true && node.label) {
+    switch (node.label) {
+      case 'qrCode':
+        return () => import('./qrCode')
+      default:
+        return component
+    }
+  } else {
+    return component
   }
 }
 ```
 
-The above override function returns the `timeReply` component to use as the widget for any nodes labeled `interviewTime`, otherwise it returns the default component `component`.
+The above function is mapping widgets based on nodes' labels, and whether the node is a reply node or not. 
+
+::: warning
+If you do not handle a node, ensure that the default `component` parameter is returned. This will guarantee that all nodes are mapped to a widget. 
+:::
 
 
-### Difference between 
+### Override versus OverrideCurrent
+
+The 
