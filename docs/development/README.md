@@ -247,3 +247,35 @@ Some useful `VisualNode` properties include:<br/><br/>
 * `input` - The metadata surrounding an expected user-input such as the variable name and type
 * `reply` - Whether this node is a reply node or not
 * `args` - Additional metadata passed to this node in the UPIL script
+
+### Injected state
+
+## Form Mode
+
+As opposed to the [default Chat Mode](./#chatthemeplugin-component), form mode is an alternative way to present a UPIL script. Form mode presents a script as a completely dynamic form, that follows the business logic in the UPIL script to decide which information to present. A great usecase for form mode is to allow information that was gathered from a chat bot to be edited afterwards. Because form mode is merely an alternative way to interpret a UPIL script, the same script can be used for both chat mode and form mode. 
+
+<Figure caption="Form mode can take a standard UPIL script, and convert it into a dynamic form that a user can either fill out, or edit.">
+ <img src="./form_mode.png" alt="Form mode mapping">
+</Figure>
+
+You can start a upilInstance in form mode by passing in the `mode` and `resetOnInputUpdate` as follows:
+
+```js
+upil.startRaw(scenarioString, {
+  mode: 'form',
+  resetOnInputUpdate: true
+})
+```
+
+### Differences in behavior between form mode and chat mode
+
+There are two primary differences between the two modes: 
+1. Form mode attempts to show as many `VisualNode` as possible, whereas chat mode only shows a single node at a time. Form mode generally waits at a boolean expression in a script until the data which the boolean expression requires exists in the UPIL Core's state. 
+2. Form mode is non-linear, meaning it's possible to update user-input after it's already been set. The UPIL Core will reinterpret the script at that point, and update the `node[]` as necessary. 
+<br/><br/>
+
+Other differences:
+* In form mode, recursion is generally prevented by only allowing a `DIALOG` to be executed a single time. In chat mode, recursion can be used to return to earlier parts of a script if necessary.
+* Chat mode widgets generally send input to the UPIL Core when a user performs an explicit action like pressing the 'send' button. Form mode widgets should follow the standard conventions of forms, and send input to the UPIL core implicitly such as while a user is typing, on blur, or when some other final input condition is met. 
+
+### The 
