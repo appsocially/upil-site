@@ -278,4 +278,4 @@ Other differences:
 * In form mode, recursion is generally prevented by only allowing a `DIALOG` to be executed a single time. In chat mode, recursion can be used to return to earlier parts of a script if necessary.
 * Chat mode widgets generally send input to the UPIL Core when a user performs an explicit action like pressing the 'send' button. Form mode widgets should follow the standard conventions of forms, and send input to the UPIL core implicitly such as while a user is typing, on blur, or when some other final input condition is met. 
 
-### The 
+### The RawFormBot component
