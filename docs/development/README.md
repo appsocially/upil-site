@@ -80,12 +80,16 @@ const {input, nodes} = upilInstance.UpilStore.getState()
 * `input` - An object containing the state of variables and their values as key-value pairs
 * `nodes[]` - An array of `VisualNode`. These are stored in the array in the order that they have been interpreted in the script. Each node is meant to convey information to a user. 
 The Vue.js components use this array to build the UI.
-<br/><br/>
-As a user interacts with UPIL, the interpreter will continue to save state, and update `nodes[]`. In order to be notified of these changes, use the `upilInstance.UpilStore.subscribe` method, and pass in a function that you
+
+::: tip
+Why do we say that the `nodes[]` are composed of `VisualNode`? There are other non-visual nodes used by UPIL such as actions, dialogs, groups, and boolean expressions. These exist in the event stream, but are filtered for your convenience so that it is easy to focus on mapping a UPIL script to a UI.
+:::
+
+As a user interacts with UPIL, the interpreter will continue to save state, and update its `nodes[]`. In order to be notified of these changes, use the `upilInstance.UpilStore.subscribe` method, and pass in a function that you
 want to be called each time the state changes.
 
 ```javascript
-upil.UpilStore.subscribe(() => {
+upilInstance.UpilStore.subscribe(() => {
   const {input, nodes} = upilInstance.UpilStore.getState()
   // ...do something with the state
 })
@@ -138,7 +142,7 @@ Basic example of `ChatThemePlugin` component usage:
     :override="override"
     :overrideCurrent="overrideCurrent"
     :upil="upil"
-    :avatar="TruffleLogo"
+    :avatar="Logo"
   />
 </template>
 
@@ -146,13 +150,20 @@ Basic example of `ChatThemePlugin` component usage:
 <script>
 import { ChatTheme } from '@appsocially/vue-upil-plugin'
 const { ChatThemePlugin } = ChatTheme
+import Logo from './logo.png'
 
 export default {
   components: {
     ChatThemePlugin
     // rest of components....
   },
-  //...
+  data(){
+    return {
+      Logo,
+      // ...
+    }
+  },
+  // ...
 }
 </script>
 ```
