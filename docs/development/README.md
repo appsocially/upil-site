@@ -168,13 +168,11 @@ export default {
 </script>
 ```
 
-### Listeners prop
-
-The listeners prop expects an object whose keys are event names, and values are handler functions.
+The `listeners` prop expects an object whose keys are event names, and values are handler functions. The `override` and `overrideCurrent` props are functions which map between `VisualNodes` and Vue components or `widgets`. The `upil` props is a upilInstance. The `avatar` prop is an image which represents the chatbot's avatar in the Chat UI.
 
 ### Mapping nodes to widgets with override functions
 
-<Figure caption="Widgets mapped to standard and reply nodes are visualized in the chat history. The 'current' node is overridden seperately, to support custom user-input at the bottom of the chat UI">
+<Figure caption="Widgets mapped to standard and reply nodes are visualized in the chat history. The 'current' node is overridden seperately, to support custom user-input at the bottom of the Chat UI">
  <img src="./node-types.png" alt="Node overrides">
 </Figure>
 
@@ -192,7 +190,7 @@ Vue components that represent a `VisualNode` in the UI are called `widgets`. By 
 
 #### override vs overrideCurrent
 
-The `override` and `overrideCurrent` props that are passed to the `ChatThemePlugin` are funcions with identical signatures that receive a node, and can choose to map a Vue component to that node to be displayed in the chat UI. The `override` function is meant to define `widget` mapping in the chat history. The `overrideCurrent` function is meant to map the current node to a special widget that lives at the bottom of the chat UI and acts as the user-input. In this way, the UI can handle custom input types such as dates, colors, shapes, images, videos, etc. with custom widgets, in addition to standard input such as text and list-selection. 
+The `override` and `overrideCurrent` props that are passed to the `ChatThemePlugin` are funcions with identical signatures that receive a node, and can choose to map a Vue component to that node to be displayed in the Chat UI. The `override` function is meant to define `widget` mapping in the chat history. The `overrideCurrent` function is meant to map the current node to a special widget that lives at the bottom of the Chat UI and acts as the user-input. In this way, the UI can handle custom input types such as dates, colors, shapes, images, videos, etc. with custom widgets, in addition to standard input such as text and list-selection. 
 
 ### Override function signature
 
@@ -237,7 +235,15 @@ The above function is mapping widgets based on nodes' labels, and whether the no
 If you do not handle a node, ensure that the default `component` parameter is returned. This will guarantee that all nodes are mapped to a widget. 
 :::
 
+### ChatThemePlugin Widgets
 
-### Override versus OverrideCurrent
+Widgets are Vue components that represent a `VisualNode` in the Chat UI. The `ChatThemePlugin` component will dynamically instantiate widgets in the appropriate place in the Chat UI using the override function mapping. Each override widget receives the `VisualNode` properties, and the `upilInstance` as top-level props. In addition, nodes which expect user-input receive a `sendInput` function to send user-input to the UPIL Core. 
 
-The 
+Some useful `VisualNode` properties include:<br/><br/>
+
+* `text` - The text that a UPIL script has associated with a node
+* `label` - The label assigned to a node in the UPIL script
+* `options` - The options given to a `SELECT` or `MULTI_SELECT` node
+* `input` - The metadata surrounding an expected user-input such as the variable name and type
+* `reply` - Whether this node is a reply node or not
+* `args` - Additional metadata passed to this node in the UPIL script
