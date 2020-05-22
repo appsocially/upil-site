@@ -170,7 +170,7 @@ export default {
 
 The `listeners` prop expects an object whose keys are event names, and values are handler functions. The `override` and `overrideCurrent` props are functions which map between `VisualNodes` and Vue components or `widgets`. The `upil` props is a upilInstance. The `avatar` prop is an image which represents the chatbot's avatar in the Chat UI.
 
-### Mapping nodes to widgets with override functions
+### Widget mapping in override functions
 
 <Figure caption="Widgets mapped to standard and reply nodes are visualized in the chat history. The 'current' node is overridden seperately, to support custom user-input at the bottom of the Chat UI">
  <img src="./node-types.png" alt="Node overrides">
@@ -239,7 +239,8 @@ If you do not handle a node, ensure that the default `component` parameter is re
 
 Widgets are Vue components that represent a `VisualNode` in the Chat UI. The `ChatThemePlugin` component will dynamically instantiate widgets in the appropriate place in the Chat UI using the override function mapping. Each override widget receives the `VisualNode` properties, and the `upilInstance` as top-level props. In addition, nodes which expect user-input receive a `sendInput` function to send user-input to the UPIL Core. 
 
-Some useful `VisualNode` properties include:<br/><br/>
+<br/><br/>
+Some useful props from `VisualNode` include:
 
 * `text` - The text that a UPIL script has associated with a node
 * `label` - The label assigned to a node in the UPIL script
@@ -248,7 +249,32 @@ Some useful `VisualNode` properties include:<br/><br/>
 * `reply` - Whether this node is a reply node or not
 * `args` - Additional metadata passed to this node in the UPIL script
 
+<br/><br/>
+Other props:
+
+* `sendInput` - A function that expects to receive the input from a user. 
+* `upil` - The `upilInstance`
+
 ### Injected state
+
+Chat mode widgets can access the `upilInstance` state using injection:
+
+```js
+import { state } from '@appsocially/vue-upil-plugin'
+
+export default {
+  inject: {
+    state
+  },
+  computed: {
+    // access a variable called 'jobLink' in the upil input state
+    jobLink(){
+      return state.inputState.jobLink
+    }
+  }
+  // ...
+}
+```
 
 ## Form Mode
 
@@ -279,3 +305,50 @@ Other differences:
 * Chat mode widgets generally send input to the UPIL Core when a user performs an explicit action like pressing the 'send' button. Form mode widgets should follow the standard conventions of forms, and send input to the UPIL core implicitly such as while a user is typing, on blur, or when some other final input condition is met. 
 
 ### The RawFormBot component
+
+The `RawFormBot` component provides a minimally styled form which can be embedded in an application. It also communicates useful information to it's parent context via synced props such as whether its upilInstance is loading, and if there are any nodes with missing values. The `RawFormBot` component hides nodes that don't accept user input.
+
+```html
+ <RawFormBot
+    :upil="upil"
+    :isMissingValue.sync="isMissingValue"
+    :initializingUpil.sync="initializingUpil"
+  />
+
+```
+
+Props: 
+
+* `upil` - A form mode initialized `upilInstance`
+* `isMissingValue` - A boolean that is true if there are nodes which are missing user input
+* `initializingUpil` - True if the `upilInstance` is loading
+
+### Form mode widgets
+
+In form mode, there is no concept of a 'current' node like there is in chat mode. Currently, widget mapping occurs in the component itself:
+
+```js
+function `calculateComponent` ({ type, label }) {
+  const byTypeComponent = componentByType({ type }, null)
+  return componentByLabel({ label }, byTypeComponent)
+}
+```
+
+To add a new mapping, it should be added to `componentByLabel`, or a new function in case nodes need to be overriden on a property other than its label.
+
+<br/><br/>
+The props signature is also different from the widgets in chat mode:
+
+* `node` - The `VisualNode` being mapped to this widget
+* `state` - The input state of the `upilInstance`
+* `upil` - The `upilInstance`
+
+<br/><br/>
+User input is passed back to the `upilInstance` using its consume method. The consume function accepts two parameters: the `VisualNode` event and the user's input:
+```js
+upilInstance.upil.consume(node.event, userInput)
+```
+
+
+
+### Form mode specific text in UPIL scripts
