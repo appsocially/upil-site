@@ -376,19 +376,48 @@ Form mode widgets should be created with the assumption that the user-input they
 
 ### Form mode specific text in UPIL scripts
 
-By default, the `node.text` value passed to widgets is the same as a chat mode widget would receive. However, a script writer can use entity meta-data to pass form-mode-specific text to form mode widgets:
+By default, the `node.text` value passed to widgets is the same as a chat mode widget would receive. However, a script writer can use entity meta-data to pass form-mode-specific text to form mode widgets. The `formText` property allows node text to be overridden:
 
 <br/><br/>
 
-<FormMode>
+<UpilBot>
 ```
 DIALOG mainDialog
   TEMPLATE "Hi there!"
   TEMPLATE
+    {
+      formText: "First name"
+    }
     "What's your first name?"
     >>firstname
   /TEMPLATE
   TEMPLATE
+    {
+      formText: "Last name"
+    }
+    "What's your last name?"
+    >>lastname
+  /TEMPLATE
+/DIALOG
+RUN mainDialog
+```
+</UpilBot>
+
+<FormMode hideScript>
+```
+DIALOG mainDialog
+  TEMPLATE "Hi there!"
+  TEMPLATE
+    {
+      formText: "First name"
+    }
+    "What's your first name?"
+    >>firstname
+  /TEMPLATE
+  TEMPLATE
+    {
+      formText: "Last name"
+    }
     "What's your last name?"
     >>lastname
   /TEMPLATE

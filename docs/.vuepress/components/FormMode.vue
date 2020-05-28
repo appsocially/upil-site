@@ -4,7 +4,7 @@
     <div class="v-application v-application--is-ltr theme--light" data-app>
       <v-expansion-panels v-model="panel">
         <v-expansion-panel>
-          <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show example'}}</v-expansion-panel-header>
+          <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show form-mode example'}}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-btn text icon color="primary" class="mb-1" @click="start">
               <v-icon>mdi-refresh</v-icon>

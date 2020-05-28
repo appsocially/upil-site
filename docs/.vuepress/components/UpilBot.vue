@@ -5,7 +5,7 @@
     <div class="v-application v-application--is-ltr theme--light" data-app>
       <v-expansion-panels v-model="panel">
         <v-expansion-panel>
-          <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show example'}}</v-expansion-panel-header>
+          <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show chat-mode example'}}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-btn text icon color="primary" class="mb-1" @click="start">
               <v-icon>mdi-refresh</v-icon>
@@ -44,19 +44,19 @@
 </template>
 
 <script>
-import { UPILCore, ChatTheme } from '@appsocially/vue-upil-plugin'
-import Logo from '../public/logo.png'
-import listeners from './listeners'
-import { override } from './overrides'
+import { UPILCore, ChatTheme } from "@appsocially/vue-upil-plugin";
+import Logo from "../public/logo.png";
+import listeners from "./listeners";
+import { override } from "./overrides";
 
-const { ChatThemePlugin } = ChatTheme
+const { ChatThemePlugin } = ChatTheme;
 
 export default {
-  name: 'UpilBot',
+  name: "UpilBot",
   components: {
     ChatThemePlugin
   },
-  data () {
+  data() {
     return {
       upil: null,
       Logo,
@@ -65,55 +65,55 @@ export default {
       listeners,
       isReady: false,
       override
-    }
+    };
   },
   computed: {
-    isOpen(){
-      return this.panel === 0
-    },
+    isOpen() {
+      return this.panel === 0;
+    }
   },
   watch: {
-    isOpen(isOpen){
-      if(isOpen){
-        this.start()
+    isOpen(isOpen) {
+      if (isOpen) {
+        this.start();
       }
     }
   },
   props: {
     simple: {
       type: Boolean,
-      default: false,
+      default: false
     }
   },
   methods: {
-    getScenario(){
-      const preTag = this.$slots.default[0].children.find(c=>c.tag === 'pre')
-      const text = preTag.children[0].children[0].text
-      if(this.simple){
-        return `DIALOG mainDialog ${text} /DIALOG RUN a mainDialog /RUN`
-      }else{
-        return text
+    getScenario() {
+      const preTag = this.$slots.default[0].children.find(c => c.tag === "pre");
+      const text = preTag.children[0].children[0].text;
+      if (this.simple) {
+        return `DIALOG mainDialog ${text} /DIALOG RUN a mainDialog /RUN`;
+      } else {
+        return text;
       }
     },
     start() {
-        this.isReady = false
-        const scenario = this.getScenario()
-        this.upil = new UPILCore()
-        this.upil.startRaw(scenario)
-        this.$nextTick(()=>this.isReady = true)
+      this.isReady = false;
+      const scenario = this.getScenario();
+      this.upil = new UPILCore();
+      this.upil.startRaw(scenario);
+      this.$nextTick(() => (this.isReady = true));
     },
-    getLabelOverride(type){
-      switch(type){
-        case 'select':
-          return "Choose one"
-        case 'multi-select':
-          return "Please choose"
+    getLabelOverride(type) {
+      switch (type) {
+        case "select":
+          return "Choose one";
+        case "multi-select":
+          return "Please choose";
         default:
-          return null
+          return null;
       }
     }
-  },
-}
+  }
+};
 </script>
 
 <style scoped>
