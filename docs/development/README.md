@@ -100,7 +100,7 @@ upilInstance.UpilStore.subscribe(() => {
 Developers can register a hook using the `upilInstance.on(event, handler)` method. The `event` is a string which identifies which event to subscribe to, the `handler` is a function. The following events can be subscribed to:
 <br/><br/>
 
-* `preload-input` - Expects a handler which returns an object containing key-values to preload the state of the `upilInstance`
+* <a name="preload-input">`preload-input`</a> - Expects a handler which returns an object containing key-values to preload the state of the `upilInstance`
 * `scenario-start` - Runs at the beginning of a scenario. Ignores the handler's return object.
 * `scenario-end` - Runs at the end of a scenario. Ignores the handler's return object.
 * `scenario-end` - Runs at the end of a scenario.
@@ -302,7 +302,7 @@ There are two primary differences between the two modes:
 
 Other differences:
 * In form mode, recursion is generally prevented by only allowing a `DIALOG` to be executed a single time. In chat mode, recursion can be used to return to earlier parts of a script if necessary.
-* Chat mode widgets generally send input to the UPIL Core when a user performs an explicit action like pressing the 'send' button. Form mode widgets should follow the standard conventions of forms, and send input to the UPIL core implicitly such as while a user is typing, on blur, or when some other final input condition is met. 
+* Chat mode widgets generally send input to the UPIL Core when a user performs an explicit action like pressing the 'send' button. Form mode widgets don't have an explicit send button, so they should send input to the UPIL core implicitly such as while a user is typing, on blur, or when some other final input condition is met. 
 
 ### The RawFormBot component
 
@@ -349,6 +349,9 @@ User input is passed back to the `upilInstance` using its consume method. The co
 upilInstance.upil.consume(node.event, userInput)
 ```
 
+### Preloaded data
+
+Form mode is often used to edit or update answers originally gathered in chat mode. This means that the upil state will often be preloaded with gathered input. It's recommended to use the [preload-input](#preload-input) hook to accomplish this.
 
 
 ### Form mode specific text in UPIL scripts
