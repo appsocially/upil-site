@@ -100,7 +100,7 @@ upilInstance.UpilStore.subscribe(() => {
 Developers can register a hook using the `upilInstance.on(event, handler)` method. The `event` is a string which identifies which event to subscribe to, the `handler` is a function. The following events can be subscribed to:
 <br/><br/>
 
-* <a name="preload-input">`preload-input`</a> - Expects a handler which returns an object containing key-values to preload the state of the `upilInstance`
+* `preload-input` - Expects a handler which returns an object containing key-values to preload the state of the `upilInstance`
 * `scenario-start` - Runs at the beginning of a scenario. Ignores the handler's return object.
 * `scenario-end` - Runs at the end of a scenario. Ignores the handler's return object.
 * `scenario-end` - Runs at the end of a scenario.
@@ -323,6 +323,10 @@ Props:
 * `isMissingValue` - A boolean that is true if there are nodes which are missing user input
 * `initializingUpil` - True if the `upilInstance` is loading
 
+### Preloaded data
+
+Form mode is often used to edit or update answers originally gathered in chat mode. This means that the upil state will often be preloaded with gathered input. It's recommended to use the [preload-input](#lifecycle-hooks-and-event-listeners) hook to accomplish this. 
+
 ### Form mode widgets
 
 In form mode, there is no concept of a 'current' node like there is in chat mode. Currently, widget mapping occurs in the component itself:
@@ -349,9 +353,10 @@ User input is passed back to the `upilInstance` using its consume method. The co
 upilInstance.upil.consume(node.event, userInput)
 ```
 
-### Preloaded data
-
-Form mode is often used to edit or update answers originally gathered in chat mode. This means that the upil state will often be preloaded with gathered input. It's recommended to use the [preload-input](#preload-input) hook to accomplish this.
-
+Form mode widgets should be created with the assumption that the user-input they are requesting may already have been pre-loaded. This differs from chat mode 'current' widgets which generally don't need to handle pre-loaded values.
 
 ### Form mode specific text in UPIL scripts
+
+By default, the `node.text` value passed to widgets is the same as a chat mode widget would receive. However, a script writer can use entity meta-data to pass form-mode-specific text to form mode widgets:
+
+<br/><br/>
