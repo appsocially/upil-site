@@ -310,6 +310,104 @@ upil.startRaw(scenarioString, {
 });
 ```
 
+<br/><br/>
+
+Bewlow is an example comparison between form mode and chat mode. Notice form mode ignores entities with no user input, and dynamically updates itself if the user goes back and changes values:
+
+<UpilBot>
+```
+DIALOG mainDialog
+  TEMPLATE "Welcome to our job application bot!"
+  TEMPLATE
+    {
+      formText: "First name"
+    }
+    "What's your first name?"
+    >>firstname
+  /TEMPLATE
+  TEMPLATE
+    {
+      formText: "Last name"
+    }
+    "What's your last name?"
+    >>lastname
+  /TEMPLATE
+  SELECT
+    "${firstname} ${lastname}, what job do you want to apply for?"
+    -"Janitor"
+    -"Chef"
+    >>selectedJob
+  /SELECT
+  IF selectedJob == "Janitor"
+    TEMPLATE
+      {
+        formText: "Favorite vacuum"
+      }
+      "What is your favorite brand of vacuum?"
+      >>favoriteVacuum
+    /TEMPLATE
+    ELSE
+      TEMPLATE
+      {
+        formText: "Favorite dish"
+      }
+      "What is your favorite dish to make?"
+      >>favoriteDish
+    /TEMPLATE
+  /IF
+  TEMPLATE "Thank you for your application!"
+/DIALOG
+RUN mainDialog
+```
+</UpilBot>
+
+<FormMode hideScript>
+```
+DIALOG mainDialog
+  TEMPLATE "What is your name?"
+  TEMPLATE
+    {
+      formText: "First name"
+    }
+    "What's your first name?"
+    >>firstname
+  /TEMPLATE
+  TEMPLATE
+    {
+      formText: "Last name"
+    }
+    "What's your last name?"
+    >>lastname
+  /TEMPLATE
+  SELECT
+    "${firstname} ${lastname}, what job do you want to apply for?"
+    -"Janitor"
+    -"Chef"
+    >>selectedJob
+  /SELECT
+  IF selectedJob == "Janitor"
+    TEMPLATE
+      {
+        formText: "Favorite vacuum"
+      }
+      "What is your favorite brand of vacuum?"
+      >>favoriteVacuum
+    /TEMPLATE
+    ELSE
+      TEMPLATE
+      {
+        formText: "Favorite dish"
+      }
+      "What is your favorite dish to make?"
+      >>favoriteDish
+    /TEMPLATE
+  /IF
+  TEMPLATE "Thank you for your application!"
+/DIALOG
+RUN mainDialog
+```
+</FormMode>
+
 ### Differences in behavior between form mode and chat mode
 
 There are two primary differences between the two modes:
