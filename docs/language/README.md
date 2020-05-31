@@ -11,7 +11,9 @@ Most entities have the following structure:
   <Entity Contents>
 /<Entity Name>
 ```
+
 For example:
+
 ```
 TEMPLATE myLabel
   "Message to user"
@@ -19,12 +21,15 @@ TEMPLATE myLabel
 ```
 
 `EXTERNAL`, `RUN`, and `ACTION` entities have a simpler structure:
+
 ```
 EXTERNAL currentTemp
 ```
+
 ```
 ACTION sendEmail
 ```
+
 ```
 RUN main
 ```
@@ -32,11 +37,13 @@ RUN main
 `TEMPLATE` entites also have a simple version:
 
 Text only:
+
 ```
 TEMPLATE "Hi there"
 ```
 
 Label only:
+
 ```
 TEMPLATE overrideThis
 ```
@@ -46,6 +53,7 @@ TEMPLATE overrideThis
 User interaction is performed using three main entities: `TEMPLATE`, `SELECT`, and `MULTI_SELECT`. All three entities can save user input to a variable with the `>>myVariable` syntax. This allows the user input to be referenced and used later on in the scenario.
 
 ### Template
+
 A `TEMPLATE` entity is for displaying text to a user. `TEMPLATE`s can also request a user's input.
 
 `TEMPLATE` for greeting the user with the text "Hi there!":
@@ -70,6 +78,7 @@ TEMPLATE
 ### Selects
 
 #### SELECT
+
 A `SELECT` is used to request the user to select a single choice from a list of choices. It requires the user input to be saved to a variable.
 
 <UpilBot simple>
@@ -85,6 +94,7 @@ SELECT
 </UpilBot>
 
 #### MULTI_SELECT
+
 A `MULTI_SELECT` is similar to a `SELECT`, only it allows users to select more than one choice from a list
 
 <UpilBot simple>
@@ -104,6 +114,7 @@ MULTI_SELECT
 There are several ways to write options in a `SELECT` or `MULTI_SELECT`
 
 ##### Default case
+
 ```
 -("Color red", "red")
 ```
@@ -111,6 +122,7 @@ There are several ways to write options in a `SELECT` or `MULTI_SELECT`
 The default case presents the user with an option `Color red`, while saving `red` in the select's variable.
 
 ##### Simplified case
+
 ```
 - "Red"
 ```
@@ -122,16 +134,19 @@ The simplified version would use `Red` both for the option text, and the value s
 The value of an option can be a `literal` such as a string, number, or boolean:
 
 String:
+
 ```
 -("Color red", "red")
 ```
 
 Number:
+
 ```
 -("Five cars", 5)
 ```
 
 Boolean:
+
 ```
 -("Call taxi", true)
 ```
@@ -139,6 +154,7 @@ Boolean:
 The value of an option can also come from a variable. This is specified by using a variable name without quotes. If the variable doesn't exist, then the UPIL engine will assume it should use the variable name as a string value.
 
 Variable:
+
 ```
 -("My car", usersCar)
 ```
@@ -151,14 +167,13 @@ Here is an example of using the above variable case:
 EXTERNAL usersCar
 
 DIALOG main
-  SELECT
-  "Which car do you want?"
-    -("My car", usersCar)
-    -("Default", "honda accord")
-    >>carSelection
-  /SELECT
+SELECT
+"Which car do you want?"
+-("My car", usersCar)
+-("Default", "honda accord") >>carSelection
+/SELECT
 
-  TEMPLATE "Have fun driving a ${carSelection}"
+TEMPLATE "Have fun driving a \${carSelection}"
 /DIALOG
 
 RUN main
@@ -170,7 +185,7 @@ If the value of the `EXTERNAL` was set to "ferrari", then when a user chooses th
 
 ## Scenario Flow
 
-UPIL scenarios have a simple structure. `DIALOG`, and `RUN` entities are two of the three entities that can exist at the top level of a document (`EXTERNAL` being the third). 
+UPIL scenarios have a simple structure. `DIALOG`, and `RUN` entities are two of the three entities that can exist at the top level of a document (`EXTERNAL` being the third).
 <br><br>
 `DIALOG` is a container for other entities. The UPIL engine runs entities from top to bottom inside of a `DIALOG`. However the order of `DIALOG` entities inside of a scenario doesn't matter. Instead, `DIALOG` to start a scenario at is specified by the scenario writer with the `RUN` command. After that, other `DIALOG` entities will only be used if they are referred to by embed `...dialogName` calls.
 
@@ -180,16 +195,18 @@ A `DIALOG` is a container that most entities must be wrapped in. The UPIL Engine
 
 <UpilBot>
 ```
+
 DIALOG main
-  TEMPLATE "I'm first"
-  TEMPLATE "I'm second"
-  TEMPLATE "I'm third"
+TEMPLATE "I'm first"
+TEMPLATE "I'm second"
+TEMPLATE "I'm third"
 /DIALOG
 RUN main
-```
+
+````
 </UpilBot>
 
-A `DIALOG` can hold `TEMPLATE`, `SELECT`, `MULTI_SELECT`, `IF/ELIF/ELSE`, `ACTION`, and even other `DIALOG` entities. 
+A `DIALOG` can hold `TEMPLATE`, `SELECT`, `MULTI_SELECT`, `IF/ELIF/ELSE`, `ACTION`, and even other `DIALOG` entities.
 
 #### Dialog Embedding
 Using the `...<dialogLabel>` sytax, a `DIALOG` can embed another `DIALOG` inside of itself:
@@ -210,10 +227,11 @@ DIALOG getUserName
 /DIALOG
 
 RUN main
-```
+````
+
 </UpilBot>
 
-A `DIALOG` can be embedded in as many other `DIALOG`s as you want. The order of `DIALOG`s don't matter. 
+A `DIALOG` can be embedded in as many other `DIALOG`s as you want. The order of `DIALOG`s don't matter.
 
 ### Run
 
@@ -232,12 +250,13 @@ DIALOG B
 /DIALOG
 
 DIALOG A
-  TEMPLATE
-    "Hi from A"
-  /TEMPLATE
+TEMPLATE
+"Hi from A"
+/TEMPLATE
 /DIALOG
 
 RUN A
+
 ```
 </UpilBot>
 
@@ -245,23 +264,25 @@ Start at dialog `B`:
 
 <UpilBot>
 ```
+
 DIALOG B
-  TEMPLATE
-    "Hi from B"
-  /TEMPLATE
+TEMPLATE
+"Hi from B"
+/TEMPLATE
 /DIALOG
 
 DIALOG A
-  TEMPLATE
-    "Hi from A"
-  /TEMPLATE
+TEMPLATE
+"Hi from A"
+/TEMPLATE
 /DIALOG
 
 RUN B
-```
+
+````
 </UpilBot>
 
-## Scenario Logic 
+## Scenario Logic
 UPIL contains several features that can be used to conditionally hide or show parts of a scenario.  This allows you to dynamically adjust a scenario to user-input and/or external data.
 
 ### Conditional logic
@@ -296,13 +317,16 @@ DIALOG main
 /DIALOG
 
 RUN main
-```
+````
+
 </UpilBot>
 
 ### Boolean Expressions
+
 UPIL allows you to use boolean expressions with `IF`/`ELIF`/`ELSE` conditional logic to hide/show parts of a scenario, or to choose which 'branch' to take.
 
 #### Boolean comparators
+
 The following comparators can be used with mixes of variables and literals:
 
 `==`, `>`, `<`, `>=`, `<=`
@@ -316,6 +340,7 @@ True if the variable `currentTemp` is greater or equal to the number `25`.
 True if the variable `car` is equal to the string `toyota`
 
 #### Boolean operators
+
 The following logical operators allow you to combine several boolean statements together:
 
 `AND`, `NOT`, `OR`, `()`
@@ -330,7 +355,7 @@ Using `OR` and `NOT`:<br>
 
 ## Application communication
 
-UPIL includes three features to make it easy to communicate between a scenario and an application which utilizes UPIL: `EXTERNAL` and `ACTION` entities, and entity labels. These features allow a scenario writer to use high-level concepts, which a developer can then hook up to arbitrarily complex implementations. Ideally even after the implementation has been created, the scenario writer can freely update their scenario without having to rely on a developer to update the implementation. 
+UPIL includes three features to make it easy to communicate between a scenario and an application which utilizes UPIL: `EXTERNAL` and `ACTION` entities, and entity labels. These features allow a scenario writer to use high-level concepts, which a developer can then hook up to arbitrarily complex implementations. Ideally even after the implementation has been created, the scenario writer can freely update their scenario without having to rely on a developer to update the implementation.
 
 ### External
 
@@ -343,13 +368,14 @@ Basic example:
 EXTERNAL currentTime
 
 DIALOG A
-  TEMPLATE
-    "The current time is ${currentTime}"
-  /TEMPLATE
+TEMPLATE
+"The current time is \${currentTime}"
+/TEMPLATE
 /DIALOG
 
 RUN A
-```
+
+````
 </UpilBot>
 
 This example registers a hook in the Engine that a developer must use to prepare data that a scenario requires. This example's implementation saves either 'cloudy', 'sunny', or 'rainy' to the `weather` variable before the scenario begins:
@@ -372,12 +398,13 @@ DIALOG weatherExplanation
 /DIALOG
 
 RUN weatherExplanation
-```
+````
+
 </UpilBot>
 
 ### Action
 
-An `ACTION` allows scenario writers to request that a side-effect happens in the implementation. This can include saving data, sending messages such as emails or push notifications, or making calls to external services. Unlike `EXTERNAL`, an `ACTION` cannot save its result in a variable. An `ACTION` must be placed inside of a `DIALOG`. When the Engine reaches an `ACTION` in the scenario, it tells the implementation about it. The implementation can decide whether or not to delay the scenario until the `ACTION` is complete. An example usecase for an `ACTION` is sending an email or a push message at a specific point in the scenario.
+An `ACTION` allows scenario writers to request that a side-effect happens in the implementation. This can include saving data, sending messages such as emails or push notifications, or making calls to external services. Actions can be used to make a call with variables gathered by the script, and can save the result in a variable itself. An `ACTION` must be placed inside of a `DIALOG`. When the Engine reaches an `ACTION` in the scenario, it tells the implementation about it. The implementation can decide whether or not to delay the scenario until the `ACTION` is complete. An example usecase for an `ACTION` is sending an email or a push message at a specific point in the scenario.
 
 <UpilBot>
 ```{12}
@@ -400,14 +427,40 @@ DIALOG rainy
 /DIALOG
 
 RUN rainy
+
+````
+</UpilBot>
+
+<UpilBot>
 ```
+DIALOG rainy
+  TEMPLATE
+    "What word would you like to look up?"
+    >>lookupWord
+  /TEMPLATE
+  ACTION lookupDefinition
+    {
+      lookupWord
+    }
+    >>wordDefinition
+  /ACTION
+  IF wordDefinition == null
+    TEMPLATE "Sorry, I could not find a definition for '${lookupWord}'"
+  ELSE
+    TEMPLATE "The definition of ${lookupWord} is '${wordDefinition}'"
+  /IF
+/DIALOG
+
+RUN rainy
+````
+
 </UpilBot>
 
 ### Labels
 
-Labels are required in many cases, such as when using an `ACTION` entity or when referring to a `DIALOG` from a `RUN` entity.  There are many cases however where optional labels are useful as well, for communicating with an underlying implementation.
+Labels are required in many cases, such as when using an `ACTION` entity or when referring to a `DIALOG` from a `RUN` entity. There are many cases however where optional labels are useful as well, for communicating with an underlying implementation.
 
-Labels can be applied to a `TEMPLATE`, `SELECT`, or `MULTI_SELECT` entity in order to override the default behavior for a specific entity. For instance, instead of just showing text, an application may want to substitute in a complex widget such as a map, or a data table. By agreeing on a label name and overriding an entity when that name appears, scenario writers and developers can work together to create much more complex interactions than is possible with just exchanging text. 
+Labels can be applied to a `TEMPLATE`, `SELECT`, or `MULTI_SELECT` entity in order to override the default behavior for a specific entity. For instance, instead of just showing text, an application may want to substitute in a complex widget such as a map, or a data table. By agreeing on a label name and overriding an entity when that name appears, scenario writers and developers can work together to create much more complex interactions than is possible with just exchanging text.
 
 Here is an example where the implementation is waiting to override an entity with the label `brandImage` with an embedded image of their brand in addition to the text:
 
@@ -421,12 +474,13 @@ DIALOG welcome
 /DIALOG
 
 RUN welcome
-```
+
+````
 </UpilBot>
 
 ### Variables
 
-Variables are where user input and input from `EXTERNAL` entities are stored. 
+Variables are where user input and input from `EXTERNAL` entities are stored.
 
 Example variable called `name`:
 ```{3}
@@ -434,9 +488,9 @@ TEMPLATE
   "What is your name?"
   >>name
 /TEMPLATE
-```
+````
 
-All variables are stored in a global namespace. This means if a single variable name is used multiple times, it will be overwritten each time. This also means that if a `DIALOG` is called multiple times from different parts of a scenario, variables created inside of it will be overwritten each time they are set. 
+All variables are stored in a global namespace. This means if a single variable name is used multiple times, it will be overwritten each time. This also means that if a `DIALOG` is called multiple times from different parts of a scenario, variables created inside of it will be overwritten each time they are set.
 
 Example of variable `someVariable` being overwritten:
 
@@ -459,5 +513,7 @@ DIALOG varTest
 /DIALOG
 
 RUN varTest
+
 ```
 </UpilBot>
+```
