@@ -9,7 +9,8 @@
     "build": "vuepress build docs"
   },
   "dependencies": {
-    "@appsocially/vue-upil-plugin": "^2.6.4",
+    "@appsocially/userpil-core": "^1.1.6",
+    "@appsocially/vue-upil": "^0.1.5",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-server-renderer": "2.6.11",
@@ -28,6 +29,7 @@
     "vuepress": "^1.5.0"
   },
   "resolutions": {
-    "watchpack": "1.6.1"
+    "watchpack": "1.6.1",
+    "ajv": "6.10.0"
   }
 }

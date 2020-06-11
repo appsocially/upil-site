@@ -15,7 +15,7 @@
               :elevation="3"
               v-if="isReady"
             >
-              <RawFormBot
+              <RawFormMode
                 :upil="upil"
                 :isMissingValue.sync="isMissingValue"
                 :initializingUpil.sync="initializingUpil"
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import { UPILCore } from "@appsocially/vue-upil-plugin";
-import RawFormBot from "./formMode/rawFormBot";
+import { UPILCore } from "@appsocially/userpil-core";
+import { FormMode } from "@appsocially/vue-upil";
 
 export default {
   name: "FormMode",
   components: {
-    RawFormBot
+    RawFormMode: FormMode //Rename to prevent recursion in vuepress
   },
   props: {
     simple: {

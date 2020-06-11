@@ -16,7 +16,7 @@
               :elevation="3"
               v-if="isReady"
             >
-              <ChatThemePlugin
+              <ChatMode
                 removeBottomBar
                 :upil="upil"
                 :avatar="Logo"
@@ -34,7 +34,7 @@
                     />
                   </div>
                 </template>
-              </ChatThemePlugin>
+              </ChatMode>
             </v-sheet>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -44,17 +44,18 @@
 </template>
 
 <script>
-import { UPILCore, ChatTheme } from "@appsocially/vue-upil-plugin";
+import { UPILCore } from "@appsocially/userpil-core";
+import { ChatBot } from "@appsocially/vue-upil";
 import Logo from "../public/logo.png";
 import listeners from "./listeners";
 import { override } from "./overrides";
 
-const { ChatThemePlugin } = ChatTheme;
+const { ChatMode } = ChatBot;
 
 export default {
   name: "UpilBot",
   components: {
-    ChatThemePlugin
+    ChatMode
   },
   data() {
     return {

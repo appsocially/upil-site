@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import selfIntroduction from './robot.png'
-import { ChatTheme } from '@appsocially/vue-upil-plugin'
+import selfIntroduction from "./robot.png";
+import { ChatBot } from "@appsocially/vue-upil";
 
-const { TextBubble } = ChatTheme
+const { TextBubble } = ChatBot;
 export default {
   components: {
     TextBubble
@@ -28,11 +28,11 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       selfIntroduction
-    }
-  },
-}
+    };
+  }
+};
 </script>
 
