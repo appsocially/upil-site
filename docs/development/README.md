@@ -155,7 +155,7 @@ The ChatMode is a component that maps a scenario to a standard-looking chat appl
  <img src="./visualnode-ui-mapping.png" alt="Scenario to Chat UI Mapping">
 </Figure>
 
-Basic example of `ChatThemePlugin` component usage:
+Basic example of `ChatMode` component usage:
 
 ```html
 // Vue sfc component
@@ -178,7 +178,7 @@ Basic example of `ChatThemePlugin` component usage:
 
   export default {
     components: {
-      ChatThemePlugin,
+      ChatMode,
       // rest of components....
     },
     data() {
@@ -215,7 +215,7 @@ Vue components that represent a `VisualNode` in the UI are called `widgets`. By 
 
 #### override vs overrideCurrent
 
-The `override` and `overrideCurrent` props that are passed to the `ChatThemePlugin` are funcions with identical signatures that receive a node, and can choose to map a Vue component to that node to be displayed in the Chat UI. The `override` function is meant to define `widget` mapping in the chat history. The `overrideCurrent` function is meant to map the current node to a special widget that lives at the bottom of the Chat UI and acts as the user-input. In this way, the UI can handle custom input types such as dates, colors, shapes, images, videos, etc. with custom widgets, in addition to standard input such as text and list-selection.
+The `override` and `overrideCurrent` props that are passed to the `ChatMode` are funcions with identical signatures that receive a node, and can choose to map a Vue component to that node to be displayed in the Chat UI. The `override` function is meant to define `widget` mapping in the chat history. The `overrideCurrent` function is meant to map the current node to a special widget that lives at the bottom of the Chat UI and acts as the user-input. In this way, the UI can handle custom input types such as dates, colors, shapes, images, videos, etc. with custom widgets, in addition to standard input such as text and list-selection.
 
 ### Override function signature
 
@@ -260,9 +260,9 @@ The above function is mapping widgets based on nodes' labels, and whether the no
 If you do not handle a node, ensure that the default `component` parameter is returned. This will guarantee that all nodes are mapped to a widget.
 :::
 
-### ChatThemePlugin Widgets
+### ChatMode Widgets
 
-Widgets are Vue components that represent a `VisualNode` in the Chat UI. The `ChatThemePlugin` component will dynamically instantiate widgets in the appropriate place in the Chat UI using the override function mapping. Each override widget receives the `VisualNode` properties, and the `upilInstance` as top-level props. In addition, nodes which expect user-input receive a `sendInput` function to send user-input to the UPIL Core.
+Widgets are Vue components that represent a `VisualNode` in the Chat UI. The `ChatMode` component will dynamically instantiate widgets in the appropriate place in the Chat UI using the override function mapping. Each override widget receives the `VisualNode` properties, and the `upilInstance` as top-level props. In addition, nodes which expect user-input receive a `sendInput` function to send user-input to the UPIL Core.
 
 <br/><br/>
 Some useful props from `VisualNode` include:
@@ -303,7 +303,7 @@ export default {
 
 ## Form Mode
 
-As opposed to the [default Chat Mode](./#chatthemeplugin-component), form mode is an alternative way to present a UPIL script. Form mode presents a script as a completely dynamic form, that follows the business logic in the UPIL script to decide which information to present. A great usecase for form mode is to allow information that was gathered from a chat bot to be edited afterwards. Because form mode is merely an alternative way to interpret a UPIL script, the same script can be used for both chat mode and form mode.
+As opposed to the [default Chat Mode](./#chatmode-component), form mode is an alternative way to present a UPIL script. Form mode presents a script as a completely dynamic form, that follows the business logic in the UPIL script to decide which information to present. A great usecase for form mode is to allow information that was gathered from a chat bot to be edited afterwards. Because form mode is merely an alternative way to interpret a UPIL script, the same script can be used for both chat mode and form mode.
 
 <Figure caption="Form mode can take a standard UPIL script, and convert it into a dynamic form that a user can either fill out, or edit.">
  <img src="./form_mode.png" alt="Form mode mapping">
