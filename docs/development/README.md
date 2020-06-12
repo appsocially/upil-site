@@ -1,6 +1,13 @@
 # Vue Application development
 
-Generally, a developer working in an application framework such as Vue or React will setup an instance of `UPILCore`, and then pass that instance to a component which will translate an array of `VisualNode` `nodes[]` into visual elements, and handle user input.
+## Starter projects
+
+- See a `ChatMode` starter project here: [https://codesandbox.io/s/vue-upil-chat-mode-example-t4zxp](https://codesandbox.io/s/vue-upil-chat-mode-example-t4zxp)
+- See a `FormMode` starter project here: [https://codesandbox.io/s/vue-upil-form-mode-example-lkf2c](https://codesandbox.io/s/vue-upil-form-mode-example-lkf2c)
+
+## Introduction
+
+Generally, a Vue application developer will setup an instance of `UPILCore`, and then pass that instance to a component which will translate an array of `VisualNode` `nodes[]` into visual elements, and handle user input.
 <br/><br/>
 
 There are two different modes that a `UPILCore` can use to interpret a UPIL script. A chatbot-mode and a form-mode.
@@ -47,7 +54,7 @@ Finally, state can be pre-loaded into a `UPILCore` instance to influence the UPI
 Use the following pattern to instantiate a new `UPILCore` instance:
 
 ```javascript
-import { UPILCore } from "@appsocially/vue-upil-plugin";
+import { UPILCore } from "@appsocially/userpil-core";
 const upilInstance = new UPILCore();
 ```
 
@@ -139,9 +146,9 @@ const { input } = state; // Object containing key-value pairs for variables in t
 const inputValue = input[name]; // In an `input-update` event, get the user-input that triggered the event
 ```
 
-## ChatThemePlugin Component
+## ChatMode Component
 
-The ChatThemePlugin is a component that maps a scenario to a standard-looking chat application UI, where a user will be chatting with a 'bot' which is being driven by a UPIL scenario.
+The ChatMode is a component that maps a scenario to a standard-looking chat application UI, where a user will be chatting with a 'bot' which is being driven by a UPIL scenario.
 <br/><br/>
 
 <Figure caption="Visualization of how a scenario is mapped to a Chat UI. In this case, user input triggers the UPIL Core to update its state.">
@@ -150,10 +157,10 @@ The ChatThemePlugin is a component that maps a scenario to a standard-looking ch
 
 Basic example of `ChatThemePlugin` component usage:
 
-```javascript
+```html
 // Vue sfc component
 <template>
-  <ChatThemePlugin
+  <ChatMode
     v-if="ready"
     :listeners="listeners"
     :override="override"
@@ -163,25 +170,26 @@ Basic example of `ChatThemePlugin` component usage:
   />
 </template>
 
-
 <script>
-import { ChatTheme } from '@appsocially/vue-upil-plugin'
-const { ChatThemePlugin } = ChatTheme
-import Logo from './logo.png'
+  import { UPILCore } from "@appsocially/userpil-core";
+  import { ChatBot } from "@appsocially/vue-upil";
+  const { ChatMode } = ChatBot;
+  import Logo from "./logo.png";
 
-export default {
-  components: {
-    ChatThemePlugin
-    // rest of components....
-  },
-  data(){
-    return {
-      Logo,
-      // ...
-    }
-  },
-  // ...
-}
+  export default {
+    components: {
+      ChatThemePlugin,
+      // rest of components....
+    },
+    data() {
+      return {
+        Logo,
+        upil: new UPILCore(),
+        // ...
+      };
+    },
+    // ...
+  };
 </script>
 ```
 
@@ -277,7 +285,7 @@ Other props:
 Chat mode widgets can access the `upilInstance` state using injection:
 
 ```js
-import { state } from "@appsocially/vue-upil-plugin";
+import { state } from "@appsocially/vue-upil";
 
 export default {
   inject: {
