@@ -496,10 +496,13 @@ RUN mainDialog
 ## Listeners
 
 Lifecycle hooks and event handlers, which we call `listeners` in UPIL, allow an application to respond to UPIL events. This can include preparing the UPIL instance's state or performing side effects in response to user interaction.
+<br/><br/>
 
 See an example project which uses `ACTION` nodes and an `action` listener to call an external API and return data to the script: [Listeners Example Project](https://codesandbox.io/s/vue-upil-chat-mode-listeners-example-7bbyh)
+<br/><br/>
 
 Developers can register a hook using the `upilInstance.on(event, handler)` method. The `event` is a string which identifies which event to subscribe to, the `handler` is a function.
+<br/><br/>
 
 Alternatively, an object containing listeners can be passed to the `setupListeners` convenience function to register several at once:
 
