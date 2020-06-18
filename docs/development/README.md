@@ -107,45 +107,6 @@ upilInstance.UpilStore.subscribe(() => {
 });
 ```
 
-### Lifecycle hooks and event listeners
-
-Developers can register a hook using the `upilInstance.on(event, handler)` method. The `event` is a string which identifies which event to subscribe to, the `handler` is a function. The following events can be subscribed to:
-<br/><br/>
-
-- `preload-input` - Expects a handler which returns an object containing key-values to preload the state of the `upilInstance`
-- `scenario-start` - Runs at the beginning of a scenario. Ignores the handler's return object.
-- `scenario-end` - Runs at the end of a scenario. Ignores the handler's return object.
-- `scenario-end` - Runs at the end of a scenario.
-- `input-update` - Runs whenever the `consume` function of a `upilInstance` is called.
-- `external` - Runs when `EXTERNAL` nodes are found in a scenario. `EXTERNAL` nodes are used to request data be loaded into pre-defined variables before a scenario starts.
-
-The `handler` functions receive two arguments:
-
-```javascript
-(payload, preventDefault)=>{...}
-```
-
-The `payload` contains a `context` property, which lets you get the current state of the `upilInstance`, and an `event` property, which allows you to get the event type, and the node that triggered the event. A breakdown of the
-`payload` argument:
-
-```javascript
-const {
-  context: { store },
-  event: {
-    node: {
-      text,
-      type,
-      input: { name },
-      label,
-    },
-  },
-} = payload;
-const { mode } = payload.context.settings(); // Whether botmode or formmode
-const state = store.getState();
-const { input } = state; // Object containing key-value pairs for variables in the upilInstance
-const inputValue = input[name]; // In an `input-update` event, get the user-input that triggered the event
-```
-
 ## ChatMode Component
 
 The ChatMode is a component that maps a scenario to a standard-looking chat application UI, where a user will be chatting with a 'bot' which is being driven by a UPIL scenario.
@@ -531,3 +492,108 @@ DIALOG mainDialog
 RUN mainDialog
 ```
 </FormMode>
+
+## Listeners
+
+Lifecycle hooks and event handlers, which we call `listeners` in UPIL, allow an application to respond to UPIL events. This can include preparing the UPIL instance's state or performing side effects in response to user interaction.
+
+See an example project which uses `ACTION` nodes and an `action` listener to call an external API and return data to the script: [Listeners Example Project](https://codesandbox.io/s/vue-upil-chat-mode-listeners-example-7bbyh)
+
+Developers can register a hook using the `upilInstance.on(event, handler)` method. The `event` is a string which identifies which event to subscribe to, the `handler` is a function.
+
+Alternatively, an object containing listeners can be passed to the `setupListeners` convenience function to register several at once:
+
+```js
+import { setupListeners } from "@appsocially/vue-upil";
+import { UPILCore } from "@appsocially/userpil-core";
+
+const listeners = {
+  // ...listeners such as external, action, etc.
+};
+
+const upil = new UpilCore();
+
+setupListeners({ listeners, upil });
+```
+
+The following events can be subscribed to:
+<br/><br/>
+
+- `preload-input` - Expects a handler which returns an object containing key-values to preload the state of the `upilInstance`
+- `scenario-start` - Runs at the beginning of a scenario. Ignores the handler's return object.
+- `scenario-end` - Runs at the end of a scenario. Ignores the handler's return object.
+- `scenario-end` - Runs at the end of a scenario.
+- `input-update` - Runs whenever the `consume` function of a `upilInstance` is called.
+- `external` - Runs when `EXTERNAL` nodes are found in a scenario. `EXTERNAL` nodes are used to request data be loaded into pre-defined variables before a scenario starts.
+- `action` - Runs when `ACTION` nodes are found in a scenario. `ACTION` nodes are used to perform side-effects, or load data into variables mid-script.
+
+The `handler` functions receive two arguments:
+
+```javascript
+async function(payload, preventDefault)=>{...}
+```
+
+The `payload` contains a `context` property, which lets you get the current state of the `upilInstance`, and an `event` property, which allows you to get the event type, and the node that triggered the event. A breakdown of the
+`payload` argument:
+
+```javascript
+const {
+  context: { store },
+  event: {
+    node: {
+      text,
+      type,
+      input: { name },
+      label,
+    },
+  },
+} = payload;
+const { mode } = payload.context.settings(); // Whether botmode or formmode
+const state = store.getState();
+const { input } = state; // Object containing key-value pairs for variables in the upilInstance
+const inputValue = input[name]; // In an `input-update` event, get the user-input that triggered the event
+```
+
+### External listener
+
+The external handler will be called when a script requires variables to be loaded before running. Example externals in UPIL script and matching listener:
+
+<UpilBot>
+```
+EXTERNAL weather
+EXTERNAL currentTime
+
+DIALOG example
+  TEMPLATE "The current weather is ${weather}"
+  TEMPLATE "The current time is ${currentTime}"
+/DIALOG
+
+RUN example
+```
+</UpilBot>
+
+```js
+const listeners = {
+  async external(payload, preventDefault) {
+    preventDefault();
+    const { topic } = payload;
+    switch (topic) {
+      case "weather":
+        return resolveWeather();
+      case "currentTime":
+        return resolveCurrentTime();
+    }
+  },
+  // ... other listeners 
+}
+```
+::: warning
+You must call `preventDefault` in the `external` listener
+:::
+
+Using the topic variable in the payload, we can return a value based on the tag of the external being fulfilled. The `external` listener will be called once for each `EXTERNAL` node in the script. 
+
+### User-Input listener
+
+The user-input listener is called each time a the upilInstance is sent a new value for a variable. Using this listener, we can respond to user-input immediately. This can be useful for performing side-effects such as saving information on the fly, or calling analytics or other services.
+

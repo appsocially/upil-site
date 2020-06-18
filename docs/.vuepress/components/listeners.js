@@ -8,11 +8,11 @@ function resolveWeather() {
   const randomThird = getRandomInt(1, 4);
   switch (randomThird) {
     case 1:
-      resolve("cloudy");
+      return "cloudy";
     case 2:
-      resolve("sunny");
+      return "sunny";
     case 3:
-      resolve("rainy");
+      return "rainy";
   }
 }
 
