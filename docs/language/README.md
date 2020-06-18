@@ -173,7 +173,7 @@ SELECT
 -("Default", "honda accord") >>carSelection
 /SELECT
 
-TEMPLATE "Have fun driving a \${carSelection}"
+TEMPLATE "Have fun driving a ${carSelection}"
 /DIALOG
 
 RUN main
@@ -369,7 +369,7 @@ EXTERNAL currentTime
 
 DIALOG A
 TEMPLATE
-"The current time is \${currentTime}"
+"The current time is ${currentTime}"
 /TEMPLATE
 /DIALOG
 
