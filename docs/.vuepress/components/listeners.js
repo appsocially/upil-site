@@ -4,36 +4,41 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
 
+function resolveWeather() {
+  const randomThird = getRandomInt(1, 4);
+  switch (randomThird) {
+    case 1:
+      resolve("cloudy");
+    case 2:
+      resolve("sunny");
+    case 3:
+      resolve("rainy");
+  }
+}
+
+function resolveCurrentTime() {
+  const date = new Intl.DateTimeFormat("default", {
+    hour: "numeric",
+    minute: "numeric"
+  }).format(new Date());
+
+  return date;
+}
+
 export default {
-  "external-weather"(payload, preventDefault) {
-    return new Promise(async resolve => {
-      preventDefault();
-      const randomThird = getRandomInt(1, 4);
-      switch (randomThird) {
-        case 1:
-          resolve("cloudy");
-        case 2:
-          resolve("sunny");
-        case 3:
-          resolve("rainy");
-      }
-    });
-  },
-  "external-currentTime": (payload, preventDefault) => {
-    return new Promise(async resolve => {
-      preventDefault();
-      const date = new Intl.DateTimeFormat("default", {
-        hour: "numeric",
-        minute: "numeric"
-      }).format(new Date());
-      resolve(date);
-    });
-  },
-  "external-usersCar": (payload, preventDefault) => {
-    return new Promise(async resolve => {
-      preventDefault();
-      resolve("ferrari");
-    });
+  async external(payload, preventDefault) {
+    preventDefault();
+    const { topic } = payload;
+    switch (topic) {
+      case "weather":
+        return resolveWeather();
+      case "currentTime":
+        return resolveCurrentTime();
+      case "usersCar":
+        return "ferrari";
+      default:
+        return symbols.UNRESOLVED;
+    }
   },
   action: (payload, preventDefault) => {
     return new Promise(async resolve => {
