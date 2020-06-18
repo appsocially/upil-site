@@ -29,7 +29,6 @@
     "vuepress": "^1.5.0"
   },
   "resolutions": {
-    "watchpack": "1.6.1",
     "ajv": "6.10.0"
   }
 }
