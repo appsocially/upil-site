@@ -25,6 +25,41 @@ function resolveCurrentTime() {
   return date;
 }
 
+async function lookupDefinition(payload) {
+  const { args } = payload;
+  const response = await fetch(
+    `https://owlbot.info/api/v4/dictionary/${args.lookupWord}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token c8eb099deb57a74940226725672334ec09259393"
+      }
+    }
+  );
+  const rJson = await response.json();
+  const success = rJson && rJson.definitions;
+  const definition = success ? rJson.definitions[0].definition : null;
+  return definition;
+}
+
+async function getExchangeRate(payload) {
+  const {
+    args: { inputCurrencyCode }
+  } = payload;
+
+  const currencyCodeUpper = inputCurrencyCode.toUpperCase();
+  const fetchUrl = `https://api.exchangeratesapi.io/latest?base=USD&symbols=${currencyCodeUpper}`;
+  console.log("fetchUrl", fetchUrl);
+  const response = await fetch(fetchUrl, {
+    method: "GET"
+  });
+  const rJson = await response.json();
+  const rate = parseFloat(rJson["rates"][currencyCodeUpper]).toFixed(4);
+  return rate;
+}
+
 export default {
   async external(payload, preventDefault) {
     preventDefault();
@@ -40,34 +75,19 @@ export default {
         return symbols.UNRESOLVED;
     }
   },
-  action: (payload, preventDefault) => {
-    return new Promise(async resolve => {
-      preventDefault();
-      const {
-        args,
-        event: {
-          node: { label }
-        }
-      } = payload;
-
-      switch (label) {
-        case "lookupDefinition":
-          const response = await fetch(
-            `https://owlbot.info/api/v4/dictionary/${args.lookupWord}`,
-            {
-              method: "GET",
-              mode: "cors",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Token c8eb099deb57a74940226725672334ec09259393"
-              }
-            }
-          );
-          const rJson = await response.json();
-          const success = rJson && rJson.definitions;
-          const definition = success ? rJson.definitions[0].definition : null;
-          resolve(definition);
+  async action(payload, preventDefault) {
+    preventDefault();
+    const {
+      event: {
+        node: { label }
       }
-    });
+    } = payload;
+
+    switch (label) {
+      case "lookupDefinition":
+        return lookupDefinition(payload);
+      case "getExchangeRate":
+        return getExchangeRate(payload);
+    }
   }
 };

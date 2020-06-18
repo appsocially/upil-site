@@ -593,7 +593,104 @@ You must call `preventDefault` in the `external` listener
 
 Using the topic variable in the payload, we can return a value based on the tag of the external being fulfilled. The `external` listener will be called once for each `EXTERNAL` node in the script. 
 
-### User-Input listener
+### Input-Update listener
 
-The user-input listener is called each time a the upilInstance is sent a new value for a variable. Using this listener, we can respond to user-input immediately. This can be useful for performing side-effects such as saving information on the fly, or calling analytics or other services.
+The `input-update` listener is called each time a the upilInstance is sent a new value for a variable. Using this listener, we can respond to user-input immediately. This can be useful for performing side-effects such as saving information on the fly, or calling analytics or other services:
 
+```js
+const listeners = {
+  'input-update': async (payload, preventDefault) => {
+      preventDefault()
+
+      /**
+       * name - The name of the variable which was updated, triggering this input-update call
+       * label - The label of the node from the script, if any, whose variable was updated
+       * text - The text contained in the node whose variable was updated
+       * type - The type of the node whose variable was updated 
+       **/
+
+      const { context: { store }, event: { node: { text, type, input: { name }, label } } } = payload
+      const state = store.getState()
+      const { input } = state
+
+      // Value of user-input
+      const inputValue = input[name]
+
+      doSomethingWithUserInput(inputValue)
+    }
+  // ... other listeners
+}
+```
+
+::: warning
+You must call `preventDefault` in the `input-update` listener
+:::
+
+### Preload-Input listener
+
+The `preload-input` listener dumps an object's key-value pairs as variables and their values, into the state of a upilInstance. It is useful when populating the state of a upilInstance in conjunction with form-mode, so that the form is pre-completed. This prevents the need to include an `EXTERNAL` for each variable in the script. 
+
+```js
+const listeners = {
+  'preload-input': async () => {
+      return {
+        variableName: "variableValue"
+      }
+    },
+  // ... other listeners
+}
+```
+
+### Action listener
+
+An `action` listener has an identical signature to an `external` listener. One difference in usage is that `ACTION` nodes often  receive arguments (`EXTERNAL` nodes cannot pass arguments):
+
+<UpilBot>
+```
+DIALOG example
+  TEMPLATE
+    "What currency do you want me to get the exchange rate for (to USD)? (JPY, etc)"
+    >>inputCurrencyCode
+  /TEMPLATE
+  ACTION getExchangeRate
+    {
+      inputCurrencyCode
+    }
+    >>rate
+  /ACTION
+  TEMPLATE "The exchange rate is ${rate}"
+/DIALOG
+
+RUN example
+```
+</UpilBot>
+
+```js
+const listeners = {
+  async action(payload, preventDefault) {
+    preventDefault()
+    const {
+      // Get the label of the ACTION node
+      event: {
+        node: { label }
+      },
+      /**
+       * args - Arguments passed from an ACTION node can be accessed in the payload's 'args' property. 
+       **/
+      args: { inputCurrencyCode }
+    } = payload
+
+    switch (label) {
+      case "getExchangeRate":
+        return getExchangeRate(inputCurrencyCode)
+      case "calculateExchange":
+        return calculateExchange(payload)
+    }
+  },
+  // ... other listeners
+}
+```
+
+::: warning
+You must call `preventDefault` in the `action` listener
+:::
