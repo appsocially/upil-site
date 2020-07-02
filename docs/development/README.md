@@ -241,6 +241,16 @@ Other props:
 - `sendInput` - A function that expects to receive the input from a user.
 - `upil` - The `upilInstance`
 
+### SendInput function
+
+Widgets receive a `sendInput` function as a prop. This function is used to update the variable associated with the widget's underlying `VisualNode`. It accepts a single parameter. This function can be called zero or more times, and will cause an `input-update` event to be fired each time it is called.
+
+ * `template` - A template-widget can pass any object or primitve it wants via the `sendInput` function. If the widget passes a `String` to the function, then the default reply-node template widget will be able to display it. Otherwise, the developer should supply their own reply-node widget to properly format the contents stored in the input-state.
+
+ * `select` - A select-widget receives an array of options that the users can choose from. Each option is an object with the signature `{text, value}`. When a user chooses an option, its corresponding `value` should be passed into the `sendInput` funciton.
+
+ * `multi-select` - A multi-select widget works similarly to a select-widget. But instead of passing a single value, it should pass an array of `value` into the `sendInput` function.
+
 ### Injected state
 
 Chat mode widgets can access the `upilInstance` state using injection:
