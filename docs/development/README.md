@@ -108,7 +108,7 @@ upilInstance.UpilStore.subscribe(() => {
 ```
 ## Variable types
 
-Both ChatMode and FormMode can take advantage of variable types to validate user-input. For example, user-input validation when expecting an email address:
+Both ChatMode and FormMode can take advantage of variable types to validate user-input. This is implemented in the default template-widgets. For example, user-input validation when expecting an email address:
 
 <UpilBot>
 ```
@@ -141,6 +141,55 @@ DIALOG getEmail
 RUN getEmail
 ```
 </FormMode>
+
+Types are applied to variables with the `:typeName` added to the end of the variable name as seen in the above script. Types are passed to either ChatMode or FormMode using the `types` prop, which accepts an object with named arrays of rule-functions:
+<br/><br/>
+
+```html
+// Vue sfc component
+<template>
+  <ChatMode
+    :types="types"
+    //... rest of props
+  />
+</template>
+
+<script>
+  import { UPILCore } from "@appsocially/userpil-core";
+  import { ChatBot } from "@appsocially/vue-upil";
+  const { ChatMode } = ChatBot;
+
+  // Array of rule-functions
+  const emailValidationRules = [
+    value => (value && value.length > 0 ? true : 'Required'),
+    value => (email.validate(value) ? true : 'Invalid email address'),
+  ]
+
+  // Pass the array of email rule functions as the 'email' type
+  const types = {
+    email: emailValidationRules,
+  }
+
+  export default {
+    components: {
+      ChatMode,
+      // rest of components....
+    },
+    data() {
+      return {
+        types
+        // ...
+      };
+    },
+    // ...
+  };
+</script>
+```
+
+Each rule-function in a rules-array should return true if the rule is passing, or a string with the error-message if the value is invalid. The value is the current user-input.
+<br/><br/>
+
+If a custom-widget is being used, then that widget will receive the rules-array via the `rules` prop. The widget may then implement its own validation-display and behavior using those rules if it chooses to.
 
 ## ChatMode Component
 
