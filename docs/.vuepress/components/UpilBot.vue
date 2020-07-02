@@ -23,6 +23,7 @@
                 :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
                 :listeners="listeners"
                 :override="override"
+                :types="types"
               >
                 <template v-slot:external="{allNodes, currentNode, scenarioEnded}">
                   <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
@@ -31,6 +32,7 @@
                       v-bind="currentNode.node"
                       placeholderOverride="Type your answer here"
                       :labelOverride="getLabelOverride(currentNode.node.type)"
+                      :rules="calculateRules(currentNode)"
                     />
                   </div>
                 </template>
@@ -49,6 +51,16 @@ import { ChatBot } from "@appsocially/vue-upil";
 import Logo from "../public/logo.png";
 import listeners from "./listeners";
 import { override } from "./overrides";
+import { email } from "vee-validate/dist/rules";
+
+const emailValidationRules = [
+  value => (value && value.length > 0 ? true : "Required"),
+  value => (email.validate(value) ? true : "Invalid email address")
+];
+
+const types = {
+  email: emailValidationRules
+};
 
 const { ChatMode } = ChatBot;
 
@@ -65,7 +77,8 @@ export default {
       hasRun: false,
       listeners,
       isReady: false,
-      override
+      override,
+      types
     };
   },
   computed: {
@@ -111,6 +124,18 @@ export default {
           return "Please choose";
         default:
           return null;
+      }
+    },
+    calculateRules(currentNode) {
+      const hasInputType =
+        currentNode &&
+        currentNode.node &&
+        currentNode.node.input &&
+        currentNode.node.input.type;
+      if (hasInputType) {
+        return this.types[currentNode.node.input.type] || [];
+      } else {
+        return [];
       }
     }
   }

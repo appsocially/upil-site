@@ -106,6 +106,41 @@ upilInstance.UpilStore.subscribe(() => {
   // ...do something with the state
 });
 ```
+## Variable types
+
+Both ChatMode and FormMode can take advantage of variable types to validate user-input. For example, user-input validation when expecting an email address:
+
+<UpilBot>
+```
+DIALOG getEmail
+  TEMPLATE 
+    {
+      formText: "Email address"
+    }
+    "What's your email?"
+    >>email:email
+  /TEMPLATE
+  TEMPLATE "Thank you for your email (${email})"
+/DIALOG
+RUN getEmail
+```
+</UpilBot>
+
+<FormMode hideScript>
+```
+DIALOG getEmail
+  TEMPLATE 
+    {
+      formText: "Email address"
+    }
+    "What's your email?"
+    >>email:email
+  /TEMPLATE
+  TEMPLATE "Thank you for your email (${email})"
+/DIALOG
+RUN getEmail
+```
+</FormMode>
 
 ## ChatMode Component
 
