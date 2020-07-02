@@ -19,6 +19,7 @@
                 :upil="upil"
                 :isMissingValue.sync="isMissingValue"
                 :initializingUpil.sync="initializingUpil"
+                :types="types"
               />
             </v-sheet>
           </v-expansion-panel-content>
@@ -31,6 +32,16 @@
 <script>
 import { UPILCore } from "@appsocially/userpil-core";
 import { FormMode } from "@appsocially/vue-upil";
+import { email } from "vee-validate/dist/rules";
+
+const emailValidationRules = [
+  value => (value && value.length > 0 ? true : "Required"),
+  value => (email.validate(value) ? true : "Invalid email address")
+];
+
+const types = {
+  email: emailValidationRules
+};
 
 export default {
   name: "FormMode",
@@ -54,7 +65,8 @@ export default {
       upil: null,
       panel: null,
       hasRun: false,
-      isReady: false
+      isReady: false,
+      types
     };
   },
   computed: {
