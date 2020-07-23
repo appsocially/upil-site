@@ -260,7 +260,15 @@ Vue components that represent a `VisualNode` in the UI are called `widgets`. By 
 
 #### override vs overrideCurrent
 
-The `override` and `overrideCurrent` props that are passed to the `ChatMode` are funcions with identical signatures that receive a node, and can choose to map a Vue component to that node to be displayed in the Chat UI. The `override` function is meant to define `widget` mapping in the chat history. The `overrideCurrent` function is meant to map the current node to a special widget that lives at the bottom of the Chat UI and acts as the user-input. In this way, the UI can handle custom input types such as dates, colors, shapes, images, videos, etc. with custom widgets, in addition to standard input such as text and list-selection.
+The `override` and `overrideCurrent` props that are passed to the `ChatMode` are funcions with identical signatures that receive a node, and can choose to map a Vue component to that node to be displayed in the Chat UI. The `override` function is meant to define `widget` mapping in the chat history (Standard and Reply nodes). The `overrideCurrent` function is meant to map the current node to a special widget that lives at the bottom of the Chat UI and acts as the user-input. In this way, the UI can handle custom input types such as dates, colors, shapes, images, videos, etc. with custom widgets, in addition to standard input such as text and list-selection.
+
+#### Standard vs Reply nodes
+
+Standard nodes appear on the left-side of the chat as if they are coming from the 'bot'. Reply nodes are shown on the right-side of the chat as coming from the user of the application. 
+
+If information other than text such as video, images, or complex or dynamic visualizations needs to be displayed as coming from a bot, then creating a custom widget for a Standard Node is appropriate. Similarly, if a user is replying to the bot in a form that can't easily be represented as text, or is stored as an object or other encoded data, then a custom Reply Node widget is appropriate for visualizing their reply.
+
+The a Reply Node's widget will receive almost identical props as the original Standard Node that the reply is in response to. The only differences being that the top-level `reply` property will be `true` instead of `undefined`, and the Node's `event.value` will store the reply value passed to `upilCore`.
 
 ### Override function signature
 
@@ -316,6 +324,7 @@ Some useful props from `VisualNode` include:
 - `label` - The label assigned to a node in the UPIL script
 - `options` - The options given to a `SELECT` or `MULTI_SELECT` node
 - `input` - The metadata surrounding an expected user-input such as the variable name and type
+- `event` - The context for this Node's creation
 - `reply` - Whether this node is a reply node or not
 - `args` - Additional metadata passed to this node in the UPIL script
 
