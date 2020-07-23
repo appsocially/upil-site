@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@appsocially/userpil-core": "^1.1.6",
-    "@appsocially/vue-upil": "^0.1.7",
+    "@appsocially/vue-upil": "^0.1.9",
     "core-js": "^3.6.5",
     "vee-validate": "^3.3.7",
     "vue": "^2.6.11",

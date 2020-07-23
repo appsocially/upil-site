@@ -4,6 +4,7 @@
 
 - See a `ChatMode` starter project here: [https://codesandbox.io/s/vue-upil-chat-mode-example-t4zxp](https://codesandbox.io/s/vue-upil-chat-mode-example-t4zxp)
 - See a `FormMode` starter project here: [https://codesandbox.io/s/vue-upil-form-mode-example-lkf2c](https://codesandbox.io/s/vue-upil-form-mode-example-lkf2c)
+- See a `WizardMode` starter project here: [https://codesandbox.io/s/vue-upil-wizard-mode-example-j3qfs](https://codesandbox.io/s/vue-upil-wizard-mode-example-j3qfs)
 
 ## Introduction
 
@@ -108,19 +109,26 @@ upilInstance.UpilStore.subscribe(() => {
 ```
 ## Variable types
 
-Both ChatMode and FormMode can take advantage of variable types to validate user-input. This is implemented in the default template-widgets. For example, user-input validation when expecting an email address:
+ChatMode, FormMode, and WizardMode can take advantage of variable types to validate user-input. This is implemented in the default template-widgets. For example, user-input validation when expecting an email address:
 
 <UpilBot>
 ```
 DIALOG getEmail
+TEMPLATE 
+    {
+      formText: "Full Name"
+    }
+    "What's your full name?"
+    >>name
+  /TEMPLATE
   TEMPLATE 
     {
       formText: "Email address"
     }
-    "What's your email?"
+    "${name} please tell us your email address."
     >>email:email
   /TEMPLATE
-  TEMPLATE "Thank you for your email (${email})"
+  TEMPLATE "We'll send a verification email to you at ${email}, thanks!"
 /DIALOG
 RUN getEmail
 ```
@@ -129,18 +137,48 @@ RUN getEmail
 <FormMode hideScript>
 ```
 DIALOG getEmail
+TEMPLATE 
+    {
+      formText: "Full Name"
+    }
+    "What's your full name?"
+    >>name
+  /TEMPLATE
   TEMPLATE 
     {
       formText: "Email address"
     }
-    "What's your email?"
+    "${name} please tell us your email address."
     >>email:email
   /TEMPLATE
-  TEMPLATE "Thank you for your email (${email})"
+  TEMPLATE "We'll send a verification email to you at ${email}, thanks!"
 /DIALOG
 RUN getEmail
 ```
 </FormMode>
+
+<WizardMode hideScript>
+```
+DIALOG getEmail
+TEMPLATE 
+    {
+      formText: "Full Name"
+    }
+    "What's your full name?"
+    >>name
+  /TEMPLATE
+  TEMPLATE 
+    {
+      formText: "Email address"
+    }
+    "${name} please tell us your email address."
+    >>email:email
+  /TEMPLATE
+  TEMPLATE "We'll send a verification email to you at ${email}, thanks!"
+/DIALOG
+RUN getEmail
+```
+</WizardMode>
 
 Types are applied to variables with the `:typeName` added to the end of the variable name as seen in the above script. Types are passed to either ChatMode or FormMode using the `types` prop, which accepts an object with named arrays of rule-functions:
 <br/><br/>
