@@ -634,6 +634,19 @@ RUN mainDialog
 ```
 </FormMode>
 
+## Wizard Mode
+Wizard mode is an alternative method of visualizing a form. It takes form mode components, but displays them one at a time, like a traditional wizard. 
+<br>
+
+<Figure caption="Wizard mode displays form mode widgets one at a time.">
+ <img src="./wizard_mode.png" alt="Wizard mode mapping">
+</Figure>
+
+Since wizard mode is a re-skinning of form mode, it also behaves nearly identically. It filters out non-input nodes. It will show as many nodes as it can based on variable-dependencies (in the wizard-header at the top). Since wizard mode uses form mode widgets, they automatically send input to the UPILInstance without waiting for user-confirmation. Finally, a user can move forward and backwards through the wizard to edit their responses.
+
+### Differences with form mode
+Aside from showing a single widget at a time, the other major difference between wizard mode and form mode is that it shows both the `formText` and the default text to a user. The generally more-compact `formText` is used in the wizard's top header-bar. The default text is shown above the currently displayed widget. If there is no `formText`, the default text will be shown in the header-bar instead.
+
 ## Listeners
 
 Lifecycle hooks and event handlers, which we call `listeners` in UPIL, allow an application to respond to UPIL events. This can include preparing the UPIL instance's state or performing side effects in response to user interaction.
