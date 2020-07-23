@@ -647,6 +647,100 @@ Since wizard mode is a re-skinning of form mode, it also behaves nearly identica
 ### Differences with form mode
 Aside from showing a single widget at a time, the other major difference between wizard mode and form mode is that it shows both the `formText` and the default text to a user. The generally more-compact `formText` is used in the wizard's top header-bar. The default text is shown above the currently displayed widget. If there is no `formText`, the default text will be shown in the header-bar instead.
 
+<FormMode>
+```
+DIALOG mainDialog
+  TEMPLATE "What is your name?"
+  TEMPLATE
+    {
+      formText: "First name"
+    }
+    "What's your first name?"
+    >>firstname
+  /TEMPLATE
+  TEMPLATE
+    {
+      formText: "Last name"
+    }
+    "What's your last name?"
+    >>lastname
+  /TEMPLATE
+  SELECT
+    "${firstname} ${lastname}, what job do you want to apply for?"
+    -"Janitor"
+    -"Chef"
+    >>selectedJob
+  /SELECT
+  IF selectedJob == "Janitor"
+    TEMPLATE
+      {
+        formText: "Favorite vacuum"
+      }
+      "What is your favorite brand of vacuum?"
+      >>favoriteVacuum
+    /TEMPLATE
+    ELSE
+      TEMPLATE
+      {
+        formText: "Favorite dish"
+      }
+      "What is your favorite dish to make?"
+      >>favoriteDish
+    /TEMPLATE
+  /IF
+  TEMPLATE "Thank you for your application!"
+/DIALOG
+RUN mainDialog
+```
+</FormMode>
+
+<WizardMode hideScript>
+```
+DIALOG mainDialog
+  TEMPLATE "What is your name?"
+  TEMPLATE
+    {
+      formText: "First name"
+    }
+    "What's your first name?"
+    >>firstname
+  /TEMPLATE
+  TEMPLATE
+    {
+      formText: "Last name"
+    }
+    "What's your last name?"
+    >>lastname
+  /TEMPLATE
+  SELECT
+    "${firstname} ${lastname}, what job do you want to apply for?"
+    -"Janitor"
+    -"Chef"
+    >>selectedJob
+  /SELECT
+  IF selectedJob == "Janitor"
+    TEMPLATE
+      {
+        formText: "Favorite vacuum"
+      }
+      "What is your favorite brand of vacuum?"
+      >>favoriteVacuum
+    /TEMPLATE
+    ELSE
+      TEMPLATE
+      {
+        formText: "Favorite dish"
+      }
+      "What is your favorite dish to make?"
+      >>favoriteDish
+    /TEMPLATE
+  /IF
+  TEMPLATE "Thank you for your application!"
+/DIALOG
+RUN mainDialog
+```
+</WizardMode>
+
 ## Listeners
 
 Lifecycle hooks and event handlers, which we call `listeners` in UPIL, allow an application to respond to UPIL events. This can include preparing the UPIL instance's state or performing side effects in response to user interaction.
