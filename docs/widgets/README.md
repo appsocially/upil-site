@@ -81,3 +81,49 @@ DIALOG birthday
 RUN birthday
 ```
 </WizardMode>
+
+## Range
+
+::: warning
+The `range` widget is currently only available in form-mode based scripts
+:::
+
+The `range` widget lets users choose a number between `min` and `max` values that the scriptwriter chooses. The scriptwriter can also choose an optional `unit` label.
+<br/>
+<br/>
+
+<FormMode>
+```
+DIALOG range
+  TEMPLATE range
+    {
+      formText: "Minutes",
+      min: 10,
+      max: 20,
+      unit: "分"
+    }
+  "How long did it take?"
+  >>minutes
+  /TEMPLATE
+/DIALOG
+RUN range
+```
+</FormMode>
+
+<WizardMode hideScript>
+```
+DIALOG range
+  TEMPLATE range
+    {
+      formText: "Minutes",
+      min: 10,
+      max: 20,
+      unit: "分"
+    }
+  "How long did it take?"
+  >>minutes
+  /TEMPLATE
+/DIALOG
+RUN range
+```
+</WizardMode>
