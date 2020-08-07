@@ -18,10 +18,10 @@
     redux "^4.0.1"
     vue-loader "^15.7.1"
 
-"@appsocially/vue-upil@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-0.1.10.tgz#2bf01822be9c9ac5d4e9e8afc712697cba04efe7"
-  integrity sha512-LfZwU3R3RRPS2scU+B9c44BkOdOIwTHU5w8Rz95jG8G4rIUvgmKfdzxcQdtTtf5uM/Tqmi0E5sBPpVC5XhuSvw==
+"@appsocially/vue-upil@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-0.1.11.tgz#5f3843a5567640d09ffa35737b29dcedebe47c7e"
+  integrity sha512-iFYbhZTvVsQCEhtDaB54/2AM5hS7LKahmZLYbW25gIr96JUWhMYPzdKGPCznupfa9e1iFUFr4g3AX5VgCGQf5A==
   dependencies:
     core-js "^3.6.4"
     date-fns "^2.15.0"
@@ -11526,10 +11526,10 @@ vuepress@^1.5.0:
     opencollective-postinstall "^2.0.2"
     update-notifier "^4.0.0"
 
-vuetify@^2.2.26:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.3.1.tgz#8c5bdcb15ad7ca9ba2a206a26a65b34ec0ca6c0d"
-  integrity sha512-UdWcoM3MzTD/+o/uH745i5EyK8CluAEQclB41iegHQZmklQQMyBPrIF6BcED9rjV9iFjqeUaIh616T5NqoYr+Q==
+vuetify@^2.3.8:
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.3.8.tgz#4b468f0eaa780107d6a89249856e46f96e1e1bda"
+  integrity sha512-T754w4jV3eeuEwEfRTpHdlo76ZRUVTBeMMzVyqSEr61AfhDSYf9rJfHOlhfXG4aaQbZ34dRR48bzRiS4ICz2fQ==
 
 watchpack@1.6.1, watchpack@^1.6.1:
   version "1.6.1"
