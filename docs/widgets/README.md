@@ -94,7 +94,7 @@ The `range` widget lets users choose a number between `min` and `max` values tha
 
 <FormMode>
 ```
-DIALOG range
+DIALOG minutesQuestion
   TEMPLATE range
     {
       formText: "Minutes",
@@ -106,13 +106,13 @@ DIALOG range
   >>minutes
   /TEMPLATE
 /DIALOG
-RUN range
+RUN minutesQuestion
 ```
 </FormMode>
 
 <WizardMode hideScript>
 ```
-DIALOG range
+DIALOG minutesQuestion
   TEMPLATE range
     {
       formText: "Minutes",
@@ -124,6 +124,6 @@ DIALOG range
   >>minutes
   /TEMPLATE
 /DIALOG
-RUN range
+RUN minutesQuestion
 ```
 </WizardMode>
