@@ -18,12 +18,13 @@
     redux "^4.0.1"
     vue-loader "^15.7.1"
 
-"@appsocially/vue-upil@^0.1.9":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-0.1.9.tgz#bf05532b53f78ded03399345bc4877288d062343"
-  integrity sha512-s3xKTcwGqsc65P6RLypD67wfU1Oz38FrPg4uO9q9/7rppzvOqTaT3XEi2ALCGKXRFNH8riCDI5UqYbkW7vDbwg==
+"@appsocially/vue-upil@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-0.1.10.tgz#2bf01822be9c9ac5d4e9e8afc712697cba04efe7"
+  integrity sha512-LfZwU3R3RRPS2scU+B9c44BkOdOIwTHU5w8Rz95jG8G4rIUvgmKfdzxcQdtTtf5uM/Tqmi0E5sBPpVC5XhuSvw==
   dependencies:
     core-js "^3.6.4"
+    date-fns "^2.15.0"
     dot-object "^2.1.3"
     linkifyjs "^2.1.9"
     lodash.debounce "^4.0.8"
@@ -4264,6 +4265,11 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+date-fns@^2.15.0:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.15.0.tgz#424de6b3778e4e69d3ff27046ec136af58ae5d5f"
+  integrity sha512-ZCPzAMJZn3rNUvvQIMlXhDr4A+Ar07eLeGsGREoWU19a3Pqf5oYa+ccd+B3F6XVtQY6HANMFdOQ8A+ipFnvJdQ==
 
 dateformat@^3.0.0:
   version "3.0.3"
