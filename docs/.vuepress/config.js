@@ -15,7 +15,8 @@ module.exports = {
     sidebar: [
       '/',
       '/language/',
-      '/development/'
+      '/development/',
+      '/widgets/'
     ],
     sidebarDepth: 2
   },
