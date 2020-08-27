@@ -7,9 +7,22 @@
         <v-expansion-panel>
           <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show chat-mode example'}}</v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-btn text icon color="primary" class="mb-1" @click="start">
-              <v-icon>mdi-refresh</v-icon>
-            </v-btn>
+            <v-row no-gutters align-content="center">
+              <v-col cols="auto">
+                <v-btn text icon color="primary" class="mb-1" @click="start">
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col cols="auto" v-if="withLocale">
+                <v-select
+                  class="ma-0 pa-0 ml-2 mb-1"
+                  hide-details
+                  :items="locales"
+                  v-model="locale"
+                  label="Locale"
+                />
+              </v-col>
+            </v-row>
             <v-sheet
               color="light-grey"
               class="upil-example-container"
@@ -24,13 +37,14 @@
                 :listeners="listeners"
                 :override="override"
                 :types="types"
+                :locale="locale"
               >
-                <template v-slot:external="{allNodes, currentNode, scenarioEnded}">
+                <template v-slot:external="{allNodes, currentNode, scenarioEnded, placeholderText}">
                   <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
                     <component
                       v-bind:is="currentNode.componentType"
                       v-bind="currentNode.node"
-                      placeholderOverride="Type your answer here"
+                      :placeholderOverride="placeholderText"
                       :labelOverride="getLabelOverride(currentNode.node.type)"
                       :rules="calculateRules(currentNode)"
                     />
@@ -54,12 +68,12 @@ import { override } from "./overrides";
 import { email } from "vee-validate/dist/rules";
 
 const emailValidationRules = [
-  value => (value && value.length > 0 ? true : "Required"),
-  value => (email.validate(value) ? true : "Invalid email address")
+  (value) => (value && value.length > 0 ? true : "Required"),
+  (value) => (email.validate(value) ? true : "Invalid email address"),
 ];
 
 const types = {
-  email: emailValidationRules
+  email: emailValidationRules,
 };
 
 const { ChatMode } = ChatBot;
@@ -67,7 +81,7 @@ const { ChatMode } = ChatBot;
 export default {
   name: "UpilBot",
   components: {
-    ChatMode
+    ChatMode,
   },
   data() {
     return {
@@ -78,30 +92,38 @@ export default {
       listeners,
       isReady: false,
       override,
-      types
+      types,
+      locale: "en",
+      locales: ["en", "ja"],
     };
   },
   computed: {
     isOpen() {
       return this.panel === 0;
-    }
+    },
   },
   watch: {
     isOpen(isOpen) {
       if (isOpen) {
         this.start();
       }
-    }
+    },
   },
   props: {
     simple: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    withLocale: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     getScenario() {
-      const preTag = this.$slots.default[0].children.find(c => c.tag === "pre");
+      const preTag = this.$slots.default[0].children.find(
+        (c) => c.tag === "pre"
+      );
       const text = preTag.children[0].children[0].text;
       if (this.simple) {
         return `DIALOG mainDialog ${text} /DIALOG RUN a mainDialog /RUN`;
@@ -137,8 +159,8 @@ export default {
       } else {
         return [];
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

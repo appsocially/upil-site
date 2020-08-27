@@ -945,3 +945,100 @@ const listeners = {
 ::: warning
 You must call `preventDefault` in the `action` listener
 :::
+
+## Internationalization
+
+By passing metadata into a component, we can add text for alternative locales:
+
+<UpilBot withLocale>
+```
+DIALOG getName
+  TEMPLATE 
+    {
+      formText: "Name",
+      i18n: {
+        ja: {
+          formText: "名前",
+          text: "お名前は？"
+        }
+      }
+    }
+    "What's your name?"
+    >>name
+  /TEMPLATE
+  TEMPLATE 
+    {
+      i18n: {
+        ja: {
+          text: "${name}、いらっしゃい！"
+        }
+      }
+    }
+    "Welcome ${name}"
+  /TEMPLATE
+/DIALOG
+RUN getName
+```
+</UpilBot>
+
+<FormMode withLocale hideScript>
+```
+DIALOG getName
+  TEMPLATE 
+    {
+      formText: "Name",
+      i18n: {
+        ja: {
+          formText: "名前",
+          text: "お名前は？"
+        }
+      }
+    }
+    "What's your name?"
+    >>name
+  /TEMPLATE
+  TEMPLATE 
+    {
+      i18n: {
+        ja: {
+          text: "${name}、いらっしゃい！"
+        }
+      }
+    }
+    "Welcome ${name}"
+  /TEMPLATE
+/DIALOG
+RUN getName
+```
+</FormMode>
+
+<WizardMode withLocale hideScript>
+```
+DIALOG getName
+  TEMPLATE 
+    {
+      formText: "Name",
+      i18n: {
+        ja: {
+          formText: "名前",
+          text: "お名前は？"
+        }
+      }
+    }
+    "What's your name?"
+    >>name
+  /TEMPLATE
+  TEMPLATE 
+    {
+      i18n: {
+        ja: {
+          text: "${name}、いらっしゃい！"
+        }
+      }
+    }
+    "Welcome ${name}"
+  /TEMPLATE
+/DIALOG
+RUN getName
+```
+</WizardMode>

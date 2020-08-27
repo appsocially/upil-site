@@ -18,10 +18,10 @@
     redux "^4.0.1"
     vue-loader "^15.7.1"
 
-"@appsocially/vue-upil@^0.1.12":
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-0.1.12.tgz#982eae6df47eccf6911ff8a3cb46430a4c6afaa2"
-  integrity sha512-5R+jrJ0BWgpQQZJ0NXeDizSUZadqzXbbnFo+qMSiIOaGQCHWoCs2KvHUYMQUuadg+4xJeO2PFXAOmRq7OyNcMQ==
+"@appsocially/vue-upil@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-2.1.0.tgz#104754622f47abc8e8bc3aaecb1517e0c6277e7a"
+  integrity sha512-FzzVYGEktzNwmV3+Fl4Zi48iOB7hOu2s/sBVHUmJlHIpAiqkDAQMRo/3NLftWx3fgTPVdDZ+8VuuANyki8hh1g==
   dependencies:
     core-js "^3.6.4"
     date-fns "^2.15.0"
@@ -29,7 +29,7 @@
     linkifyjs "^2.1.9"
     lodash.debounce "^4.0.8"
     vue "^2.6.11"
-    vue-scrollto "^2.18.1"
+    vue-scrollto "^2.18.2"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.1":
   version "7.10.1"
@@ -11433,10 +11433,10 @@ vue-router@^3.1.3:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.3.4.tgz#4e38abc34a11c41b6c3d8244449a2e363ba6250b"
   integrity sha512-SdKRBeoXUjaZ9R/8AyxsdTqkOfMcI5tWxPZOUX5Ie1BTL5rPSZ0O++pbiZCeYeythiZIdLEfkDiQPKIaWk5hDg==
 
-vue-scrollto@^2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/vue-scrollto/-/vue-scrollto-2.18.1.tgz#e23620489583f0b3f21410f149b6585a730672f2"
-  integrity sha512-JojeVOP1Z50Jt0OCOd61jRRRF8TrNvPAzF4LAKwkTEZnt30mpDd48aDZZOEPD3l6z2PybOyUGFT/FNWfTtFv9w==
+vue-scrollto@^2.18.2:
+  version "2.18.2"
+  resolved "https://registry.yarnpkg.com/vue-scrollto/-/vue-scrollto-2.18.2.tgz#113a3548341974d3a2560145f39fcc0378533821"
+  integrity sha512-LQOsuCfDJ5JXsRBb6frM85sCFABZdkwwwchLh4k3wbp8P6URRDcQvwp31U4cTnbyYEOo6JFP7+3p0wkvwy7MdA==
   dependencies:
     bezier-easing "2.1.0"
 

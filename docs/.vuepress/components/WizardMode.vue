@@ -6,9 +6,22 @@
         <v-expansion-panel>
           <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show wizard-mode example'}}</v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-btn text icon color="primary" class="mb-1" @click="start">
-              <v-icon>mdi-refresh</v-icon>
-            </v-btn>
+            <v-row no-gutters align-content="center">
+              <v-col cols="auto">
+                <v-btn text icon color="primary" class="mb-1" @click="start">
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col cols="auto" v-if="withLocale">
+                <v-select
+                  class="ma-0 pa-0 ml-2 mb-1"
+                  hide-details
+                  :items="locales"
+                  v-model="locale"
+                  label="Locale"
+                />
+              </v-col>
+            </v-row>
             <v-sheet
               color="light-grey"
               class="upil-example-container"
@@ -20,6 +33,8 @@
                 :isMissingValue.sync="isMissingValue"
                 :initializingUpil.sync="initializingUpil"
                 :types="types"
+                :locale="locale"
+                :i18n="i18n"
               />
             </v-sheet>
           </v-expansion-panel-content>
@@ -57,6 +72,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    withLocale: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -67,6 +86,13 @@ export default {
       hasRun: false,
       isReady: false,
       types,
+      locale: "en",
+      locales: ["en", "ja"],
+      i18n: {
+        ja: {
+          missingValue: "未記入",
+        },
+      },
     };
   },
   computed: {

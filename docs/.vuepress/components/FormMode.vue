@@ -6,9 +6,22 @@
         <v-expansion-panel>
           <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show form-mode example'}}</v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-btn text icon color="primary" class="mb-1" @click="start">
-              <v-icon>mdi-refresh</v-icon>
-            </v-btn>
+            <v-row no-gutters align-content="center">
+              <v-col cols="auto">
+                <v-btn text icon color="primary" class="mb-1" @click="start">
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col cols="auto" v-if="withLocale">
+                <v-select
+                  class="ma-0 pa-0 ml-2 mb-1"
+                  hide-details
+                  :items="locales"
+                  v-model="locale"
+                  label="Locale"
+                />
+              </v-col>
+            </v-row>
             <v-sheet
               color="light-grey"
               class="upil-example-container"
@@ -20,6 +33,8 @@
                 :isMissingValue.sync="isMissingValue"
                 :initializingUpil.sync="initializingUpil"
                 :types="types"
+                :locale="locale"
+                :i18n="i18n"
               />
             </v-sheet>
           </v-expansion-panel-content>
@@ -35,28 +50,32 @@ import { FormMode } from "@appsocially/vue-upil";
 import { email } from "vee-validate/dist/rules";
 
 const emailValidationRules = [
-  value => (value && value.length > 0 ? true : "Required"),
-  value => (email.validate(value) ? true : "Invalid email address")
+  (value) => (value && value.length > 0 ? true : "Required"),
+  (value) => (email.validate(value) ? true : "Invalid email address"),
 ];
 
 const types = {
-  email: emailValidationRules
+  email: emailValidationRules,
 };
 
 export default {
   name: "FormMode",
   components: {
-    RawFormMode: FormMode //Rename to prevent recursion in vuepress
+    RawFormMode: FormMode, //Rename to prevent recursion in vuepress
   },
   props: {
     simple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     hideScript: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    withLocale: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -66,24 +85,33 @@ export default {
       panel: null,
       hasRun: false,
       isReady: false,
-      types
+      types,
+      locale: "en",
+      locales: ["en", "ja"],
+      i18n: {
+        ja: {
+          missingValue: "未記入",
+        },
+      },
     };
   },
   computed: {
     isOpen() {
       return this.panel === 0;
-    }
+    },
   },
   watch: {
     isOpen(isOpen) {
       if (isOpen) {
         this.start();
       }
-    }
+    },
   },
   methods: {
     getScenario() {
-      const preTag = this.$slots.default[0].children.find(c => c.tag === "pre");
+      const preTag = this.$slots.default[0].children.find(
+        (c) => c.tag === "pre"
+      );
       const text = preTag.children[0].children[0].text;
       if (this.simple) {
         return `DIALOG mainDialog ${text} /DIALOG RUN a mainDialog /RUN`;
@@ -97,11 +125,11 @@ export default {
       this.upil = new UPILCore();
       this.upil.startRaw(scenario, {
         mode: "form",
-        resetOnInputUpdate: true
+        resetOnInputUpdate: true,
       });
       this.$nextTick(() => (this.isReady = true));
-    }
-  }
+    },
+  },
 };
 </script>
 
