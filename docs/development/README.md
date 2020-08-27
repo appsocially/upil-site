@@ -1042,3 +1042,113 @@ DIALOG getName
 RUN getName
 ```
 </WizardMode>
+
+### i18n UPIL script metadata keys
+
+For each locale you wish the script to support, pass an object whose key is equal to the local string you will pass in to the Vue component (ChatMode, FormMode, or WizardMode). The object's properties can include:
+
+* `text`: string - For adding translations of a node's text
+* `formText`: string - For adding translations of a node's formText 
+* `options`: object - For translating `SELECT` or `MULTI_SELECT` options' text 
+
+### i18n `options` object 
+
+The `options` object allows `SELECT` options to provide locale-appropriate options to the user when they are making a selection:
+
+<UpilBot withLocale>
+```
+DIALOG favColor
+    SELECT
+      {
+        formText: "Favorite Color",
+        i18n: {
+          ja: {
+            formText: "一番好きな色",
+            text: "一番好きな色を選んでください",
+            options: {
+              red: "赤",
+              blue: "青",
+              green: "緑"
+            }
+          }
+        }
+      }
+      "Please choose your favorite color"
+      -("Red", "red")
+      -("Blue", "blue")
+      -("Green", "green")
+      >>color
+    /SELECT
+    TEMPLATE 
+    {
+      i18n: {
+        ja: {
+          text: "${color}はいい色だね！",
+          options: {
+            color: {
+              red: "赤",
+              blue: "青",
+              green: "緑"
+            }
+          }
+        }
+      }
+    }
+    "\${color} is a great color!"
+    /TEMPLATE 
+  /DIALOG
+  RUN favColor
+```
+</UpilBot>
+
+When used in a `SELECT` or `MULTI_SELECT` node, the `options` object will be used to translate the options's display text:
+
+```{8-12}
+SELECT
+  {
+    formText: "Favorite Color",
+    i18n: {
+      ja: {
+        formText: "一番好きな色",
+        text: "一番好きな色を選んでください",
+        options: {
+          red: "赤",
+          blue: "青",
+          green: "緑"
+        }
+      }
+    }
+  }
+  "Please choose your favorite color"
+  -("Red", "red")
+  -("Blue", "blue")
+  -("Green", "green")
+  >>color
+/SELECT
+```
+
+In this case, the value of the options (lowercase "red", "blue", "green") are used to lookup the alternative locale text ("赤", "青", "緑") when the locale is set to "ja". Even when the locale is set to "ja" however, the value stored in the variable will still be  "red", "blue", or "green".
+
+This means that if a scriptwriter attempts to use this value later using variable-substitution, then the untranslated value will be displayed. To display translated options in a script, we must place the options object in whichever node we wish to display the text in:
+
+```{6-12}
+TEMPLATE 
+  {
+    i18n: {
+      ja: {
+        text: "${color}はいい色だね！",
+        options: {
+          color: {
+            red: "赤",
+            blue: "青",
+            green: "緑"
+          }
+        }
+      }
+    }
+  }
+  "\${color} is a great color!"
+/TEMPLATE 
+```
+
+In this case, the plugin will find that there is a both a `color` variable to be substituted, and look for a corrosponding key in the `options` object. Then it will use the value of the `color` variable to lookup which text it should substitute for the current locale ("red" => "赤", "blue" => "青", "green" => "緑"). If it can't find a value, or if there's no appropriate locale or `options` object, it will display the variable's raw value.

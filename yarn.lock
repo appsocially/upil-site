@@ -18,10 +18,10 @@
     redux "^4.0.1"
     vue-loader "^15.7.1"
 
-"@appsocially/vue-upil@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-2.1.0.tgz#104754622f47abc8e8bc3aaecb1517e0c6277e7a"
-  integrity sha512-FzzVYGEktzNwmV3+Fl4Zi48iOB7hOu2s/sBVHUmJlHIpAiqkDAQMRo/3NLftWx3fgTPVdDZ+8VuuANyki8hh1g==
+"@appsocially/vue-upil@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-2.2.0.tgz#b90be459bc1bd48ee60ae83432298976173f0055"
+  integrity sha512-M5H8hGMBv1Csfh971QkPKUU/YniwUKzgcSFWGUlyQGyUlIYG0KFtoLYgmclrYiHWuBR0aPYZr/D11NyzmTSpiQ==
   dependencies:
     core-js "^3.6.4"
     date-fns "^2.15.0"
