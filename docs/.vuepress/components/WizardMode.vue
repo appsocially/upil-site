@@ -91,6 +91,9 @@ export default {
       i18n: {
         ja: {
           missingValue: "未記入",
+          templateInputPlaceholder: "入力してください",
+          selectInputPlaceholder: "選んでください",
+          multiSelectInputPlaceholder: "選んでください",
         },
       },
     };

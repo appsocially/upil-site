@@ -38,14 +38,15 @@
                 :override="override"
                 :types="types"
                 :locale="locale"
+                :i18n="i18n"
               >
                 <template v-slot:external="{allNodes, currentNode, scenarioEnded, placeholderText}">
-                  <div id="bottom-bar" v-if="currentNode && !scenarioEnded">
+                  <div class="pl-1" id="bottom-bar" v-if="currentNode && !scenarioEnded">
                     <component
                       v-bind:is="currentNode.componentType"
                       v-bind="currentNode.node"
-                      :placeholderOverride="placeholderText"
-                      :labelOverride="getLabelOverride(currentNode.node.type)"
+                      :placeholderText="placeholderText"
+                      :locale="locale"
                       :rules="calculateRules(currentNode)"
                     />
                   </div>
@@ -95,6 +96,14 @@ export default {
       types,
       locale: "en",
       locales: ["en", "ja"],
+      i18n: {
+        ja: {
+          missingValue: "未記入",
+          templateInputPlaceholder: "入力してください",
+          selectInputPlaceholder: "選んでください",
+          multiSelectInputPlaceholder: "選んでください",
+        },
+      },
     };
   },
   computed: {
