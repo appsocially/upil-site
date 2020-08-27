@@ -1152,3 +1152,28 @@ TEMPLATE
 ```
 
 In this case, the plugin will find that there is a both a `color` variable to be substituted, and look for a corrosponding key in the `options` object. Then it will use the value of the `color` variable to lookup which text it should substitute for the current locale ("red" => "赤", "blue" => "青", "green" => "緑"). If it can't find a value, or if there's no appropriate locale or `options` object, it will display the variable's raw value.
+
+### Widget localization and default-text overrides
+
+Each of the three modes accepts an `i18n` prop for overriding default widget placeholder text based on node-type and locale. The prop should be in the form of an object with the following structure:
+
+```js
+i18n: {
+  ja: {
+    missingValue: '未記入',
+    templateInputPlaceholder: '入力してください',
+    selectInputPlaceholder: '選んでください',
+    multiSelectInputPlaceholder: '選んでください'
+  }
+}
+```
+
+The `missingValue` key is for overriding the alert text at the top of `FormMode` widgets which haven't yet received user input. The other three keys are for overriding default placeholder text in `ChatMode`'s current-template, current-select, and current-multi_select widgets.
+
+### Custom widget i18n
+
+Custom widgets receive the current `locale` as a prop, which enables them to react to changes in a user's locale.
+
+
+
+
