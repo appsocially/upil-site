@@ -40,14 +40,19 @@
                 :locale="locale"
                 :i18n="i18n"
               >
-                <template v-slot:external="{allNodes, currentNode, scenarioEnded, placeholderText}">
+                <template
+                  v-slot:external="{allNodes, currentNode, scenarioEnded, placeholderText, state}"
+                >
                   <div class="pl-1" id="bottom-bar" v-if="currentNode && !scenarioEnded">
                     <component
                       v-bind:is="currentNode.componentType"
                       v-bind="currentNode.node"
+                      :state="state"
                       :placeholderText="placeholderText"
                       :locale="locale"
                       :rules="calculateRules(currentNode)"
+                      :rawNode="currentNode.rawNode"
+                      @consume="onConsume"
                     />
                   </div>
                 </template>
@@ -129,6 +134,9 @@ export default {
     },
   },
   methods: {
+    onConsume({ event, value }) {
+      this.upil.consume(event, value);
+    },
     getScenario() {
       const preTag = this.$slots.default[0].children.find(
         (c) => c.tag === "pre"
