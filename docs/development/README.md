@@ -313,7 +313,100 @@ The a Reply Node's widget will receive almost identical props as the original St
 ### Transform Reply Variables
 
 The `transformReplyVariables` function hook allows the developer to transform a variable's value before it's displayed as a reply from a user. The return value must be formatted as text. If more advanced visualization methods are required, consider using a custom widget to replace the built-in text-based reply instead.
+<br><br>
 
+The function signature of `transformReplyVariables`:
+
+```js
+transformReplyVariables({ node, upil, state, locale })
+```
+
+The `transformReplyVariables` function receives an object with four properties: `node`, `upil`, `state`, `locale`:
+
+* `node`: This is the same node object that custom widgets recieve
+* `upil`: The instance of `UpilCore` being used to drive the script
+* `state`: The object representing the `UpilCore`'s current state
+* `locale`: The current locale
+<br><br>
+
+Example `transformReplyVariables` function to add a minutes-suffix to the range's raw reply (which is a `Number` by default):
+```js
+const calculateUnit = (locale) => {
+  switch (locale) {
+    case 'ja':
+      return '分'
+    default:
+      return ' minutes'
+  }
+}
+
+const transformReplyVariables = ({
+  node: {
+    label,
+    event: { value },
+  },
+  locale,
+}) => {
+  if (label === 'range') {
+    const unit = calculateUnit(locale)
+    return `${value}${unit}`
+  } else {
+    return value
+  }
+}
+```
+
+
+#### Transform Text Variables
+
+The `transformTextVariables` is a function hook that lets you format variables that are substituted into the script. This allows you to add units to numbers, format dates, or transform objects into meaningful text to the user.
+<br><br>
+
+The function signature of `transformTextVariables`:
+
+```js
+transformTextVariables({ value, key, locale })
+```
+
+The `transformTextVariables` function receives an object with three properties: `value`, `key`, and `locale`:
+
+* `value`: This is the raw value stored in UPIL state of the variable to be transformed
+* `key`: This is the name of the variable in UPIL state. More accurately, this is the text used by the scriptwriter when adding `${key}` style variable substitution expressions in the script.
+* `locale`: The current locale, may be undefined.
+<br><br>
+
+Example `transformTextVariables` function which formats all dates:
+```js
+const transformTextVariables = ({ value, locale }) => {
+  if (isDate(value)) {
+    return formatDateTimeString(value, locale)
+  } else {
+    return value
+  }
+}
+```
+<br><br>
+
+Example `transformTextVariables` function which adds locale-specific minutes-suffix to the `minutes` variable:
+```js
+const calculateUnit = (locale) => {
+  switch (locale) {
+    case 'ja':
+      return '分'
+    default:
+      return ' minutes'
+  }
+}
+
+const transformTextVariables = ({ value, key: variableName, locale }) => {
+  if (variableName === 'minutes') {
+    const unit = calculateUnit(locale)
+    return `${value}${unit}`
+  } else {
+    return value
+  }
+}
+```
 
 ### Override function signature
 
