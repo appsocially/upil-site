@@ -304,9 +304,109 @@ The `override` and `overrideCurrent` props that are passed to the `ChatMode` are
 
 Standard nodes appear on the left-side of the chat as if they are coming from the 'bot'. Reply nodes are shown on the right-side of the chat as coming from the user of the application. 
 
-If information other than text such as video, images, or complex or dynamic visualizations needs to be displayed as coming from a bot, then creating a custom widget for a Standard Node is appropriate. Similarly, if a user is replying to the bot in a form that can't easily be represented as text, or is stored as an object or other encoded data, then a custom Reply Node widget is appropriate for visualizing their reply.
+If information other than text such as video, images, or complex or dynamic visualizations needs to be displayed as coming from a bot, then creating a custom widget for a Standard Node is appropriate. 
+
+If a user is replying to the bot in a form that can't easily be represented as text, then a custom widget for a reply node is appropriate. If the value of a variable is encoded, and needs to be decoded or specially formatted as text, then consider using a `transformReplyVariables` function hook instead. 
 
 The a Reply Node's widget will receive almost identical props as the original Standard Node that the reply is in response to. The only differences being that the top-level `reply` property will be `true` instead of `undefined`, and the Node's `event.value` will store the reply value passed to `upilCore`.
+
+### Transform Reply Variables
+
+The `transformReplyVariables` function hook allows the developer to transform a variable's value before it's displayed as a reply from a user. The return value must be formatted as text. If more advanced visualization methods are required, consider using a custom widget to replace the built-in text-based reply instead.
+<br><br>
+
+The function signature of `transformReplyVariables`:
+
+```js
+transformReplyVariables({ node, upil, state, locale })
+```
+
+The `transformReplyVariables` function receives an object with four properties: `node`, `upil`, `state`, `locale`:
+
+* `node`: This is the same node object that custom widgets recieve
+* `upil`: The instance of `UpilCore` being used to drive the script
+* `state`: The object representing the `UpilCore`'s current state
+* `locale`: The current locale
+<br><br>
+
+Example `transformReplyVariables` function to add a minutes-suffix to the range's raw reply (which is a `Number` by default):
+```js
+const calculateUnit = (locale) => {
+  switch (locale) {
+    case 'ja':
+      return '分'
+    default:
+      return ' minutes'
+  }
+}
+
+const transformReplyVariables = ({
+  node: {
+    label,
+    event: { value },
+  },
+  locale,
+}) => {
+  if (label === 'range') {
+    const unit = calculateUnit(locale)
+    return `${value}${unit}`
+  } else {
+    return value
+  }
+}
+```
+
+
+#### Transform Text Variables
+
+The `transformTextVariables` is a function hook that lets you format variables that are substituted into the script. This allows you to add units to numbers, format dates, or transform objects into meaningful text to the user.
+<br><br>
+
+The function signature of `transformTextVariables`:
+
+```js
+transformTextVariables({ value, key, locale })
+```
+
+The `transformTextVariables` function receives an object with three properties: `value`, `key`, and `locale`:
+
+* `value`: This is the raw value stored in UPIL state of the variable to be transformed
+* `key`: This is the name of the variable in UPIL state. More accurately, this is the text used by the scriptwriter when adding `${key}` style variable substitution expressions in the script.
+* `locale`: The current locale, may be undefined.
+<br><br>
+
+Example `transformTextVariables` function which formats all dates:
+```js
+const transformTextVariables = ({ value, locale }) => {
+  if (isDate(value)) {
+    return formatDateTimeString(value, locale)
+  } else {
+    return value
+  }
+}
+```
+<br><br>
+
+Example `transformTextVariables` function which adds locale-specific minutes-suffix to the `minutes` variable:
+```js
+const calculateUnit = (locale) => {
+  switch (locale) {
+    case 'ja':
+      return '分'
+    default:
+      return ' minutes'
+  }
+}
+
+const transformTextVariables = ({ value, key: variableName, locale }) => {
+  if (variableName === 'minutes') {
+    const unit = calculateUnit(locale)
+    return `${value}${unit}`
+  } else {
+    return value
+  }
+}
+```
 
 ### Override function signature
 
