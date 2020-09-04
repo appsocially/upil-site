@@ -163,3 +163,105 @@ DIALOG minutesQuestion
 RUN minutesQuestion
 ```
 </WizardMode>
+
+## Dynamic-list
+
+The `dynamic-list` widget lets users enter items into a list. The variable is stored as an array in the `UpilInstance`.
+<br/>
+<br/>
+
+<UpilBot>
+```
+DIALOG jobsSearch
+  TEMPLATE dynamic-list
+  {
+    formText: "Job Openings",
+    i18n: {
+      ja: {
+        formText: "募集中の職種",
+        text: "今回募集する職種を教えてください。",
+        placeholder: "カンマで区切ると選択肢が出来上がります"
+      }
+    }
+  }
+  "Please list your available job types"
+  >>jobTypes
+  /TEMPLATE
+  TEMPLATE 
+  {
+    i18n: {
+      ja: {
+        text: "${jobTypes}を見つけたらいいね！"
+      }
+    }
+  }
+  "I hope you find success in your search for ${jobTypes}!"
+  /TEMPLATE
+/DIALOG
+RUN jobsSearch
+```
+</UpilBot>
+
+<FormMode hideScript>
+```
+DIALOG jobsSearch
+  TEMPLATE dynamic-list
+  {
+    formText: "Job Openings",
+    i18n: {
+      ja: {
+        formText: "募集中の職種",
+        text: "今回募集する職種を教えてください。",
+        placeholder: "カンマで区切ると選択肢が出来上がります"
+      }
+    }
+  }
+  "Please list your available job types"
+  >>jobTypes
+  /TEMPLATE
+  TEMPLATE 
+  {
+    i18n: {
+      ja: {
+        text: "${jobTypes}を見つけたらいいね！"
+      }
+    }
+  }
+  "I hope you find success in your search for ${jobTypes}!"
+  /TEMPLATE
+/DIALOG
+RUN jobsSearch
+```
+</FormMode>
+
+<WizardMode hideScript>
+```
+DIALOG jobsSearch
+  TEMPLATE dynamic-list
+  {
+    formText: "Job Openings",
+    i18n: {
+      ja: {
+        formText: "募集中の職種",
+        text: "今回募集する職種を教えてください。",
+        placeholder: "カンマで区切ると選択肢が出来上がります"
+      }
+    }
+  }
+  "Please list your available job types"
+  >>jobTypes
+  /TEMPLATE
+  TEMPLATE 
+  {
+    i18n: {
+      ja: {
+        text: "${jobTypes}を見つけたらいいね！"
+      }
+    }
+  }
+  "I hope you find success in your search for ${jobTypes}!"
+  /TEMPLATE
+/DIALOG
+RUN jobsSearch
+```
+</WizardMode>

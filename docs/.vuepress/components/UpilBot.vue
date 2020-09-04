@@ -39,6 +39,8 @@
                 :types="types"
                 :locale="locale"
                 :i18n="i18n"
+                :transformReplyVariables="transformReplyVariables"
+                :transformTextVariables="transformTextVariables"
               >
                 <template
                   v-slot:external="{allNodes, currentNode, scenarioEnded, placeholderText, state}"
@@ -80,6 +82,37 @@ const emailValidationRules = [
 
 const types = {
   email: emailValidationRules,
+};
+
+const commaChooser = (locale) => {
+  switch (locale) {
+    case "ja":
+      return "、";
+    default:
+      return ", ";
+  }
+};
+
+const transformReplyVariables = ({
+  node: {
+    event: { value },
+    label,
+  },
+  locale,
+}) => {
+  if (Array.isArray(value)) {
+    return value.join(commaChooser(locale));
+  } else {
+    return value;
+  }
+};
+
+const transformTextVariables = ({ value, key, locale }) => {
+  if (Array.isArray(value)) {
+    return value.join(commaChooser(locale));
+  } else {
+    return value;
+  }
 };
 
 const { ChatMode } = ChatBot;
@@ -177,6 +210,8 @@ export default {
         return [];
       }
     },
+    transformReplyVariables,
+    transformTextVariables,
   },
 };
 </script>
@@ -197,5 +232,9 @@ export default {
 
 .scenario-demonstration {
   margin-bottom: 30px;
+}
+
+.scenario-demonstration >>> .chat-bubble {
+  max-width: 70% !important;
 }
 </style>
