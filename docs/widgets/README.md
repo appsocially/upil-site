@@ -166,7 +166,7 @@ RUN minutesQuestion
 
 ## Dynamic-list
 
-The `dynamic-list` widget lets users enter items into a list. The variable is stored as an array in the `UpilInstance`.
+The `dynamic-list` widget lets users enter items into a list. The variable is stored as an array in the `UpilInstance`. The scriptwriter can also pass an optional `placeholder` label.
 <br/>
 <br/>
 

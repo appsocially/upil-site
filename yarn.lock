@@ -38,9 +38,9 @@
     vue-loader "^15.7.1"
 
 "@appsocially/vue-upil@^2.2.0":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-2.3.1.tgz#9f49e8c662e70fbcb7dcd16e966ff608bc22bdcf"
-  integrity sha512-/aq2f2ASedO/t+OgWyAt5GFJCAG7LuJY6VR1VFqRnXy76hKquZjEgZf33FTgqt33UipalP9fejV390P2AOIpFA==
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-2.3.2.tgz#9ccf116c797e81c2faf2c31e8e18c1f0cb71281c"
+  integrity sha512-X9TUwuvCkdJx65NIuIqpj8RwnCbaDBRpTkgyXrO4wouDqhk77y3LxY/jMuUQkjNVAqPL4vm8jjpJgUX/53JV2w==
   dependencies:
     core-js "^3.6.4"
     date-fns "^2.15.0"
