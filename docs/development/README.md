@@ -357,7 +357,7 @@ const transformReplyVariables = ({
 ```
 
 
-#### Transform Text Variables
+### Transform Text Variables
 
 The `transformTextVariables` is a function hook that lets you format variables that are substituted into the script. This allows you to add units to numbers, format dates, or transform objects into meaningful text to the user.
 <br><br>
