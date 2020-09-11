@@ -37,10 +37,10 @@
     redux "^4.0.1"
     vue-loader "^15.7.1"
 
-"@appsocially/vue-upil@^2.2.0":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-2.3.2.tgz#9ccf116c797e81c2faf2c31e8e18c1f0cb71281c"
-  integrity sha512-X9TUwuvCkdJx65NIuIqpj8RwnCbaDBRpTkgyXrO4wouDqhk77y3LxY/jMuUQkjNVAqPL4vm8jjpJgUX/53JV2w==
+"@appsocially/vue-upil@^2.3.3":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-2.3.3.tgz#f2de1789b05a94eb316ba37bc44e3dd3c86b49fa"
+  integrity sha512-3Uex3onOgBy8AKlSbw2r9K5GaBTe7vtSYLT4cgYcxu6YG4awPk4+NOx2UDTQTGbdj9u61Su05CbdickL9vuevA==
   dependencies:
     core-js "^3.6.4"
     date-fns "^2.15.0"

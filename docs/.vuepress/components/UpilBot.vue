@@ -84,6 +84,12 @@ const types = {
   email: emailValidationRules,
 };
 
+const padTime = (timeNum) => `${timeNum}`.padStart(2, 0)
+
+const formatTimeInputValue = (timeInputValue) => {
+  return `${padTime(timeInputValue.hours)}:${padTime(timeInputValue.minutes)}`
+}
+
 const commaChooser = (locale) => {
   switch (locale) {
     case "ja":
@@ -102,13 +108,17 @@ const transformReplyVariables = ({
 }) => {
   if (Array.isArray(value)) {
     return value.join(commaChooser(locale));
+  } else if (label === 'time-input') {
+    return formatTimeInputValue(value, locale)
   } else {
     return value;
   }
 };
 
 const transformTextVariables = ({ value, key, locale }) => {
-  if (Array.isArray(value)) {
+  if (key === 'meetingsStart' || key === 'meetingsEnd') {
+    return formatTimeInputValue(value, locale)
+  } else if (Array.isArray(value)) {
     return value.join(commaChooser(locale));
   } else {
     return value;
