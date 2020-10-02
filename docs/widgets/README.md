@@ -4,7 +4,7 @@ The Vue UPIL plugin comes with several built-in widgets. Some widgets are only a
 
 ## Date 
 
-The `date` widget allows users to select a date from a calendar. To use it in your script, use a `TEMPLATE date` entity.
+The `date` widget allows users to select a date from a calendar. To use it in your script, use a `TEMPLATE date` entity. The user's input is saved as a Javascript Date object in the UPIL state. 
 <br/>
 <br/>
 
@@ -13,7 +13,8 @@ The `date` widget allows users to select a date from a calendar. To use it in yo
 DIALOG birthday
   TEMPLATE date
     {
-      formText: "Birthdate"
+      formText: "Birthdate",
+      calendarType: "calendar"
     }
     "What is your birthday?"
     >>birthday
@@ -28,7 +29,8 @@ RUN birthday
 DIALOG birthday
   TEMPLATE date
     {
-      formText: "Birthdate"
+      formText: "Birthdate",
+      calendarType: "calendar"
     }
     "What is your birthday?"
     >>birthday
@@ -43,7 +45,84 @@ RUN birthday
 DIALOG birthday
   TEMPLATE date
     {
-      formText: "Birthdate"
+      formText: "Birthdate",
+      calendarType: "calendar"
+    }
+    "What is your birthday?"
+    >>birthday
+  /TEMPLATE
+/DIALOG
+RUN birthday
+```
+</WizardMode>
+
+### Numeric mode
+It also has a `numeric` mode, which uses selects instead of a calendar for inputting the date. There are several text overrides that can be used in `numeric` mode:
+
+<br/>
+
+These labels will continue showing after selecting a value:
+* yearSelectLabel: The label for the year-select
+* monthSelectLabel: The label for the month-select
+* daySelectLabel: The label for the day-select
+
+<br/>
+<br/>
+
+Placeholders disappear after a user selects a value:
+* yearSelectPlaceholder: The placeholder for the year-select
+* monthSelectPlaceholder: The placeholder for the month-select
+* daySelectPlaceholder: The placeholder for the day-select
+
+<br/>
+<br/>
+
+* unitYear: The unit that is shown to the right of the year-options inside of the select menu
+* unitMonth: The unit that is shown to the right of the month-options inside of the select menu
+* unitDay: The unit that is shown to the right of the day-options inside of the select menu
+* unitSeparator: A seperator to be displayed between the year, month, and day select menus
+
+<br/>
+
+<UpilBot>
+```
+DIALOG birthday
+  TEMPLATE date
+    {
+      formText: "Birthdate",
+      calendarType: "numeric"
+    }
+    "What is your birthday?"
+    >>birthday
+  /TEMPLATE
+/DIALOG
+RUN birthday
+```
+</UpilBot>
+
+<FormMode hideScript>
+```
+DIALOG birthday
+  TEMPLATE date
+    {
+      formText: "Birthdate",
+      calendarType: "numeric"
+    }
+    "What is your birthday?"
+    >>birthday
+  /TEMPLATE
+/DIALOG
+RUN birthday
+```
+</FormMode>
+
+<WizardMode hideScript>
+```
+DIALOG birthday
+  TEMPLATE date
+    {
+      formText: "Birthdate",
+      calendarType: "numeric"
     }
     "What is your birthday?"
     >>birthday

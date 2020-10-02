@@ -21,10 +21,10 @@
     html-tags "^3.1.0"
     svg-tags "^1.0.0"
 
-"@appsocially/userpil-core@^1.1.7":
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/@appsocially/userpil-core/-/userpil-core-1.1.7.tgz#af27f85bf35e5e3c8ac3123f664ccbf397c8729a"
-  integrity sha512-Suo6L68mzIuSww+mnElL8Bf7Ta2GocLrVIX9qtMWImlDqrtGpGMqRISRq/EI3nqkmMj/gmrfA/6wFA7CAZb/bQ==
+"@appsocially/userpil-core@^1.1.10":
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/@appsocially/userpil-core/-/userpil-core-1.1.10.tgz#3c7a8b3d25c70d5177586dae19f11532b3a53260"
+  integrity sha512-JzAYijhLoh2UA6BpaEEFyCl7muB7qJgjLLuXRMZergakNt1+jvC7AjsSzhxx+l+Poecqd1y/L2tpf9AGX1OhxA==
   dependencies:
     "@types/ajv" "^1.0.0"
     "@types/redux" "^3.6.0"
@@ -37,10 +37,10 @@
     redux "^4.0.1"
     vue-loader "^15.7.1"
 
-"@appsocially/vue-upil@^2.3.3":
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-2.3.3.tgz#f2de1789b05a94eb316ba37bc44e3dd3c86b49fa"
-  integrity sha512-3Uex3onOgBy8AKlSbw2r9K5GaBTe7vtSYLT4cgYcxu6YG4awPk4+NOx2UDTQTGbdj9u61Su05CbdickL9vuevA==
+"@appsocially/vue-upil@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@appsocially/vue-upil/-/vue-upil-2.4.2.tgz#c48146d2859e44a6d6e26f23400a043de8af9989"
+  integrity sha512-EUEb8o6CPzLgdaEqL8I/bLdsqR/Y5u0OzMhHwq/zr8SLpp94YSkDSP2C61EUFILfHunS2cyrrSuMcGK/VcDU7g==
   dependencies:
     core-js "^3.6.4"
     date-fns "^2.15.0"
@@ -11814,10 +11814,10 @@ vuepress@^1.5.0:
     opencollective-postinstall "^2.0.2"
     update-notifier "^4.0.0"
 
-vuetify@^2.3.8:
-  version "2.3.10"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.3.10.tgz#c8cbc77ee1224b5a132f501a3762dee6d8c95a06"
-  integrity sha512-KzL/MhZ7ajubm9kwbdCoA/cRV50RX+a5Hcqiwt7Am1Fni2crDtl2no05UNwKroTfscrYYf07gq3WIFSurPsnCA==
+vuetify@^2.3.12:
+  version "2.3.12"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.3.12.tgz#799410de0878d8aae10cfae14e40549b9a88ca87"
+  integrity sha512-FSt1pzpf0/Lh0xuctAPB7RiLbUl7bzVc7ejbXLLhfmgm7zD7yabuhVYuyVda/SzokjZMGS3j1lNu2lLfdrz0oQ==
 
 watchpack@1.6.1, watchpack@^1.7.4:
   version "1.6.1"

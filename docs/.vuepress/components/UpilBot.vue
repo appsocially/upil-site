@@ -5,7 +5,9 @@
     <div class="v-application v-application--is-ltr theme--light" data-app>
       <v-expansion-panels v-model="panel">
         <v-expansion-panel>
-          <v-expansion-panel-header>{{isOpen ? 'Close' : 'Show chat-mode example'}}</v-expansion-panel-header>
+          <v-expansion-panel-header>{{
+            isOpen ? "Close" : "Show chat-mode example"
+          }}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-row no-gutters align-content="center">
               <v-col cols="auto">
@@ -27,13 +29,16 @@
               color="light-grey"
               class="upil-example-container"
               :elevation="3"
-              v-if="isReady"
+              v-if="upil"
             >
               <ChatMode
                 removeBottomBar
                 :upil="upil"
                 :avatar="Logo"
-                :wrapperStyleOverride="{height: '240px', 'overflow-y': 'scroll'}"
+                :wrapperStyleOverride="{
+                  height: '240px',
+                  'overflow-y': 'scroll',
+                }"
                 :listeners="listeners"
                 :override="override"
                 :types="types"
@@ -43,10 +48,21 @@
                 :transformTextVariables="transformTextVariables"
               >
                 <template
-                  v-slot:external="{allNodes, currentNode, scenarioEnded, placeholderText, state}"
+                  v-slot:external="{
+                    allNodes,
+                    currentNode,
+                    scenarioEnded,
+                    placeholderText,
+                    state,
+                  }"
                 >
-                  <div class="pl-1" id="bottom-bar" v-if="currentNode && !scenarioEnded">
+                  <div
+                    class="pl-1"
+                    id="bottom-bar"
+                    v-if="currentNode && !scenarioEnded"
+                  >
                     <component
+                      :upil="upil"
                       v-bind:is="currentNode.componentType"
                       v-bind="currentNode.node"
                       :state="state"
@@ -84,11 +100,11 @@ const types = {
   email: emailValidationRules,
 };
 
-const padTime = (timeNum) => `${timeNum}`.padStart(2, 0)
+const padTime = (timeNum) => `${timeNum}`.padStart(2, 0);
 
 const formatTimeInputValue = (timeInputValue) => {
-  return `${padTime(timeInputValue.hours)}:${padTime(timeInputValue.minutes)}`
-}
+  return `${padTime(timeInputValue.hours)}:${padTime(timeInputValue.minutes)}`;
+};
 
 const commaChooser = (locale) => {
   switch (locale) {
@@ -108,16 +124,16 @@ const transformReplyVariables = ({
 }) => {
   if (Array.isArray(value)) {
     return value.join(commaChooser(locale));
-  } else if (label === 'time-input') {
-    return formatTimeInputValue(value, locale)
+  } else if (label === "time-input") {
+    return formatTimeInputValue(value, locale);
   } else {
     return value;
   }
 };
 
 const transformTextVariables = ({ value, key, locale }) => {
-  if (key === 'meetingsStart' || key === 'meetingsEnd') {
-    return formatTimeInputValue(value, locale)
+  if (key === "meetingsStart" || key === "meetingsEnd") {
+    return formatTimeInputValue(value, locale);
   } else if (Array.isArray(value)) {
     return value.join(commaChooser(locale));
   } else {
@@ -139,7 +155,6 @@ export default {
       panel: null,
       hasRun: false,
       listeners,
-      isReady: false,
       override,
       types,
       locale: "en",
@@ -192,11 +207,9 @@ export default {
       }
     },
     start() {
-      this.isReady = false;
       const scenario = this.getScenario();
       this.upil = new UPILCore();
       this.upil.startRaw(scenario);
-      this.$nextTick(() => (this.isReady = true));
     },
     getLabelOverride(type) {
       switch (type) {

@@ -9,14 +9,14 @@
     "build": "vuepress build docs"
   },
   "dependencies": {
-    "@appsocially/userpil-core": "^1.1.7",
-    "@appsocially/vue-upil": "^2.3.3",
+    "@appsocially/userpil-core": "^1.1.10",
+    "@appsocially/vue-upil": "^2.4.2",
     "core-js": "^3.6.5",
     "vee-validate": "^3.3.7",
     "vue": "^2.6.11",
     "vue-server-renderer": "2.6.11",
     "vuepress-plugin-medium-zoom": "^1.1.8",
-    "vuetify": "^2.3.8"
+    "vuetify": "^2.3.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.4.1",
