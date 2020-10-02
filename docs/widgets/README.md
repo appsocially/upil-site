@@ -369,7 +369,7 @@ DIALOG meetingTime
 
 ## Range
 
-The `range` widget lets users choose a number between `min` and `max` values that the scriptwriter chooses. The scriptwriter can also choose an optional `unit` label.
+The `range` widget lets users choose a number between `min` and `max` values that the scriptwriter chooses. The scriptwriter can also add an optional `default` value, and choose an optional `unit` label.
 <br/>
 <br/>
 
@@ -417,6 +417,67 @@ DIALOG minutesQuestion
       formText: "Minutes",
       min: 10,
       max: 20,
+      unit: "分"
+    }
+  "How long did it take?"
+  >>minutes
+  /TEMPLATE
+/DIALOG
+RUN minutesQuestion
+```
+</WizardMode>
+
+<br/>
+
+With default value:
+
+<UpilBot>
+```
+DIALOG minutesQuestion
+  TEMPLATE range
+    {
+      formText: "Minutes",
+      min: 1,
+      max: 200,
+      default: 100,
+      unit: "分"
+    }
+  "How long did it take?"
+  >>minutes
+  /TEMPLATE
+/DIALOG
+RUN minutesQuestion
+```
+</UpilBot>
+
+<FormMode hideScript>
+```
+DIALOG minutesQuestion
+  TEMPLATE range
+    {
+      formText: "Minutes",
+      min: 1,
+      max: 200,
+      default: 100,
+      unit: "分"
+    }
+  "How long did it take?"
+  >>minutes
+  /TEMPLATE
+/DIALOG
+RUN minutesQuestion
+```
+</FormMode>
+
+<WizardMode hideScript>
+```
+DIALOG minutesQuestion
+  TEMPLATE range
+    {
+      formText: "Minutes",
+      min: 1,
+      max: 200,
+      default: 100,
       unit: "分"
     }
   "How long did it take?"
