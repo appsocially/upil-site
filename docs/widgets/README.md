@@ -196,6 +196,7 @@ The user's input is saved as an object with signature `{hours: Number, minutes: 
 * minutesSelectlabel: The label on the minutes-dropdown select
 * unitHour: A unit that shows to the right of each hour in the select-menu
 * unitMinute: A unit that shows to the right of each minute in the select-menu
+* defaultNow: A boolean that defaults the widget's value to the current time
 
 <br/>
 <br/>
