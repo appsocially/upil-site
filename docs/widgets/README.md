@@ -368,6 +368,54 @@ DIALOG meetingTime
 ```
 </WizardMode>
 
+<UpilBot>
+```
+DIALOG start
+    TEMPLATE time-input
+    {
+      formText: "Meetings start time",
+      defaultNow: true
+    }
+    "When do you want to start?"
+    >>startTime
+    /TEMPLATE
+  /DIALOG
+  RUN start
+```
+</UpilBot>
+
+<FormMode hideScript>
+```
+DIALOG start
+    TEMPLATE time-input
+    {
+      formText: "Meetings start time",
+      defaultNow: true
+    }
+    "When do you want to start?"
+    >>startTime
+    /TEMPLATE
+  /DIALOG
+  RUN start
+```
+</FormMode>
+
+<WizardMode hideScript>
+```
+DIALOG start
+    TEMPLATE time-input
+    {
+      formText: "Meetings start time",
+      defaultNow: true
+    }
+    "When do you want to start?"
+    >>startTime
+    /TEMPLATE
+  /DIALOG
+  RUN start
+```
+</WizardMode>
+
 ## Range
 
 The `range` widget lets users choose a number between `min` and `max` values that the scriptwriter chooses. The scriptwriter can also add an optional `default` value, and choose an optional `unit` label.
