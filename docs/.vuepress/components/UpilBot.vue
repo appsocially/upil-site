@@ -46,6 +46,7 @@
                 :i18n="i18n"
                 :transformReplyVariables="transformReplyVariables"
                 :transformTextVariables="transformTextVariables"
+                :botTypingDurationInMsPerMessage="400"
               >
                 <template
                   v-slot:external="{

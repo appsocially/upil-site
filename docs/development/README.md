@@ -250,6 +250,8 @@ Basic example of `ChatMode` component usage:
     :overrideCurrent="overrideCurrent"
     :upil="upil"
     :avatar="Logo"
+    :botTypingDurationInMsPerMessage="400"
+    :types="types"
   />
 </template>
 
