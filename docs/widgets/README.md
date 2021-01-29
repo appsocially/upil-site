@@ -418,7 +418,7 @@ DIALOG start
 
 ## Range
 
-The `range` widget lets users choose a number between `min` and `max` values that the scriptwriter chooses. The scriptwriter can also add an optional `default` value, and choose an optional `unit` label.
+The `range` widget lets users choose a number between `min` and `max` values that the scriptwriter chooses. The scriptwriter can also add an optional `default` value, an optional `step` value, and choose an optional `unit` label.
 <br/>
 <br/>
 
@@ -429,7 +429,8 @@ DIALOG minutesQuestion
     {
       formText: "Minutes",
       min: 10,
-      max: 20,
+      max: 11,
+      step: ".1",
       unit: "分"
     }
   "How long did it take?"
@@ -447,7 +448,8 @@ DIALOG minutesQuestion
     {
       formText: "Minutes",
       min: 10,
-      max: 20,
+      max: 11,
+      step: ".1",
       unit: "分"
     }
   "How long did it take?"
@@ -465,7 +467,8 @@ DIALOG minutesQuestion
     {
       formText: "Minutes",
       min: 10,
-      max: 20,
+      max: 10,
+      step: ".1",
       unit: "分"
     }
   "How long did it take?"
